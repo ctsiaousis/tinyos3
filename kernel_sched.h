@@ -91,6 +91,27 @@ enum SCHED_CAUSE {
 	SCHED_USER /**< @brief User-space code called yield */
 };
 
+typedef struct process_thread_control_block {
+//to posoi perimenoun na mathoun to exit val
+	uint ref_count;
+//to pointer sto tcb
+	TCB* tcb;
+//o kombos gia thn lista ton PTCB
+	rlnode thread_list_node;
+//ta stoixeia pou xreiazetai to thread
+	Task task; 
+	int argl;
+	void* args;
+//to exit val otan to thread termatisei
+	int exit_val;
+//an (exited OR detached) != 0 den mporo na kano thread_join
+	int detached; //0 gia oxi, 1 gia nai
+	int exited; //0 gia oxi, 1 gia nai
+//to condition variable poy kano broadcast otan teleioso
+	CondVar exit_cv;
+
+} PTCB;
+
 /**
   @brief The thread control block
 
@@ -99,7 +120,7 @@ enum SCHED_CAUSE {
 */
 typedef struct thread_control_block {
 	PCB* owner_pcb; /**< @brief This is null for a free TCB */
-
+	PTCB* ptcb;
 	cpu_context_t context; /**< @brief The thread context */
 
 #ifndef NVALGRIND
@@ -125,6 +146,8 @@ typedef struct thread_control_block {
 	TimerDuration its; /**< @brief Initial time-slice for this thread */
 	TimerDuration rts; /**< @brief Remaining time-slice for this thread */
 
+	int priority;
+	
 	enum SCHED_CAUSE curr_cause; /**< @brief The endcause for the current time-slice */
 	enum SCHED_CAUSE last_cause; /**< @brief The endcause for the last time-slice */
 
