@@ -382,6 +382,31 @@ void yield(enum SCHED_CAUSE cause)
 	if (current->state == RUNNING)
 		current->state = READY;
 
+  switch(current->curr_cause)
+  {
+    case SCHED_QUANTUM:
+    current->priority = (current->priority == 0) ? 0 : current->priority - 1;
+      break;
+     case SCHED_IO:
+     	current->priority = (current->priority == prioritySize) ? prioritySize : current->priority + 1;
+      break;
+     case SCHED_MUTEX:
+      break;
+     case SCHED_PIPE:
+      break;
+     case SCHED_POLL:
+      break;
+     case SCHED_IDLE:
+      break;
+     case SCHED_USER:
+      break;
+
+    default:
+      fprintf(stderr, "BAD STATE for current thread %p in yield: %d\n", current, current->state);
+      assert(0);  /* It should not be READY or EXITED ! */
+  } 
+  
+
 	/* Update CURTHREAD scheduler data */
 	current->rts = remaining;
 	current->last_cause = current->curr_cause;
@@ -485,7 +510,7 @@ static void idle_thread()
 void initialize_scheduler()
 {
   int i=0;          /*xristostelina BALAME LOOP GIA INITIALIZE OLON TON LISTON PROTERAIOTITAS*/
-  while(i<prioritySize){
+  while(i<=prioritySize){
     rlnode_init(SCHED[i], NULL);
     i++;
   }
