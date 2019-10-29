@@ -382,6 +382,60 @@ void yield(enum SCHED_CAUSE cause)
 	if (current->state == RUNNING)
 		current->state = READY;
 
+  //switch(current->curr_cause)
+  //{
+    //case SCHED_QUANTUM:
+    //current->priority = (current->priority == 0) ? 0 : current->priority - 1;
+      //break;
+     //case SCHED_IO:
+     	//current->priority = (current->priority == prioritySize) ? prioritySize : current->priority + 1;
+      //break;
+     //case SCHED_MUTEX:
+      //break;
+     //case SCHED_PIPE:
+      //break;
+     //case SCHED_POLL:
+      //break;
+     //case SCHED_IDLE:
+      //break;
+     //case SCHED_USER:
+      //break;
+
+    //default:
+      //fprintf(stderr, "BAD STATE for current thread %p in yield: %d\n", current, current->state);
+      //assert(0);  /* It should not be READY or EXITED ! */ 
+  //} 
+
+
+
+  switch(cause)
+  {
+    case SCHED_QUANTUM:
+    if(current->priority == 0)
+    current->priority--;
+      break;
+     case SCHED_IO:
+     if(current->priority == prioritySize)
+     	current->priority++;
+      break;
+     case SCHED_MUTEX:
+     if(current->priority != 0)
+     	current->priority--;
+      break;
+     case SCHED_PIPE:
+      break;
+     case SCHED_POLL:
+      break;
+     case SCHED_IDLE:
+      break;
+     case SCHED_USER:
+      break;
+
+    default:
+      fprintf(stderr, "BAD STATE for current thread %p in yield: %d\n", current, current->state);
+      assert(0);  /* It should not be READY or EXITED ! */
+  } 
+  
 
 	/* Update CURTHREAD scheduler data */
 	current->rts = remaining;
@@ -406,30 +460,6 @@ void yield(enum SCHED_CAUSE cause)
 		cpu_swap_context(&current->context, &next->context);
 	}
 
-    switch(cause)
-  {
-    case SCHED_QUANTUM:
-    current->priority = (current->priority == 0) ? 0 : current->priority - 1;
-      break;
-     case SCHED_IO:
-     	current->priority = prioritySize;
-      break;
-     case SCHED_MUTEX:
-     	current->priority = (current->priority == 0) ? 0 : current->priority - 1;
-      break;
-     case SCHED_PIPE:
-      break;
-     case SCHED_POLL:
-      break;
-     case SCHED_IDLE:
-      break;
-     case SCHED_USER:
-      break;
-
-    default:
-      fprintf(stderr, "BAD STATE for current thread %p in yield: %d\n", current, current->state);
-      assert(0);  /* It should not be READY or EXITED ! */ 
-  }
 	/* This is where we get after we are switched back on! A long time
 	   may have passed. Start a new timeslice...
 	  */
@@ -510,9 +540,8 @@ static void idle_thread()
 void initialize_scheduler()
 {
   int i=0;          /*xristostelina BALAME LOOP GIA INITIALIZE OLON TON LISTON PROTERAIOTITAS*/
-  while(i<=prioritySize){
+  while(i<prioritySize){
     rlnode_init(&SCHED[i], NULL);
-    i++;
   }
   rlnode_init(&TIMEOUT_LIST, NULL);
 }
