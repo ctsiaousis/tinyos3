@@ -1,0 +1,101 @@
+\hypertarget{structthread__control__block}{}\section{thread\+\_\+control\+\_\+block Struct Reference}
+\label{structthread__control__block}\index{thread\+\_\+control\+\_\+block@{thread\+\_\+control\+\_\+block}}
+
+
+The thread control block.  
+
+
+
+
+{\ttfamily \#include $<$kernel\+\_\+sched.\+h$>$}
+
+
+
+Collaboration diagram for thread\+\_\+control\+\_\+block\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structthread__control__block__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structthread__control__block_a74aa312623cb8be2bc719d5210b58c04}\label{structthread__control__block_a74aa312623cb8be2bc719d5210b58c04}} 
+\hyperlink{group__proc_gadf327f09ee935cf1734c14e8849f0421}{P\+CB} $\ast$ \hyperlink{structthread__control__block_a74aa312623cb8be2bc719d5210b58c04}{owner\+\_\+pcb}
+\begin{DoxyCompactList}\small\item\em This is null for a free T\+CB. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structthread__control__block_a9013ec22c73b2eaea7ce3759a0aac701}\label{structthread__control__block_a9013ec22c73b2eaea7ce3759a0aac701}} 
+\hyperlink{structprocess__thread__control__block}{P\+T\+CB} $\ast$ {\bfseries ptcb}
+\item 
+\mbox{\Hypertarget{structthread__control__block_a9c107039dffa851dde6edabd6cd3f89c}\label{structthread__control__block_a9c107039dffa851dde6edabd6cd3f89c}} 
+\hyperlink{bios_8h_a6067c1395a75fc3e17f1ea6353065b54}{cpu\+\_\+context\+\_\+t} \hyperlink{structthread__control__block_a9c107039dffa851dde6edabd6cd3f89c}{context}
+\begin{DoxyCompactList}\small\item\em The thread context. \end{DoxyCompactList}\item 
+unsigned \hyperlink{structthread__control__block_ad8a2da36c0ad775c12c5f66f4fec9d41}{valgrind\+\_\+stack\+\_\+id}
+\begin{DoxyCompactList}\small\item\em Valgrind helper for stacks. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structthread__control__block_abd0f40bdcb22c701df03f560bbc42d5c}\label{structthread__control__block_abd0f40bdcb22c701df03f560bbc42d5c}} 
+\hyperlink{group__scheduler_ga18795bc1ab00161fc27ce34b1895fb03}{Thread\+\_\+type} \hyperlink{structthread__control__block_abd0f40bdcb22c701df03f560bbc42d5c}{type}
+\begin{DoxyCompactList}\small\item\em The type of thread. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structthread__control__block_affd872365cf4768fa1c9bd1e196bb97c}\label{structthread__control__block_affd872365cf4768fa1c9bd1e196bb97c}} 
+\hyperlink{group__scheduler_ga6c969c169777f82c104cf73e501df70f}{Thread\+\_\+state} \hyperlink{structthread__control__block_affd872365cf4768fa1c9bd1e196bb97c}{state}
+\begin{DoxyCompactList}\small\item\em The state of the thread. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structthread__control__block_aa7e8e6a00c5f9f25210a49589ad818f8}\label{structthread__control__block_aa7e8e6a00c5f9f25210a49589ad818f8}} 
+\hyperlink{group__scheduler_gab180b4aa356776bddcd724cef4f5deae}{Thread\+\_\+phase} \hyperlink{structthread__control__block_aa7e8e6a00c5f9f25210a49589ad818f8}{phase}
+\begin{DoxyCompactList}\small\item\em The phase of the thread. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structthread__control__block_a91a73f2ad3f727b7412b912b3d65109a}\label{structthread__control__block_a91a73f2ad3f727b7412b912b3d65109a}} 
+void($\ast$ \hyperlink{structthread__control__block_a91a73f2ad3f727b7412b912b3d65109a}{thread\+\_\+func} )()
+\begin{DoxyCompactList}\small\item\em The initial function executed by this thread. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structthread__control__block_a7dbf9ba7df67911abb7951e249f587b6}\label{structthread__control__block_a7dbf9ba7df67911abb7951e249f587b6}} 
+\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{Timer\+Duration} \hyperlink{structthread__control__block_a7dbf9ba7df67911abb7951e249f587b6}{wakeup\+\_\+time}
+\begin{DoxyCompactList}\small\item\em The time this thread will be woken up by the scheduler. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structthread__control__block_add433b079e04053fe70fdd2b92e1d6ad}\label{structthread__control__block_add433b079e04053fe70fdd2b92e1d6ad}} 
+\hyperlink{group__rlists_ga8f6244877f7ce2322c90525217ea6e7a}{rlnode} \hyperlink{structthread__control__block_add433b079e04053fe70fdd2b92e1d6ad}{sched\+\_\+node}
+\begin{DoxyCompactList}\small\item\em Node to use when queueing in the scheduler lists. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structthread__control__block_a68760c9f4ba9130ee8489d3e0bc2ec15}\label{structthread__control__block_a68760c9f4ba9130ee8489d3e0bc2ec15}} 
+\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{Timer\+Duration} \hyperlink{structthread__control__block_a68760c9f4ba9130ee8489d3e0bc2ec15}{its}
+\begin{DoxyCompactList}\small\item\em Initial time-\/slice for this thread. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structthread__control__block_a853848e15d41349de06e941b517dd113}\label{structthread__control__block_a853848e15d41349de06e941b517dd113}} 
+\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{Timer\+Duration} \hyperlink{structthread__control__block_a853848e15d41349de06e941b517dd113}{rts}
+\begin{DoxyCompactList}\small\item\em Remaining time-\/slice for this thread. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structthread__control__block_a5ec002eff0fbf32c29710990bc214d86}\label{structthread__control__block_a5ec002eff0fbf32c29710990bc214d86}} 
+int {\bfseries priority}
+\item 
+\mbox{\Hypertarget{structthread__control__block_a10341f3307663f014457285b8efeb568}\label{structthread__control__block_a10341f3307663f014457285b8efeb568}} 
+enum \hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE} \hyperlink{structthread__control__block_a10341f3307663f014457285b8efeb568}{curr\+\_\+cause}
+\begin{DoxyCompactList}\small\item\em The endcause for the current time-\/slice. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structthread__control__block_a05cd1b71563678b88b656fd10b8ee78a}\label{structthread__control__block_a05cd1b71563678b88b656fd10b8ee78a}} 
+enum \hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE} \hyperlink{structthread__control__block_a05cd1b71563678b88b656fd10b8ee78a}{last\+\_\+cause}
+\begin{DoxyCompactList}\small\item\em The endcause for the last time-\/slice. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The thread control block. 
+
+An object of this type is associated to every thread. In this object are stored all the metadata that relate to the thread. 
+
+Definition at line 121 of file kernel\+\_\+sched.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structthread__control__block_ad8a2da36c0ad775c12c5f66f4fec9d41}\label{structthread__control__block_ad8a2da36c0ad775c12c5f66f4fec9d41}} 
+\index{thread\+\_\+control\+\_\+block@{thread\+\_\+control\+\_\+block}!valgrind\+\_\+stack\+\_\+id@{valgrind\+\_\+stack\+\_\+id}}
+\index{valgrind\+\_\+stack\+\_\+id@{valgrind\+\_\+stack\+\_\+id}!thread\+\_\+control\+\_\+block@{thread\+\_\+control\+\_\+block}}
+\subsubsection{\texorpdfstring{valgrind\+\_\+stack\+\_\+id}{valgrind\_stack\_id}}
+{\footnotesize\ttfamily unsigned thread\+\_\+control\+\_\+block\+::valgrind\+\_\+stack\+\_\+id}
+
+
+
+Valgrind helper for stacks. 
+
+This is useful in order to register the thread stack to the valgrind memory profiler. Valgrind needs to know which parts of memory are used as stacks, in order to return meaningful error information.
+
+This field is not relevant to anything in the Tiny\+OS logic and can be ignored. 
+
+Definition at line 127 of file kernel\+\_\+sched.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kernel__sched_8h}{kernel\+\_\+sched.\+h}\end{DoxyCompactItemize}

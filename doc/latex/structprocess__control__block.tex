@@ -1,0 +1,93 @@
+\hypertarget{structprocess__control__block}{}\section{process\+\_\+control\+\_\+block Struct Reference}
+\label{structprocess__control__block}\index{process\+\_\+control\+\_\+block@{process\+\_\+control\+\_\+block}}
+
+
+Process Control Block.  
+
+
+
+
+{\ttfamily \#include $<$kernel\+\_\+proc.\+h$>$}
+
+
+
+Collaboration diagram for process\+\_\+control\+\_\+block\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structprocess__control__block__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}\label{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}} 
+\hyperlink{group__proc_gade1eea4d20492c4c97263201145e5097}{pid\+\_\+state} \hyperlink{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}{pstate}
+\begin{DoxyCompactList}\small\item\em The pid state for this P\+CB. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}\label{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}} 
+\hyperlink{group__proc_gadf327f09ee935cf1734c14e8849f0421}{P\+CB} $\ast$ \hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{parent}
+\begin{DoxyCompactList}\small\item\em Parent\textquotesingle{}s pcb. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocess__control__block_add9b4f6d506a3538be7b53411e94fd28}\label{structprocess__control__block_add9b4f6d506a3538be7b53411e94fd28}} 
+int \hyperlink{structprocess__control__block_add9b4f6d506a3538be7b53411e94fd28}{exitval}
+\begin{DoxyCompactList}\small\item\em The exit value of the process. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocess__control__block_a3b7a2a952ec5c19d7331307639c78482}\label{structprocess__control__block_a3b7a2a952ec5c19d7331307639c78482}} 
+\hyperlink{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}{T\+CB} $\ast$ \hyperlink{structprocess__control__block_a3b7a2a952ec5c19d7331307639c78482}{main\+\_\+thread}
+\begin{DoxyCompactList}\small\item\em The main thread. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocess__control__block_a7d4ddbf8f67ac2bfe9774796b818354e}\label{structprocess__control__block_a7d4ddbf8f67ac2bfe9774796b818354e}} 
+\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task} \hyperlink{structprocess__control__block_a7d4ddbf8f67ac2bfe9774796b818354e}{main\+\_\+task}
+\begin{DoxyCompactList}\small\item\em The main thread\textquotesingle{}s function. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocess__control__block_a8c8667a0f61f4380b3d5c69c57315511}\label{structprocess__control__block_a8c8667a0f61f4380b3d5c69c57315511}} 
+int \hyperlink{structprocess__control__block_a8c8667a0f61f4380b3d5c69c57315511}{argl}
+\begin{DoxyCompactList}\small\item\em The main thread\textquotesingle{}s argument length. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocess__control__block_af7ac33b69a8a1dc582e0fa35cc90568a}\label{structprocess__control__block_af7ac33b69a8a1dc582e0fa35cc90568a}} 
+void $\ast$ \hyperlink{structprocess__control__block_af7ac33b69a8a1dc582e0fa35cc90568a}{args}
+\begin{DoxyCompactList}\small\item\em The main thread\textquotesingle{}s argument string. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocess__control__block_a79b0dd70bbfff1d7da6ab4cbbd00eb1f}\label{structprocess__control__block_a79b0dd70bbfff1d7da6ab4cbbd00eb1f}} 
+\hyperlink{group__rlists_ga8f6244877f7ce2322c90525217ea6e7a}{rlnode} \hyperlink{structprocess__control__block_a79b0dd70bbfff1d7da6ab4cbbd00eb1f}{children\+\_\+list}
+\begin{DoxyCompactList}\small\item\em List of children. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocess__control__block_afddb936103b136214462e1ed870c4c70}\label{structprocess__control__block_afddb936103b136214462e1ed870c4c70}} 
+\hyperlink{group__rlists_ga8f6244877f7ce2322c90525217ea6e7a}{rlnode} \hyperlink{structprocess__control__block_afddb936103b136214462e1ed870c4c70}{exited\+\_\+list}
+\begin{DoxyCompactList}\small\item\em List of exited children. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocess__control__block_a5b9aeabcc3d676cda39eb563a4cc5bd9}\label{structprocess__control__block_a5b9aeabcc3d676cda39eb563a4cc5bd9}} 
+\hyperlink{group__rlists_ga8f6244877f7ce2322c90525217ea6e7a}{rlnode} \hyperlink{structprocess__control__block_a5b9aeabcc3d676cda39eb563a4cc5bd9}{children\+\_\+node}
+\begin{DoxyCompactList}\small\item\em Intrusive node for {\ttfamily children\+\_\+list}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocess__control__block_a9e0d93783a89bd92f39243353f04a27e}\label{structprocess__control__block_a9e0d93783a89bd92f39243353f04a27e}} 
+\hyperlink{group__rlists_ga8f6244877f7ce2322c90525217ea6e7a}{rlnode} \hyperlink{structprocess__control__block_a9e0d93783a89bd92f39243353f04a27e}{exited\+\_\+node}
+\begin{DoxyCompactList}\small\item\em Intrusive node for {\ttfamily exited\+\_\+list}. \end{DoxyCompactList}\item 
+\hyperlink{structCondVar}{Cond\+Var} \hyperlink{structprocess__control__block_a6bcb52e96fdf96d060af2b11f07d44bd}{child\+\_\+exit}
+\begin{DoxyCompactList}\small\item\em Condition variable for {\ttfamily Wait\+Child}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}\label{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}} 
+\hyperlink{group__streams_ga0c7e751afb9d6cadebf070961804d400}{F\+CB} $\ast$ \hyperlink{structprocess__control__block_aad72d85bd79a3100a497d11630a38977}{F\+I\+DT} \mbox{[}\hyperlink{group__syscalls_ga9c697bf9e856897ad75f28190a6f0b68}{M\+A\+X\+\_\+\+F\+I\+L\+E\+ID}\mbox{]}
+\begin{DoxyCompactList}\small\item\em The fileid table of the process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Process Control Block. 
+
+This structure holds all information pertaining to a process. 
+
+Definition at line 38 of file kernel\+\_\+proc.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structprocess__control__block_a6bcb52e96fdf96d060af2b11f07d44bd}\label{structprocess__control__block_a6bcb52e96fdf96d060af2b11f07d44bd}} 
+\index{process\+\_\+control\+\_\+block@{process\+\_\+control\+\_\+block}!child\+\_\+exit@{child\+\_\+exit}}
+\index{child\+\_\+exit@{child\+\_\+exit}!process\+\_\+control\+\_\+block@{process\+\_\+control\+\_\+block}}
+\subsubsection{\texorpdfstring{child\+\_\+exit}{child\_exit}}
+{\footnotesize\ttfamily \hyperlink{structCondVar}{Cond\+Var} process\+\_\+control\+\_\+block\+::child\+\_\+exit}
+
+
+
+Condition variable for {\ttfamily Wait\+Child}. 
+
+This condition variable is broadcast each time a child process terminates. It is used in the implementation of {\ttfamily \hyperlink{group__syscalls_ga37017afba05480740d26b033975fef03}{Wait\+Child()}} 
+
+Definition at line 55 of file kernel\+\_\+proc.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kernel__proc_8h}{kernel\+\_\+proc.\+h}\end{DoxyCompactItemize}

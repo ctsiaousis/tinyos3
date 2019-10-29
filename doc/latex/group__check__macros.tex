@@ -1,0 +1,171 @@
+\hypertarget{group__check__macros}{}\section{Macros for checking system calls.}
+\label{group__check__macros}\index{Macros for checking system calls.@{Macros for checking system calls.}}
+
+
+Macros for checking system calls and reporting errors.  
+
+
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}{F\+A\+T\+AL}(msg)
+\begin{DoxyCompactList}\small\item\em Print a message to stderr and abort. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__check__macros_gab2b3925a76d34a1272ace73af5a81945}{F\+A\+T\+A\+L\+E\+RR}(errcode)~\hyperlink{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}{F\+A\+T\+AL}(strerror(errcode))
+\begin{DoxyCompactList}\small\item\em Print an error message to stderr and abort. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__check__macros_ga879857ca00d32faa0d6cfe416428a804}{C\+H\+E\+C\+K\+RC}(cmd)~\{ int rc = (cmd); if(rc) \hyperlink{group__check__macros_gab2b3925a76d34a1272ace73af5a81945}{F\+A\+T\+A\+L\+E\+RR}(rc); \}
+\begin{DoxyCompactList}\small\item\em Wrap a unix call to check for errors. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__check__macros_ga1992445028206dcca9c93c9a0b558436}{C\+H\+E\+CK}(cmd)~\{ if((cmd)==-\/1) \hyperlink{group__check__macros_gab2b3925a76d34a1272ace73af5a81945}{F\+A\+T\+A\+L\+E\+RR}(errno); \}
+\begin{DoxyCompactList}\small\item\em Wrap a unix call to check for errors. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__check__macros_ga6196238e8ab53ab90e7bf7ab51fc73e9}{C\+H\+E\+C\+K\+\_\+\+C\+O\+N\+D\+I\+T\+I\+ON}(expr)~\{ if(!(expr)) \hyperlink{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}{F\+A\+T\+AL}(\char`\"{}Failed constraint\+: \char`\"{} \# expr) \}
+\begin{DoxyCompactList}\small\item\em Check a condition and abort if it fails. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void $\ast$ \hyperlink{group__check__macros_ga1d16f442903359e8146370c52297334c}{xmalloc} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em A wrapper for malloc checking for out-\/of-\/memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Macros for checking system calls and reporting errors. 
+
+With regard to reporting an error, there are, generally speaking, two kinds of functions in the Unix A\+PI\+:
+\begin{DoxyEnumerate}
+\item Functions that return $>$=0 on success and -\/1 on error, storing the error code in the global variable {\ttfamily errno}, and
+\item Functions which return an error code directly.
+\end{DoxyEnumerate}
+
+The macros in this section help with checking the error status of such calls, when an error should abort the program. Their use can be seen in bios.\+c 
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group__check__macros_ga1992445028206dcca9c93c9a0b558436}\label{group__check__macros_ga1992445028206dcca9c93c9a0b558436}} 
+\index{Macros for checking system calls.@{Macros for checking system calls.}!C\+H\+E\+CK@{C\+H\+E\+CK}}
+\index{C\+H\+E\+CK@{C\+H\+E\+CK}!Macros for checking system calls.@{Macros for checking system calls.}}
+\subsubsection{\texorpdfstring{C\+H\+E\+CK}{CHECK}}
+{\footnotesize\ttfamily \#define C\+H\+E\+CK(\begin{DoxyParamCaption}\item[{}]{cmd }\end{DoxyParamCaption})~\{ if((cmd)==-\/1) \hyperlink{group__check__macros_gab2b3925a76d34a1272ace73af5a81945}{F\+A\+T\+A\+L\+E\+RR}(errno); \}}
+
+
+
+Wrap a unix call to check for errors. 
+
+This macro can wrap a call whose (integer) return value is 0 for success or -\/1 for failure, with an error code stored in errno.
+
+For example\+: 
+\begin{DoxyCode}
+\hyperlink{group__check__macros_ga1992445028206dcca9c93c9a0b558436}{CHECK}(gettimeofday(t, NULL));
+\end{DoxyCode}
+ \begin{DoxySeeAlso}{See also}
+\hyperlink{group__check__macros_ga1992445028206dcca9c93c9a0b558436}{C\+H\+E\+CK} 
+\end{DoxySeeAlso}
+
+
+Definition at line 90 of file util.\+h.
+
+\mbox{\Hypertarget{group__check__macros_ga6196238e8ab53ab90e7bf7ab51fc73e9}\label{group__check__macros_ga6196238e8ab53ab90e7bf7ab51fc73e9}} 
+\index{Macros for checking system calls.@{Macros for checking system calls.}!C\+H\+E\+C\+K\+\_\+\+C\+O\+N\+D\+I\+T\+I\+ON@{C\+H\+E\+C\+K\+\_\+\+C\+O\+N\+D\+I\+T\+I\+ON}}
+\index{C\+H\+E\+C\+K\+\_\+\+C\+O\+N\+D\+I\+T\+I\+ON@{C\+H\+E\+C\+K\+\_\+\+C\+O\+N\+D\+I\+T\+I\+ON}!Macros for checking system calls.@{Macros for checking system calls.}}
+\subsubsection{\texorpdfstring{C\+H\+E\+C\+K\+\_\+\+C\+O\+N\+D\+I\+T\+I\+ON}{CHECK\_CONDITION}}
+{\footnotesize\ttfamily \#define C\+H\+E\+C\+K\+\_\+\+C\+O\+N\+D\+I\+T\+I\+ON(\begin{DoxyParamCaption}\item[{}]{expr }\end{DoxyParamCaption})~\{ if(!(expr)) \hyperlink{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}{F\+A\+T\+AL}(\char`\"{}Failed constraint\+: \char`\"{} \# expr) \}}
+
+
+
+Check a condition and abort if it fails. 
+
+This macro will check a boolean condition and abort with a message if it does not hold. It is used to check parameters of functions.
+
+This is similar to {\ttfamily assert}(...), but will not be turned off. 
+
+Definition at line 101 of file util.\+h.
+
+\mbox{\Hypertarget{group__check__macros_ga879857ca00d32faa0d6cfe416428a804}\label{group__check__macros_ga879857ca00d32faa0d6cfe416428a804}} 
+\index{Macros for checking system calls.@{Macros for checking system calls.}!C\+H\+E\+C\+K\+RC@{C\+H\+E\+C\+K\+RC}}
+\index{C\+H\+E\+C\+K\+RC@{C\+H\+E\+C\+K\+RC}!Macros for checking system calls.@{Macros for checking system calls.}}
+\subsubsection{\texorpdfstring{C\+H\+E\+C\+K\+RC}{CHECKRC}}
+{\footnotesize\ttfamily \#define C\+H\+E\+C\+K\+RC(\begin{DoxyParamCaption}\item[{}]{cmd }\end{DoxyParamCaption})~\{ int rc = (cmd); if(rc) \hyperlink{group__check__macros_gab2b3925a76d34a1272ace73af5a81945}{F\+A\+T\+A\+L\+E\+RR}(rc); \}}
+
+
+
+Wrap a unix call to check for errors. 
+
+This macro can wrap a call whose (integer) return value is 0 for success or an error code for error.
+
+For example\+: 
+\begin{DoxyCode}
+\hyperlink{group__check__macros_ga879857ca00d32faa0d6cfe416428a804}{CHECKRC}(pthread\_mutex\_init(&mutex, NULL));
+\end{DoxyCode}
+ \begin{DoxySeeAlso}{See also}
+\hyperlink{group__check__macros_ga1992445028206dcca9c93c9a0b558436}{C\+H\+E\+CK} 
+\end{DoxySeeAlso}
+
+
+Definition at line 75 of file util.\+h.
+
+\mbox{\Hypertarget{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}\label{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}} 
+\index{Macros for checking system calls.@{Macros for checking system calls.}!F\+A\+T\+AL@{F\+A\+T\+AL}}
+\index{F\+A\+T\+AL@{F\+A\+T\+AL}!Macros for checking system calls.@{Macros for checking system calls.}}
+\subsubsection{\texorpdfstring{F\+A\+T\+AL}{FATAL}}
+{\footnotesize\ttfamily \#define F\+A\+T\+AL(\begin{DoxyParamCaption}\item[{}]{msg }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\{ fprintf(stderr, \textcolor{stringliteral}{"FATAL %s(%d):%s: %s\(\backslash\)n"}, \(\backslash\)
+\_\_FILE\_\_, \_\_LINE\_\_, \_\_FUNCTION\_\_, (msg)); abort(); \}
+\end{DoxyCode}
+
+
+Print a message to stderr and abort. 
+
+
+
+Definition at line 48 of file util.\+h.
+
+\mbox{\Hypertarget{group__check__macros_gab2b3925a76d34a1272ace73af5a81945}\label{group__check__macros_gab2b3925a76d34a1272ace73af5a81945}} 
+\index{Macros for checking system calls.@{Macros for checking system calls.}!F\+A\+T\+A\+L\+E\+RR@{F\+A\+T\+A\+L\+E\+RR}}
+\index{F\+A\+T\+A\+L\+E\+RR@{F\+A\+T\+A\+L\+E\+RR}!Macros for checking system calls.@{Macros for checking system calls.}}
+\subsubsection{\texorpdfstring{F\+A\+T\+A\+L\+E\+RR}{FATALERR}}
+{\footnotesize\ttfamily \#define F\+A\+T\+A\+L\+E\+RR(\begin{DoxyParamCaption}\item[{}]{errcode }\end{DoxyParamCaption})~\hyperlink{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}{F\+A\+T\+AL}(strerror(errcode))}
+
+
+
+Print an error message to stderr and abort. 
+
+This macro will print a readable message (using {\ttfamily F\+A\+T\+AL}) corresponding to a unix error code, usually stored in {\ttfamily errno}, or returned from a function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em errcode} & a unix error code \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{group__check__macros_ga7a3e1d362790a375466c5e77a6d5c9c5}{F\+A\+T\+AL} 
+\end{DoxySeeAlso}
+
+
+Definition at line 61 of file util.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group__check__macros_ga1d16f442903359e8146370c52297334c}\label{group__check__macros_ga1d16f442903359e8146370c52297334c}} 
+\index{Macros for checking system calls.@{Macros for checking system calls.}!xmalloc@{xmalloc}}
+\index{xmalloc@{xmalloc}!Macros for checking system calls.@{Macros for checking system calls.}}
+\subsubsection{\texorpdfstring{xmalloc()}{xmalloc()}}
+{\footnotesize\ttfamily static void$\ast$ xmalloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+A wrapper for malloc checking for out-\/of-\/memory. 
+
+If there is no memory to fulfill a request, F\+A\+T\+AL is used to print an error message and abort.
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & the number of bytes allocated via malloc \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the new memory block 
+\end{DoxyReturn}
+
+
+Definition at line 113 of file util.\+h.
+

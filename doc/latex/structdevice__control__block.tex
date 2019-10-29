@@ -1,0 +1,76 @@
+\hypertarget{structdevice__control__block}{}\section{device\+\_\+control\+\_\+block Struct Reference}
+\label{structdevice__control__block}\index{device\+\_\+control\+\_\+block@{device\+\_\+control\+\_\+block}}
+
+
+Device control block.  
+
+
+
+
+{\ttfamily \#include $<$kernel\+\_\+dev.\+h$>$}
+
+
+
+Collaboration diagram for device\+\_\+control\+\_\+block\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=188pt]{structdevice__control__block__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__dev_ga879ceac20e83b2375e5b49f4379b0c90}{Device\+\_\+type} \hyperlink{structdevice__control__block_a35a45268132777177a33513c747633c4}{type}
+\begin{DoxyCompactList}\small\item\em Device type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structdevice__control__block_a25d8f038a1c6d41f445d078276117fba}\label{structdevice__control__block_a25d8f038a1c6d41f445d078276117fba}} 
+\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{structdevice__control__block_a25d8f038a1c6d41f445d078276117fba}{devnum}
+\begin{DoxyCompactList}\small\item\em Number of devices for this major number. \end{DoxyCompactList}\item 
+\hyperlink{group__dev_gaab625d8ae3a95e942ed10ed1579f5042}{file\+\_\+ops} \hyperlink{structdevice__control__block_a2945d5da96f40ff7fae94e295624a7c7}{dev\+\_\+fops}
+\begin{DoxyCompactList}\small\item\em Device operations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Device control block. 
+
+These objects hold the information that is needed to access a particular device. 
+
+Definition at line 117 of file kernel\+\_\+dev.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structdevice__control__block_a2945d5da96f40ff7fae94e295624a7c7}\label{structdevice__control__block_a2945d5da96f40ff7fae94e295624a7c7}} 
+\index{device\+\_\+control\+\_\+block@{device\+\_\+control\+\_\+block}!dev\+\_\+fops@{dev\+\_\+fops}}
+\index{dev\+\_\+fops@{dev\+\_\+fops}!device\+\_\+control\+\_\+block@{device\+\_\+control\+\_\+block}}
+\subsubsection{\texorpdfstring{dev\+\_\+fops}{dev\_fops}}
+{\footnotesize\ttfamily \hyperlink{group__dev_gaab625d8ae3a95e942ed10ed1579f5042}{file\+\_\+ops} device\+\_\+control\+\_\+block\+::dev\+\_\+fops}
+
+
+
+Device operations. 
+
+This structure is provided by the device driver. 
+
+Definition at line 126 of file kernel\+\_\+dev.\+h.
+
+\mbox{\Hypertarget{structdevice__control__block_a35a45268132777177a33513c747633c4}\label{structdevice__control__block_a35a45268132777177a33513c747633c4}} 
+\index{device\+\_\+control\+\_\+block@{device\+\_\+control\+\_\+block}!type@{type}}
+\index{type@{type}!device\+\_\+control\+\_\+block@{device\+\_\+control\+\_\+block}}
+\subsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \hyperlink{group__dev_ga879ceac20e83b2375e5b49f4379b0c90}{Device\+\_\+type} device\+\_\+control\+\_\+block\+::type}
+
+
+
+Device type. 
+
+Much like \textquotesingle{}major number\textquotesingle{} in Unix, determines the driver. 
+
+Definition at line 119 of file kernel\+\_\+dev.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kernel__dev_8h}{kernel\+\_\+dev.\+h}\end{DoxyCompactItemize}
