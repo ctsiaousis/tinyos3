@@ -510,14 +510,8 @@ static void idle_thread()
 void initialize_scheduler()
 {
   int i=0;          /*xristostelina BALAME LOOP GIA INITIALIZE OLON TON LISTON PROTERAIOTITAS*/
-<<<<<<< HEAD
   while(i<prioritySize){
     rlnode_init(&SCHED[i], NULL);
-=======
-  while(i<=prioritySize){
-    rlnode_init(SCHED[i], NULL);
->>>>>>> f220d0f921760a7f90fbf54152b8b248fa09a792
-    i++;
   }
   rlnode_init(&TIMEOUT_LIST, NULL);
 }
