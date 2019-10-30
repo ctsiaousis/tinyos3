@@ -123,6 +123,7 @@ TCB* spawn_thread(PCB* pcb, void (*func)())
 	tcb->phase = CTX_CLEAN;
 	tcb->thread_func = func;
 	tcb->wakeup_time = NO_TIMEOUT;
+	tcb->priority = prioritySize / 2; //kane to thread na exei average priority
 	rlnode_init(&tcb->sched_node, tcb); /* Intrusive list node */
 
 	tcb->its = QUANTUM;
@@ -289,8 +290,16 @@ static void sched_wakeup_expired_timeouts()
 */
 static TCB* sched_queue_select(TCB* current)
 {
+	int test = prioritySize-1;
+	for(int i = prioritySize-1; i >= 0; i--){
+		if(!is_rlist_empty(&SCHED[i])){
+			test = i;
+			i=-1;
+		}
+	}
 	/* Get the head of the SCHED list */
-  rlnode * sel = rlist_pop_front(&SCHED[current->priority]);
+  rlnode * sel = rlist_pop_front(&SCHED[test]);
+
 
 	TCB* next_thread = sel->tcb; /* When the list is empty, this is NULL */
 
@@ -412,7 +421,7 @@ void yield(enum SCHED_CAUSE cause)
     current->priority = (current->priority == 0) ? 0 : current->priority - 1;
       break;
      case SCHED_IO:
-     	current->priority = prioritySize;
+     	current->priority = prioritySize - 1;
       break;
      case SCHED_MUTEX:
      	current->priority = (current->priority == 0) ? 0 : current->priority - 1;
@@ -510,7 +519,7 @@ static void idle_thread()
 void initialize_scheduler()
 {
   int i=0;          /*xristostelina BALAME LOOP GIA INITIALIZE OLON TON LISTON PROTERAIOTITAS*/
-  while(i<=prioritySize){
+  while(i<prioritySize){
     rlnode_init(&SCHED[i], NULL);
     i++;
   }
@@ -532,6 +541,8 @@ void run_scheduler()
 	curcore->idle_thread.phase = CTX_DIRTY;
 	curcore->idle_thread.wakeup_time = NO_TIMEOUT;
 	rlnode_init(&curcore->idle_thread.sched_node, &curcore->idle_thread);
+/*test den kseroume an exei noima gia to idle thread auto*/
+	curcore->idle_thread.priority = prioritySize / 2;
 
 	curcore->idle_thread.its = QUANTUM;
 	curcore->idle_thread.rts = QUANTUM;
