@@ -11,7 +11,8 @@
 #include <valgrind/valgrind.h>
 #endif
 
-#define prioritySize 10
+#define prioritySize 8 //arithmos liston proteraiotitas
+#define boostAfter 1000 //meta apo toses kliseis tis yield kano boost()
 
 /*
    The thread layout.
@@ -188,6 +189,7 @@ CCB cctx[MAX_CORES];
   Both of these structures are protected by @c sched_spinlock.
 */
 
+int booster; //counter gia boost
 rlnode SCHED[prioritySize]; /* edo bgike to asteraki gia na to kalo me &*/
 //rlnode SCHED; /* The scheduler queue */
 rlnode TIMEOUT_LIST; /* The list of threads with a timeout */
@@ -290,15 +292,15 @@ static void sched_wakeup_expired_timeouts()
 */
 static TCB* sched_queue_select(TCB* current)
 {
-	int test = prioritySize-1;
+	int test = prioritySize-1; //these to test stin lista me tin ipsiloteri proteraiotita
 	for(int i = prioritySize-1; i >= 0; i--){
-		if(!is_rlist_empty(&SCHED[i])){
-			test = i;
-			i=-1;
+		if(!is_rlist_empty(&SCHED[i])){ //an i lista den einai adeia
+			test = i; //dose tin thesi tou pinaka stin metabliti test
+			i=-1; //kane to i -1 gia na bgeis ap to loop
 		}
 	}
 	/* Get the head of the SCHED list */
-  rlnode * sel = rlist_pop_front(&SCHED[test]);
+  rlnode * sel = rlist_pop_front(&SCHED[test]); //popfront apo tin sosti thesi
 
 
 	TCB* next_thread = sel->tcb; /* When the list is empty, this is NULL */
@@ -373,6 +375,17 @@ void sleep_releasing(Thread_state state, Mutex* mx, enum SCHED_CAUSE cause,
 		preempt_on;
 }
 
+void boost(){
+	//int test = prioritySize-1; //these to test stin lista me tin ipsiloteri proteraiotita
+	for(int i = 0; i < prioritySize; i++){
+			while(!is_rlist_empty(&SCHED[i]) && i != prioritySize-1){
+				rlnode * current = rlist_pop_front(&SCHED[i]); //pare to head tis listas stin thesi i
+				current->tcb->priority++; //auksise to priority tou tcb
+				rlist_push_back(&SCHED[i+1], current); //balto sto telos tis listas me thesi i+1
+			}
+	}
+}
+
 /* This function is the entry point to the scheduler's context switching */
 
 void yield(enum SCHED_CAUSE cause)
@@ -385,6 +398,10 @@ void yield(enum SCHED_CAUSE cause)
 
 	TCB* current = CURTHREAD; /* Make a local copy of current process, for speed */
 
+	/*auksise ton counter gia boost*/
+	booster++;
+
+	/*lock to mutex*/
 	Mutex_Lock(&sched_spinlock);
 
 	/* Update CURTHREAD state */
@@ -400,6 +417,13 @@ void yield(enum SCHED_CAUSE cause)
 	/* Wake up threads whose sleep timeout has expired */
 	sched_wakeup_expired_timeouts();
 
+
+  	/*prin to mutex lock kanoume boost tis protaireotites*/
+	if(booster >= boostAfter){
+		boost();
+		booster = 0;
+	}
+
 	/* Get next */
 	TCB* next = sched_queue_select(current);
 	assert(next != NULL);
@@ -408,6 +432,8 @@ void yield(enum SCHED_CAUSE cause)
 	CURCORE.previous_thread = current;
 
 	Mutex_Unlock(&sched_spinlock);
+
+
 
 	/* Switch contexts */
 	if (current != next) {
@@ -439,6 +465,9 @@ void yield(enum SCHED_CAUSE cause)
       fprintf(stderr, "BAD STATE for current thread %p in yield: %d\n", current, current->state);
       assert(0);  /* It should not be READY or EXITED ! */ 
   }
+
+
+
 	/* This is where we get after we are switched back on! A long time
 	   may have passed. Start a new timeslice...
 	  */
@@ -524,6 +553,8 @@ void initialize_scheduler()
     i++;
   }
   rlnode_init(&TIMEOUT_LIST, NULL);
+
+  booster = 0; //arxikopoiisi metablitis booster
 }
 
 void run_scheduler()
