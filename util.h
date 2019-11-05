@@ -2,6 +2,7 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+//#include <kernel_sched.h> //gia to ptcb
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -284,6 +285,7 @@ static inline void * xmalloc (size_t size)
  */
 
 
+typedef struct process_thread_control_block PTCB; //gia na dexetai kai ptcb sto rlnode
 typedef struct process_control_block PCB;	/**< @brief Forward declaration */
 typedef struct thread_control_block TCB;	/**< @brief Forward declaration */
 typedef struct core_control_block CCB;		/**< @brief Forward declaration */
@@ -310,7 +312,8 @@ typedef struct resource_list_node {
      */
   union {
     PCB* pcb; 
-    TCB* tcb;
+    TCB* tcb;    
+  	PTCB* ptcb; //thkom
     CCB* ccb;
     DCB* dcb;
     FCB* fcb;

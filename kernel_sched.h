@@ -94,6 +94,8 @@ enum SCHED_CAUSE {
 typedef struct process_thread_control_block {
 //to posoi perimenoun na mathoun to exit val
 	uint ref_count;
+//isos xreiastei pointer tou owner pcb
+	//PCB* owner_pcb; 
 //to pointer sto tcb
 	TCB* tcb;
 //o kombos gia thn lista ton PTCB

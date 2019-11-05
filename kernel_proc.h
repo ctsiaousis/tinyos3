@@ -39,7 +39,8 @@ typedef struct process_control_block {
   pid_state  pstate;      /**< @brief The pid state for this PCB */
 
   rlnode thread_list;     //o header tis listas ton ptcb pou krataei to pcb
-  
+  uint thread_count;      //o counter ton threads pou exoun owner_pcb auto to pcb
+
   PCB* parent;            /**< @brief Parent's pcb. */
   int exitval;            /**< @brief The exit value of the process */
 

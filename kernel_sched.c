@@ -301,7 +301,8 @@ static TCB* sched_queue_select(TCB* current)
 	}
 	/* Get the head of the SCHED list */
   rlnode * sel = rlist_pop_front(&SCHED[test]); //popfront apo tin sosti thesi
-
+//debugem
+  //assert(sel != NULL);
 
 	TCB* next_thread = sel->tcb; /* When the list is empty, this is NULL */
 
