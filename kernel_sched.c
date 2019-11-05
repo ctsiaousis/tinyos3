@@ -11,8 +11,8 @@
 #include <valgrind/valgrind.h>
 #endif
 
-#define prioritySize 8 //arithmos liston proteraiotitas
-#define boostAfter 1000 //meta apo toses kliseis tis yield kano boost()
+#define prioritySize 12 //arithmos liston proteraiotitas
+#define boostAfter 4086 //meta apo toses kliseis tis yield kano boost()
 
 /*
    The thread layout.
@@ -377,11 +377,11 @@ void sleep_releasing(Thread_state state, Mutex* mx, enum SCHED_CAUSE cause,
 
 void boost(){
 	//int test = prioritySize-1; //these to test stin lista me tin ipsiloteri proteraiotita
-	for(int i = 0; i < prioritySize; i++){
-			while(!is_rlist_empty(&SCHED[i]) && i != prioritySize-1){
-				rlnode * current = rlist_pop_front(&SCHED[i]); //pare to head tis listas stin thesi i
+	for(int i = prioritySize-1; i == 0; i--){
+			while(!is_rlist_empty(&SCHED[i-1])){
+				rlnode * current = rlist_pop_front(&SCHED[i-1]); //pare to head tis listas stin thesi i-1
 				current->tcb->priority++; //auksise to priority tou tcb
-				rlist_push_back(&SCHED[i+1], current); //balto sto telos tis listas me thesi i+1
+				rlist_push_back(&SCHED[i], current); //balto sto telos tis listas me thesi i
 			}
 	}
 }
@@ -419,7 +419,7 @@ void yield(enum SCHED_CAUSE cause)
 
 
   	/*prin to mutex lock kanoume boost tis protaireotites*/
-	if(booster >= boostAfter){
+	if(booster == boostAfter){
 		boost();
 		booster = 0;
 	}
@@ -452,18 +452,8 @@ void yield(enum SCHED_CAUSE cause)
      case SCHED_MUTEX:
      	current->priority = (current->priority == 0) ? 0 : current->priority - 1;
       break;
-     case SCHED_PIPE:
-      break;
-     case SCHED_POLL:
-      break;
-     case SCHED_IDLE:
-      break;
-     case SCHED_USER:
-      break;
-
     default:
-      fprintf(stderr, "BAD STATE for current thread %p in yield: %d\n", current, current->state);
-      assert(0);  /* It should not be READY or EXITED ! */ 
+      break; 
   }
 
 
