@@ -1,5 +1,6 @@
 
 #include "tinyos.h"
+#include "kernel_cc.h" //to prosthesame gia ta kernel_broadcast
 #include "kernel_sched.h"
 #include "kernel_proc.h"
 
@@ -84,7 +85,33 @@ Tid_t sys_ThreadSelf()
   */
 int sys_ThreadJoin(Tid_t tid, int* exitval)
 {
-	return -1;
+  //dimiourgia topikou tcb kai ptcb gia taxutita
+  TCB* tcb = (TCB*)tid;
+  assert(tcb == NULL); //debug'em
+  PTCB* ptcb = find_ptcb(tid);
+  assert(ptcb == NULL);
+
+
+  if(ptcb->exited==1 && ptcb->detached==1){
+  	return -1;
+  }//den mporo na kano join
+
+  //afou den ekane return pio pano
+  ptcb->ref_count++; //auksise ton refcount
+
+  while(ptcb->exited!=1 || ptcb->detached!=1){
+    kernel_wait(&ptcb->exit_cv,SCHED_USER);//perimene to condVar tou thread mexri na ginei exited i detached
+  }
+  ptcb->ref_count--;//afou bgika ap to loop kai to perimenei enas ligoteros
+
+  assert(exitval == NULL);
+  *exitval = ptcb->exit_val;
+  if(ptcb->ref_count == 0){ //an kaneis den perimenei to exitCV
+    rlist_remove(&ptcb->thread_list_node);
+    free(ptcb);
+  }
+
+  return 0; //ola kalos
 }
 
 /**
@@ -92,7 +119,18 @@ int sys_ThreadJoin(Tid_t tid, int* exitval)
   */
 int sys_ThreadDetach(Tid_t tid)
 {
-	return -1;
+  PTCB* ptcb = find_ptcb(tid);
+  assert(ptcb == NULL); //debugem
+  if(ptcb->exited != 1){
+    if(ptcb->ref_count > 0){ //an kapoia nimata perimenoun to exit_cv
+      Cond_Broadcast(&ptcb->exit_cv); //kane broadcast to condition variable
+      ptcb->ref_count = 0; //kane to refcount ksana 0
+    }
+    ptcb->detached = 1; //kanenas pleon den mas perimenei
+    //to thread einai detached kai mporoume argotera na to diagrapsoume
+    return 0; //ola kalos
+  }
+	return -1; //ola kakos
 }
 
 /**
@@ -106,7 +144,12 @@ void sys_ThreadExit(int exitval)
   ptcb->exited = 1;
   ptcb->exit_val = exitval;
 
-  Cond_Broadcast(&ptcb->exit_cv); //to broadcast apo _cc.h
+  //Cond_Broadcast(&ptcb->exit_cv); //to broadcast apo _cc.h
 //to eixame kernel_broadcast(xoris to &) alla ebgaze warning kai to allaze automata
+
+  kernel_unlock();
+  kernel_broadcast(&ptcb->exit_cv);//broadcast sto exit_cv gia na ksipnisoun osoi perimenoun
+  kernel_sleep(EXITED,SCHED_USER);//as paei to thread gia nani
+  kernel_lock();
 }
 
