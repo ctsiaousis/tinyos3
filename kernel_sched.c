@@ -234,7 +234,7 @@ static void sched_register_timeout(TCB* tcb, TimerDuration timeout)
 static void sched_queue_add(TCB* tcb)
 {
 	/* Insert at the end of the scheduling list */
-  rlist_push_back(&SCHED[tcb->priority], & tcb->sched_node);
+  rlist_push_front(&SCHED[tcb->priority], &tcb->sched_node);
 
 	/* Restart possibly halted cores */
 	cpu_core_restart_one();
@@ -379,10 +379,11 @@ void sleep_releasing(Thread_state state, Mutex* mx, enum SCHED_CAUSE cause,
 void boost(){
 	//int test = prioritySize-1; //these to test stin lista me tin ipsiloteri proteraiotita
 	for(int i = prioritySize-1; i == 0; i--){
-			while(!is_rlist_empty(&SCHED[i-1])){
-				rlnode * current = rlist_pop_front(&SCHED[i-1]); //pare to head tis listas stin thesi i-1
+			while(!is_rlist_empty(&SCHED[i]) && i != prioritySize-1){
+				rlnode * current = rlist_pop_front(&SCHED[i]); //pare to head tis listas stin thesi i-1
 				current->tcb->priority++; //auksise to priority tou tcb
-				rlist_push_back(&SCHED[i], current); //balto sto telos tis listas me thesi i
+				rlist_push_front(&SCHED[i+1], current); //balto sto telos tis listas me thesi i
+
 			}
 	}
 }
@@ -419,8 +420,8 @@ void yield(enum SCHED_CAUSE cause)
 	sched_wakeup_expired_timeouts();
 
 
-  	/*prin to mutex lock kanoume boost tis protaireotites*/
-	if(booster == boostAfter){
+  	/*meta to mutex lock kanoume boost tis protaireotites*/
+	if(booster > boostAfter){
 		boost();
 		booster = 0;
 	}
