@@ -6,16 +6,13 @@ terminal.o: terminal.c
 validate_api.o: validate_api.c util.h symposium.h tinyos.h tinyoslib.h \
  unit_testing.h bios.h
 bios_example2.o: bios_example2.c bios.h
-bios_example3.o: bios_example3.c bios.h
 test_example.o: test_example.c unit_testing.h bios.h tinyos.h
+bios_example3.o: bios_example3.c bios.h
 bios_example5.o: bios_example5.c bios.h
 bios_example1.o: bios_example1.c bios.h
 bios_example4.o: bios_example4.c bios.h
 bios.o: bios.c util.h bios.h
 kernel_socket.o: kernel_socket.c tinyos.h
-kernel_streams.o: kernel_streams.c util.h tinyos.h kernel_cc.h \
- kernel_sys.h bios.h kernel_sched.h kernel_streams.h kernel_dev.h \
- kernel_proc.h
 kernel_sched.o: kernel_sched.c kernel_cc.h kernel_sys.h bios.h tinyos.h \
  kernel_sched.h util.h kernel_proc.h
 kernel_sys.o: kernel_sys.c tinyos.h kernel_sys.h bios.h kernel_cc.h \
@@ -27,6 +24,9 @@ kernel_threads.o: kernel_threads.c tinyos.h kernel_cc.h kernel_sys.h \
 kernel_dev.o: kernel_dev.c kernel_cc.h kernel_sys.h bios.h tinyos.h \
  kernel_sched.h util.h kernel_dev.h kernel_streams.h kernel_proc.h
 kernel_pipe.o: kernel_pipe.c tinyos.h
+kernel_streams.o: kernel_streams.c util.h tinyos.h kernel_cc.h \
+ kernel_sys.h bios.h kernel_sched.h kernel_streams.h kernel_dev.h \
+ kernel_proc.h
 kernel_cc.o: kernel_cc.c kernel_sched.h bios.h tinyos.h util.h \
  kernel_proc.h kernel_cc.h kernel_sys.h
 kernel_proc.o: kernel_proc.c kernel_cc.h kernel_sys.h bios.h tinyos.h \
