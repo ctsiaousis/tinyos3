@@ -35,6 +35,7 @@ static inline void initialize_PCB(PCB* pcb)
   pcb->pstate = FREE;
   pcb->argl = 0;
   pcb->args = NULL;
+  pcb->thread_count = 0; //testtest12test
 
   for(int i=0;i<MAX_FILEID;i++)
     pcb->FIDT[i] = NULL;
@@ -207,7 +208,7 @@ Pid_t sys_Exec(Task call, int argl, void* args)
 //-----------------------arxikopoiisi listas ptcb--------------------
   rlnode_init(&ptcb->thread_list_node, ptcb);
   rlist_push_back(&newproc->thread_list, &ptcb->thread_list_node);
-  //newproc->thread_count = 1;
+  newproc->thread_count = 1;
 //-------------------------------------------------------------------*/
 
     //newproc->main_thread = (TCB*)CreateThread(call,argl,args);
