@@ -2,6 +2,7 @@
 #include "kernel_cc.h" //to prosthesame gia ta kernel_broadcast
 #include "kernel_sched.h"
 #include "kernel_proc.h"
+#include "kernel_streams.h"
 
 //se poio ptcb anoikei to thread? (basei tou tid)
 PTCB* find_ptcb(Tid_t tid){
@@ -32,7 +33,7 @@ void initialize_thread(){
   PTCB* ptcb = CURTHREAD->ptcb;
   assert(ptcb != NULL);
   //arxikopoiisi task,argl,args
-  Task task = CURTHREAD->ptcb->task;
+  Task task = ptcb->task;
   int argl = ptcb->argl;
   void* args = ptcb->args;
   int exitval = task(argl, args);
@@ -66,7 +67,7 @@ Tid_t sys_CreateThread(Task task, int argl, void* args)
   //auksano ton counter tou pcb, afou tou prostheto ena tcb
   CURPROC->thread_count++;
 
-CURTHREAD->ptcb = ptcb; //tcb deixnei ptcb
+  CURTHREAD->ptcb = ptcb; //tcb deixnei ptcb
 
   //sundeseis ton pcb, ptcb kai tcb
   TCB *new_tcb = spawn_thread(CURPROC, initialize_thread); //na kanoume tin sunartisi
@@ -185,9 +186,51 @@ void sys_ThreadExit(int exitval)
   
 //an thread count == 0 katharizo kai enimerono to PTCB opos tin sys_exit
   if(CURPROC->thread_count == 0){
+    PCB *curproc = CURPROC;  /* cache for efficiency */
 
-
+  /* Do all the other cleanup we want here, close files etc. */
+  if(curproc->args) {
+    free(curproc->args);
+    curproc->args = NULL;
   }
+
+  /* Clean up FIDT */
+  for(int i=0;i<MAX_FILEID;i++) {
+    if(curproc->FIDT[i] != NULL) {
+      FCB_decref(curproc->FIDT[i]);
+      curproc->FIDT[i] = NULL;
+    }
+  }
+
+  /* Reparent any children of the exiting process to the 
+     initial task */
+  PCB* initpcb = get_pcb(1);
+  while(!is_rlist_empty(& curproc->children_list)) {
+    rlnode* child = rlist_pop_front(& curproc->children_list);
+    child->pcb->parent = initpcb;
+    rlist_push_front(& initpcb->children_list, child);
+  }
+
+  /* Add exited children to the initial task's exited list 
+     and signal the initial task */
+  if(!is_rlist_empty(& curproc->exited_list)) {
+    rlist_append(& initpcb->exited_list, &curproc->exited_list);
+    kernel_broadcast(& initpcb->child_exit);
+  }
+
+  /* Put me into my parent's exited list */
+  if(curproc->parent != NULL) {   /* Maybe this is init */
+    rlist_push_front(& curproc->parent->exited_list, &curproc->exited_node);
+    kernel_broadcast(& curproc->parent->child_exit);
+  }
+
+  /* Disconnect my main_thread */
+  curproc->main_thread = NULL;
+
+  /* Now, mark the process as exited. */
+  curproc->pstate = ZOMBIE;
+  }
+  CURPROC->exitval=exitval;
   //kernel_unlock();
   kernel_sleep(EXITED,SCHED_USER);//as paei to thread gia nani
   //kernel_lock();

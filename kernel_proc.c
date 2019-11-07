@@ -325,6 +325,7 @@ void sys_Exit(int exitval)
     while(sys_WaitChild(NOPROC,NULL)!=NOPROC);
   }
 
+
   PCB *curproc = CURPROC;  /* cache for efficiency */
 
   /* Do all the other cleanup we want here, close files etc. */
