@@ -36,6 +36,7 @@ static inline void initialize_PCB(PCB* pcb)
   pcb->argl = 0;
   pcb->args = NULL;
   pcb->thread_count = 0; //testtest12test
+  rlnode_init(&pcb->thread_list, pcb); //mipos auto kanei segmentation?
 
   for(int i=0;i<MAX_FILEID;i++)
     pcb->FIDT[i] = NULL;
@@ -87,7 +88,6 @@ PCB* acquire_PCB()
     pcb_freelist = pcb_freelist->parent;
     process_count++;
   }
-
   return pcb;
 }
 
@@ -182,13 +182,13 @@ Pid_t sys_Exec(Task call, int argl, void* args)
    */
 
   if(call != NULL) {
-    TCB* tcb = spawn_thread(newproc, start_main_thread);
-    newproc->main_thread = tcb;
+    TCB* tcb = spawn_thread(newproc, start_main_thread); //to tcb deixnei to pcb
+    newproc->main_thread = tcb; //to pcb deixnei to tcb
     rlnode_init(&newproc->thread_list, newproc); //initialize listas pcb
 
   //-------------------------arxikopoiisi ptcb------------------------
   PTCB* ptcb = (PTCB*)xmalloc(sizeof(PTCB)); //xoros gia ptcb
-  ptcb->tcb = tcb;
+  ptcb->tcb = newproc->main_thread; //to ptcb deixnei to tcb
   ptcb->ref_count = 0;
   ptcb->task = call;
   ptcb->argl = argl;
@@ -207,7 +207,7 @@ Pid_t sys_Exec(Task call, int argl, void* args)
 
 //-----------------------arxikopoiisi listas ptcb--------------------
   rlnode_init(&ptcb->thread_list_node, ptcb);
-  rlist_push_back(&newproc->thread_list, &ptcb->thread_list_node);
+  rlist_push_back(&newproc->thread_list, &ptcb->thread_list_node); //to pcb deixnei to ptcb
   newproc->thread_count = 1;
 //-------------------------------------------------------------------*/
 
