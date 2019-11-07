@@ -86,6 +86,9 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:ga2115e4c199a702aaf36f4571877bf013"><td class="memItemLeft" align="right" valign="top"><a id="ga2115e4c199a702aaf36f4571877bf013"></a>
+typedef struct <a class="el" href="structprocess__thread__control__block.html">process_thread_control_block</a>&#160;</td><td class="memItemRight" valign="bottom"><b>PTCB</b></td></tr>
+<tr class="separator:ga2115e4c199a702aaf36f4571877bf013"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga91aaadf0c3f9cef2293a99c69795323f"><td class="memItemLeft" align="right" valign="top"><a id="ga91aaadf0c3f9cef2293a99c69795323f"></a>
 typedef struct <a class="el" href="structprocess__control__block.html">process_control_block</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rlists.html#ga91aaadf0c3f9cef2293a99c69795323f">PCB</a></td></tr>
 <tr class="memdesc:ga91aaadf0c3f9cef2293a99c69795323f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward declaration. <br /></td></tr>
@@ -238,7 +241,7 @@ remove(L2);
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the list is empty, else 0. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00411">411</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00414">414</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -287,7 +290,7 @@ remove(L2);
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the second node, <code>b</code> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00389">389</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00392">392</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -328,7 +331,7 @@ remove(L2);
 <p>Append the nodes of a list to another. </p>
 <p>After the append, <code>lsrc</code> becomes empty. The operation is </p><pre class="fragment">[ldest, X...] [lsrc, Y...]  ==&gt; [ldest, X..., Y...]  [lsrc]
 </pre> 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00501">501</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00504">504</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -376,7 +379,7 @@ remove(L2);
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true iff two lists are equal, else false. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00478">478</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00481">481</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -431,7 +434,7 @@ remove(L2);
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00546">546</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00549">549</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -462,7 +465,7 @@ remove(L2);
 <p>Return the length of a list. </p>
 <p>This function returns the length of a list. </p><dl class="section note"><dt>Note</dt><dd>the cost of this operation is \( O(n) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00460">460</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00463">463</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -493,7 +496,7 @@ remove(L2);
 <p>Remove and return the tail of the list. </p>
 <p>This function, applied on a non-empty list, will remove the tail of the list and return in. </p>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00452">452</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00455">455</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -525,7 +528,7 @@ remove(L2);
 <p>This function, applied on a non-empty list, will remove the head of the list and return in.</p>
 <p>When it is applied to an empty list, the function will return the list itself. </p>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00444">444</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00447">447</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -566,7 +569,7 @@ remove(L2);
 <p>Prepend the nodes of a list to another. </p>
 <p>After the append, <code>lsrc</code> becomes empty. The operation is </p><pre class="fragment">[ldest, X...] [lsrc, Y...]  ==&gt; [ldest, Y..., X...]  [lsrc]
 </pre> 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00515">515</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00518">518</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -608,7 +611,7 @@ remove(L2);
 <p>Assuming that <code>node</code> is not in the ring of <code>list</code>, this function inserts the ring of <code>node</code> (often a singleton) at the tail of <code>list</code>.</p>
 <p>This function is equivalent to <code>splice</code>(list-&gt;prev,node). </p>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00433">433</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00436">436</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -650,7 +653,7 @@ remove(L2);
 <p>Assuming that <code>node</code> is not in the ring of <code>list</code>, this function inserts the ring of <code>node</code> (often a singleton) at the head of <code>list</code>.</p>
 <p>This function is equivalent to <code>splice(list,node)</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00422">422</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00425">425</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -687,7 +690,7 @@ remove(L2);
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the removed node </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00404">404</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00407">407</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -718,7 +721,7 @@ remove(L2);
 <p>Reverse a ring or list. </p>
 <p>This function will reverse the direction of a ring. </p>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00526">526</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00529">529</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -765,7 +768,7 @@ remove(L2);
 <p>Move nodes. </p>
 <p>Append all nodes of Lsrc which satisfy pred (that is, pred(...) returns non-zero) to the end of Ldest. </p>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00564">564</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00567">567</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -814,7 +817,7 @@ remove(L2);
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the node itself </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00363">363</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00366">366</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>
@@ -852,7 +855,7 @@ remove(L2);
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the node itself </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00342">342</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_8h_source.html#l00345">345</a> of file <a class="el" href="util_8h_source.html">util.h</a>.</p>
 
 </div>
 </div>

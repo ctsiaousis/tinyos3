@@ -12,8 +12,7 @@ Tinyos utility code.
 {\ttfamily \#include $<$errno.\+h$>$}\newline
 {\ttfamily \#include $<$setjmp.\+h$>$}\newline
 {\ttfamily \#include $<$assert.\+h$>$}\newline
-Include dependency graph for util.\+h\+:
-\nopagebreak
+Include dependency graph for util.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -62,6 +61,8 @@ struct \hyperlink{structexception__stack__frame}{exception\+\_\+stack\+\_\+frame
 \end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structprocess__thread__control__block}{process\+\_\+thread\+\_\+control\+\_\+block} {\bfseries P\+T\+CB}
 \item 
 typedef struct \hyperlink{structprocess__control__block}{process\+\_\+control\+\_\+block} \hyperlink{group__rlists_ga91aaadf0c3f9cef2293a99c69795323f}{P\+CB}
 \begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
@@ -170,7 +171,7 @@ This file defines the following\+:
 \end{DoxyCode}
 
 
-Definition at line 938 of file util.\+h.
+Definition at line 941 of file util.\+h.
 
 \mbox{\Hypertarget{util_8h_ab5034f048fef6a41e7901a4e34368f3d}\label{util_8h_ab5034f048fef6a41e7901a4e34368f3d}} 
 \index{util.\+h@{util.\+h}!O\+N\+\_\+\+E\+R\+R\+OR@{O\+N\+\_\+\+E\+R\+R\+OR}}
@@ -190,7 +191,7 @@ Definition at line 938 of file util.\+h.
 \end{DoxyCode}
 
 
-Definition at line 948 of file util.\+h.
+Definition at line 951 of file util.\+h.
 
 \mbox{\Hypertarget{util_8h_a6dbafe1c80b34213de23960742a82ca1}\label{util_8h_a6dbafe1c80b34213de23960742a82ca1}} 
 \index{util.\+h@{util.\+h}!T\+R\+Y\+\_\+\+W\+I\+TH@{T\+R\+Y\+\_\+\+W\+I\+TH}}
@@ -212,7 +213,7 @@ Definition at line 948 of file util.\+h.
 \end{DoxyCode}
 
 
-Definition at line 927 of file util.\+h.
+Definition at line 930 of file util.\+h.
 
 
 
@@ -241,7 +242,7 @@ the number of strings packed in {\ttfamily args}
 \end{DoxyReturn}
 
 
-Definition at line 638 of file util.\+h.
+Definition at line 641 of file util.\+h.
 
 \mbox{\Hypertarget{util_8h_a7a9791238730610435f0e56f3c9e9d5a}\label{util_8h_a7a9791238730610435f0e56f3c9e9d5a}} 
 \index{util.\+h@{util.\+h}!argvlen@{argvlen}}
@@ -265,7 +266,7 @@ the total number of bytes in all the strings, including the terminating zeros.
 \end{DoxyReturn}
 
 
-Definition at line 595 of file util.\+h.
+Definition at line 598 of file util.\+h.
 
 \mbox{\Hypertarget{util_8h_a17795e528244cffd51a5935d8c5f2a74}\label{util_8h_a17795e528244cffd51a5935d8c5f2a74}} 
 \index{util.\+h@{util.\+h}!argvpack@{argvpack}}
@@ -296,7 +297,7 @@ the length of the output argument buffer
 \end{DoxySeeAlso}
 
 
-Definition at line 617 of file util.\+h.
+Definition at line 620 of file util.\+h.
 
 \mbox{\Hypertarget{util_8h_aef7e8ed491979281a8ca2bcfcbaf852f}\label{util_8h_aef7e8ed491979281a8ca2bcfcbaf852f}} 
 \index{util.\+h@{util.\+h}!argvunpack@{argvunpack}}
@@ -329,5 +330,5 @@ the first location not unpacked
 \end{DoxySeeAlso}
 
 
-Definition at line 662 of file util.\+h.
+Definition at line 665 of file util.\+h.
 

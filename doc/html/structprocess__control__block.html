@@ -82,14 +82,14 @@ Collaboration diagram for process_control_block:</div>
 <div class="dyncontent">
 <div class="center"><img src="structprocess__control__block__coll__graph.png" border="0" usemap="#process__control__block_coll__map" alt="Collaboration graph"/></div>
 <map name="process__control__block_coll__map" id="process__control__block_coll__map">
-<area shape="rect" id="node3" href="structresource__list__node.html" title="List node. " alt="" coords="351,432,481,553"/>
-<area shape="rect" id="node5" href="structthread__control__block.html" title="The thread control block. " alt="" coords="115,616,258,855"/>
-<area shape="rect" id="node2" href="structCondVar.html" title="Condition variables. " alt="" coords="5,20,112,112"/>
-<area shape="rect" id="node6" href="structprocess__thread__control__block.html" title="{process_thread_control\l_block\n|+ ref_count\l+ task\l+ argl\l+ args\l+ exit_val\l+ detached\l+ exited\l|}" alt="" coords="23,947,180,1127"/>
-<area shape="rect" id="node9" href="structfile__control__block.html" title="The file control block. " alt="" coords="556,689,679,781"/>
-<area shape="rect" id="node4" href="structcore__control__block.html" title="Core control block. " alt="" coords="308,991,439,1083"/>
-<area shape="rect" id="node7" href="structdevice__control__block.html" title="Device control block. " alt="" coords="589,211,733,303"/>
-<area shape="rect" id="node8" href="structfile__operations.html" title="The device&#45;specific file operations table. " alt="" coords="675,5,781,127"/>
+<area shape="rect" id="node3" href="structresource__list__node.html" title="List node. " alt="" coords="269,461,400,583"/>
+<area shape="rect" id="node5" href="structthread__control__block.html" title="The thread control block. " alt="" coords="505,645,647,884"/>
+<area shape="rect" id="node2" href="structCondVar.html" title="Condition variables. " alt="" coords="627,20,733,112"/>
+<area shape="rect" id="node6" href="structprocess__thread__control__block.html" title="{process_thread_control\l_block\n|+ ref_count\l+ task\l+ argl\l+ args\l+ exit_val\l+ detached\l+ exited\l|}" alt="" coords="429,976,587,1156"/>
+<area shape="rect" id="node9" href="structfile__control__block.html" title="The file control block. " alt="" coords="116,719,239,811"/>
+<area shape="rect" id="node4" href="structcore__control__block.html" title="Core control block. " alt="" coords="129,1020,260,1112"/>
+<area shape="rect" id="node7" href="structdevice__control__block.html" title="Device control block. " alt="" coords="120,219,264,311"/>
+<area shape="rect" id="node8" href="structfile__operations.html" title="The device&#45;specific file operations table. " alt="" coords="5,5,112,127"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -99,6 +99,12 @@ Data Fields</h2></td></tr>
 <a class="el" href="group__proc.html#gade1eea4d20492c4c97263201145e5097">pid_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess__control__block.html#ae3334dd8a5747f108124c7129c27eea5">pstate</a></td></tr>
 <tr class="memdesc:ae3334dd8a5747f108124c7129c27eea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pid state for this PCB. <br /></td></tr>
 <tr class="separator:ae3334dd8a5747f108124c7129c27eea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c0640e9a04c96c37cc311af563fe6e7"><td class="memItemLeft" align="right" valign="top"><a id="a0c0640e9a04c96c37cc311af563fe6e7"></a>
+<a class="el" href="group__rlists.html#ga8f6244877f7ce2322c90525217ea6e7a">rlnode</a>&#160;</td><td class="memItemRight" valign="bottom"><b>thread_list</b></td></tr>
+<tr class="separator:a0c0640e9a04c96c37cc311af563fe6e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7fa47044b7cca54552dd45273f0a0ce"><td class="memItemLeft" align="right" valign="top"><a id="ab7fa47044b7cca54552dd45273f0a0ce"></a>
+<a class="el" href="bios_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>&#160;</td><td class="memItemRight" valign="bottom"><b>thread_count</b></td></tr>
+<tr class="separator:ab7fa47044b7cca54552dd45273f0a0ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af20d0c36862c6def80024b4586ff8934"><td class="memItemLeft" align="right" valign="top"><a id="af20d0c36862c6def80024b4586ff8934"></a>
 <a class="el" href="group__proc.html#gadf327f09ee935cf1734c14e8849f0421">PCB</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess__control__block.html#af20d0c36862c6def80024b4586ff8934">parent</a></td></tr>
 <tr class="memdesc:af20d0c36862c6def80024b4586ff8934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parent's pcb. <br /></td></tr>
@@ -168,7 +174,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="st
 <p>Condition variable for <code>WaitChild</code>. </p>
 <p>This condition variable is broadcast each time a child process terminates. It is used in the implementation of <code><a class="el" href="group__syscalls.html#ga37017afba05480740d26b033975fef03" title="Wait on a terminating child. ">WaitChild()</a></code> </p>
 
-<p class="definition">Definition at line <a class="el" href="kernel__proc_8h_source.html#l00055">55</a> of file <a class="el" href="kernel__proc_8h_source.html">kernel_proc.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="kernel__proc_8h_source.html#l00058">58</a> of file <a class="el" href="kernel__proc_8h_source.html">kernel_proc.h</a>.</p>
 
 </div>
 </div>

@@ -211,7 +211,7 @@ Variables</h2></td></tr>
 <p>The current thread. </p>
 <p>This is a pointer to the PCB of the owner process of the current thread, i.e., the thread currently executing on this core. </p>
 
-<p class="definition">Definition at line <a class="el" href="kernel__sched_8h_source.html#l00201">201</a> of file <a class="el" href="kernel__sched_8h_source.html">kernel_sched.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="kernel__sched_8h_source.html#l00203">203</a> of file <a class="el" href="kernel__sched_8h_source.html">kernel_sched.h</a>.</p>
 
 </div>
 </div>
@@ -230,7 +230,7 @@ Variables</h2></td></tr>
 <p>The current thread. </p>
 <p>This is a pointer to the TCB of the thread currently executing on this core. </p>
 
-<p class="definition">Definition at line <a class="el" href="kernel__sched_8h_source.html#l00193">193</a> of file <a class="el" href="kernel__sched_8h_source.html">kernel_sched.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="kernel__sched_8h_source.html#l00195">195</a> of file <a class="el" href="kernel__sched_8h_source.html">kernel_sched.h</a>.</p>
 
 </div>
 </div>
@@ -249,7 +249,7 @@ Variables</h2></td></tr>
 <p>Quantum (in microseconds) </p>
 <p>This is the default quantum for each thread, in microseconds. </p>
 
-<p class="definition">Definition at line <a class="el" href="kernel__sched_8h_source.html#l00299">299</a> of file <a class="el" href="kernel__sched_8h_source.html">kernel_sched.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="kernel__sched_8h_source.html#l00301">301</a> of file <a class="el" href="kernel__sched_8h_source.html">kernel_sched.h</a>.</p>
 
 </div>
 </div>
@@ -268,7 +268,7 @@ Variables</h2></td></tr>
 <p>Thread stack size. </p>
 <p>The default thread stack size in TinyOS is 128 kbytes. </p>
 
-<p class="definition">Definition at line <a class="el" href="kernel__sched_8h_source.html#l00160">160</a> of file <a class="el" href="kernel__sched_8h_source.html">kernel_sched.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="kernel__sched_8h_source.html#l00162">162</a> of file <a class="el" href="kernel__sched_8h_source.html">kernel_sched.h</a>.</p>
 
 </div>
 </div>
@@ -449,7 +449,7 @@ Variables</h2></td></tr>
 <p>Initialize the scheduler. </p>
 <p>This function is called during kernel initialization. </p>
 
-<p class="definition">Definition at line <a class="el" href="kernel__sched_8c_source.html#l00485">485</a> of file <a class="el" href="kernel__sched_8c_source.html">kernel_sched.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="kernel__sched_8c_source.html#l00540">540</a> of file <a class="el" href="kernel__sched_8c_source.html">kernel_sched.c</a>.</p>
 
 </div>
 </div>
@@ -472,7 +472,7 @@ Variables</h2></td></tr>
 <p>Enter the scheduler. </p>
 <p>This function is called at kernel initialization, by each core, to enter the scheduler. When this function returns, the scheduler has stopped (there are no more active threads) and the </p>
 
-<p class="definition">Definition at line <a class="el" href="kernel__sched_8c_source.html#l00495">495</a> of file <a class="el" href="kernel__sched_8c_source.html">kernel_sched.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="kernel__sched_8c_source.html#l00552">552</a> of file <a class="el" href="kernel__sched_8c_source.html">kernel_sched.c</a>.</p>
 
 </div>
 </div>
@@ -530,7 +530,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="kernel__sched_8c_source.html#l00335">335</a> of file <a class="el" href="kernel__sched_8c_source.html">kernel_sched.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="kernel__sched_8c_source.html#l00347">347</a> of file <a class="el" href="kernel__sched_8c_source.html">kernel_sched.c</a>.</p>
 
 </div>
 </div>
@@ -571,7 +571,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the TCB of the new thread, in the <code>INIT</code> state. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="kernel__sched_8c_source.html#l00112">112</a> of file <a class="el" href="kernel__sched_8c_source.html">kernel_sched.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="kernel__sched_8c_source.html#l00113">113</a> of file <a class="el" href="kernel__sched_8c_source.html">kernel_sched.c</a>.</p>
 
 </div>
 </div>
@@ -601,7 +601,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the thread state was <code>STOPPED</code> or <code>INIT</code>, 0 otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="kernel__sched_8c_source.html#l00308">308</a> of file <a class="el" href="kernel__sched_8c_source.html">kernel_sched.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="kernel__sched_8c_source.html#l00320">320</a> of file <a class="el" href="kernel__sched_8c_source.html">kernel_sched.c</a>.</p>
 
 </div>
 </div>
@@ -624,7 +624,7 @@ Variables</h2></td></tr>
 <p>Give up the CPU. </p>
 <p>This call asks the scheduler to terminate the quantum of the current thread and possibly switch to a different thread. The scheduler may decide that it will renew the quantum for the current thread. </p>
 
-<p class="definition">Definition at line <a class="el" href="kernel__sched_8c_source.html#l00369">369</a> of file <a class="el" href="kernel__sched_8c_source.html">kernel_sched.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="kernel__sched_8c_source.html#l00393">393</a> of file <a class="el" href="kernel__sched_8c_source.html">kernel_sched.c</a>.</p>
 
 </div>
 </div>

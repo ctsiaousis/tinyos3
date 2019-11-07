@@ -1,8 +1,8 @@
-
 #include "tinyos.h"
 #include "kernel_cc.h" //to prosthesame gia ta kernel_broadcast
 #include "kernel_sched.h"
 #include "kernel_proc.h"
+static Mutex kernel_mutex = MUTEX_INIT;
 
 //se poio ptcb anoikei to thread? (basei tou tid)
 PTCB* find_ptcb(Tid_t tid){
@@ -38,6 +38,7 @@ void initialize_thread(){
   */
 Tid_t sys_CreateThread(Task task, int argl, void* args)
 {
+  if(task != NULL){
   //to megethos tou allocation prepei na nai pol/sio tou PTCB size
   PTCB *ptcb = (PTCB *)xmalloc(sizeof(PTCB));
   //gia taxutita kanoume ena instance tou pcb
@@ -66,10 +67,12 @@ Tid_t sys_CreateThread(Task task, int argl, void* args)
   //sundeseis ton pcb, ptcb kai tcb
   TCB *new_tcb = spawn_thread(CURTHREAD->owner_pcb, initialize_thread); //na kanoume tin sunartisi
   ptcb->tcb = new_tcb;
-  //ptcb->tcb->owner_pcb
+  ptcb->tcb->owner_pcb = CURTHREAD->owner_pcb;
   wakeup(ptcb->tcb);
 
 	return (Tid_t)ptcb;
+}
+else return NOTHREAD;
 }
 
 /**
@@ -149,6 +152,8 @@ void sys_ThreadExit(int exitval)
 
   kernel_unlock();
   kernel_broadcast(&ptcb->exit_cv);//broadcast sto exit_cv gia na ksipnisoun osoi perimenoun
+  //elegxos threadcount kai refcount
+  //sleep_releasing(EXITED, &kernel_mutex, SCHED_USER, 0);
   kernel_sleep(EXITED,SCHED_USER);//as paei to thread gia nani
   kernel_lock();
 }

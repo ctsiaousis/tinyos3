@@ -149,7 +149,7 @@ Pid_t sys_Exec(Task call, int argl, void* args)
 
     /* Add new process to the parent's child list */
     newproc->parent = curproc;
-    rlist_push_front(& curproc->children_list, & newproc->children_node);
+    rlist_push_front(&curproc->children_list, &newproc->children_node);
 
     /* Inherit file streams from parent */
     for(int i=0; i<MAX_FILEID; i++) {
@@ -172,14 +172,49 @@ Pid_t sys_Exec(Task call, int argl, void* args)
   else
     newproc->args=NULL;
 
+
+
   /* 
     Create and wake up the thread for the main function. This must be the last thing
     we do, because once we wakeup the new thread it may run! so we need to have finished
     the initialization of the PCB.
    */
+
   if(call != NULL) {
-    newproc->main_thread = spawn_thread(newproc, start_main_thread);
-    wakeup(newproc->main_thread);
+    TCB* tcb = spawn_thread(newproc, start_main_thread);
+    newproc->main_thread = tcb;
+    rlnode_init(&newproc->thread_list, newproc); //initialize listas pcb
+
+  //-------------------------arxikopoiisi ptcb------------------------
+  PTCB* ptcb = (PTCB*)xmalloc(sizeof(PTCB)); //xoros gia ptcb
+  ptcb->tcb = tcb;
+  ptcb->ref_count = 0;
+  ptcb->task = call;
+  ptcb->argl = argl;
+  if(args!=NULL) {
+    ptcb->args = malloc(argl);
+    memcpy(ptcb->args, args, argl);
+  }
+  else
+    ptcb->args=NULL;
+  //ptcb->args = (args == NULL) ? NULL : args;
+  //ptcb->exit_val = newproc->exitval;
+  ptcb->exited = 0;
+  ptcb->detached = 0;
+  ptcb->exit_cv = COND_INIT;
+//------------------------------------------------------------------
+
+//-----------------------arxikopoiisi listas ptcb--------------------
+  rlnode_init(&ptcb->thread_list_node, ptcb);
+  rlist_push_back(&newproc->thread_list, &ptcb->thread_list_node);
+  //newproc->thread_count = 1;
+//-------------------------------------------------------------------*/
+
+    //newproc->main_thread = (TCB*)CreateThread(call,argl,args);
+    //PTCB* ptcb = (PTCB*)xmalloc(sizeof(PTCB));
+    //ptcb = (PTCB*)CreateThread(call,argl,args);
+    //ptcb->tcb = newproc->main_thread;
+    wakeup(ptcb->tcb);
   }
 
 

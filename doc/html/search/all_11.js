@@ -26,7 +26,7 @@ var searchData=
   ['rlnode_5fswap',['rlnode_swap',['../group__rlists.html#ga47c4de39ce6c032dd9fc23c88a883a4b',1,'util.h']]],
   ['rts',['rts',['../structthread__control__block.html#a853848e15d41349de06e941b517dd113',1,'thread_control_block']]],
   ['run_5fprogram',['run_program',['../group__Testing.html#ga91dbdb97056588b088b689582abc2382',1,'unit_testing.h']]],
-  ['run_5fscheduler',['run_scheduler',['../group__scheduler.html#ga147600b59d656eb9d9558673c2fad36d',1,'run_scheduler():&#160;kernel_sched.c'],['../group__scheduler.html#ga147600b59d656eb9d9558673c2fad36d',1,'run_scheduler(void):&#160;kernel_sched.c']]],
+  ['run_5fscheduler',['run_scheduler',['../group__scheduler.html#ga147600b59d656eb9d9558673c2fad36d',1,'run_scheduler():&#160;kernel_sched.c'],['../group__scheduler.html#ga147600b59d656eb9d9558673c2fad36d',1,'run_scheduler(void):&#160;kernel_sched.c'],['../group__scheduler.html#ga147600b59d656eb9d9558673c2fad36d',1,'run_scheduler():&#160;sched_stel.c']]],
   ['run_5ftest',['run_test',['../group__Testing.html#gac023795199b4f577a9181ac45e62b170',1,'unit_testing.h']]],
   ['running',['RUNNING',['../group__scheduler.html#gga6c969c169777f82c104cf73e501df70fa1061be6c3fb88d32829cba6f6b2be304',1,'kernel_sched.h']]]
 ];

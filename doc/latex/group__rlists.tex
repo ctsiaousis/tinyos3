@@ -13,6 +13,9 @@ struct \hyperlink{structresource__list__node}{resource\+\_\+list\+\_\+node}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{group__rlists_ga2115e4c199a702aaf36f4571877bf013}\label{group__rlists_ga2115e4c199a702aaf36f4571877bf013}} 
+typedef struct \hyperlink{structprocess__thread__control__block}{process\+\_\+thread\+\_\+control\+\_\+block} {\bfseries P\+T\+CB}
+\item 
 \mbox{\Hypertarget{group__rlists_ga91aaadf0c3f9cef2293a99c69795323f}\label{group__rlists_ga91aaadf0c3f9cef2293a99c69795323f}} 
 typedef struct \hyperlink{structprocess__control__block}{process\+\_\+control\+\_\+block} \hyperlink{group__rlists_ga91aaadf0c3f9cef2293a99c69795323f}{P\+CB}
 \begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
@@ -204,7 +207,7 @@ true if the list is empty, else 0.
 \end{DoxyReturn}
 
 
-Definition at line 411 of file util.\+h.
+Definition at line 414 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_gac04dfecc68239457f673c0a63c254541}\label{group__rlists_gac04dfecc68239457f673c0a63c254541}} 
 \index{Resource lists@{Resource lists}!rl\+\_\+splice@{rl\+\_\+splice}}
@@ -230,7 +233,7 @@ the second node, {\ttfamily b}
 \end{DoxyReturn}
 
 
-Definition at line 389 of file util.\+h.
+Definition at line 392 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_ga7f5989d7ec35645d6bbb1c15cd438532}\label{group__rlists_ga7f5989d7ec35645d6bbb1c15cd438532}} 
 \index{Resource lists@{Resource lists}!rlist\+\_\+append@{rlist\+\_\+append}}
@@ -246,7 +249,7 @@ After the append, {\ttfamily lsrc} becomes empty. The operation is \begin{DoxyVe
 \end{DoxyVerb}
  
 
-Definition at line 501 of file util.\+h.
+Definition at line 504 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_gac02a33ca2f63b5dc5e9597a54da32cf4}\label{group__rlists_gac02a33ca2f63b5dc5e9597a54da32cf4}} 
 \index{Resource lists@{Resource lists}!rlist\+\_\+equal@{rlist\+\_\+equal}}
@@ -270,7 +273,7 @@ true iff two lists are equal, else false.
 \end{DoxyReturn}
 
 
-Definition at line 478 of file util.\+h.
+Definition at line 481 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_gafbb3a5edeac9f1d43130528292c47cf6}\label{group__rlists_gafbb3a5edeac9f1d43130528292c47cf6}} 
 \index{Resource lists@{Resource lists}!rlist\+\_\+find@{rlist\+\_\+find}}
@@ -295,7 +298,7 @@ Search and return the first node whose key is equal to a given key, else return 
 \end{DoxyParams}
 
 
-Definition at line 546 of file util.\+h.
+Definition at line 549 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_ga107b2689c5811f7dbab8f334812b46d0}\label{group__rlists_ga107b2689c5811f7dbab8f334812b46d0}} 
 \index{Resource lists@{Resource lists}!rlist\+\_\+len@{rlist\+\_\+len}}
@@ -312,7 +315,7 @@ the cost of this operation is $ O(n) $
 \end{DoxyNote}
 
 
-Definition at line 460 of file util.\+h.
+Definition at line 463 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_ga55f998d5871e6e563b4320392995a6c5}\label{group__rlists_ga55f998d5871e6e563b4320392995a6c5}} 
 \index{Resource lists@{Resource lists}!rlist\+\_\+pop\+\_\+back@{rlist\+\_\+pop\+\_\+back}}
@@ -326,7 +329,7 @@ Remove and return the tail of the list.
 
 This function, applied on a non-\/empty list, will remove the tail of the list and return in. 
 
-Definition at line 452 of file util.\+h.
+Definition at line 455 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_ga5cc2be48f94a7573fb8952356c6ba7d1}\label{group__rlists_ga5cc2be48f94a7573fb8952356c6ba7d1}} 
 \index{Resource lists@{Resource lists}!rlist\+\_\+pop\+\_\+front@{rlist\+\_\+pop\+\_\+front}}
@@ -342,7 +345,7 @@ This function, applied on a non-\/empty list, will remove the head of the list a
 
 When it is applied to an empty list, the function will return the list itself. 
 
-Definition at line 444 of file util.\+h.
+Definition at line 447 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_ga906dea2f5a25116f979ba6585266453e}\label{group__rlists_ga906dea2f5a25116f979ba6585266453e}} 
 \index{Resource lists@{Resource lists}!rlist\+\_\+prepend@{rlist\+\_\+prepend}}
@@ -358,7 +361,7 @@ After the append, {\ttfamily lsrc} becomes empty. The operation is \begin{DoxyVe
 \end{DoxyVerb}
  
 
-Definition at line 515 of file util.\+h.
+Definition at line 518 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_gac454004e8fb74ccd539e7fbd1affa86a}\label{group__rlists_gac454004e8fb74ccd539e7fbd1affa86a}} 
 \index{Resource lists@{Resource lists}!rlist\+\_\+push\+\_\+back@{rlist\+\_\+push\+\_\+back}}
@@ -374,7 +377,7 @@ Assuming that {\ttfamily node} is not in the ring of {\ttfamily list}, this func
 
 This function is equivalent to {\ttfamily splice}(list-\/$>$prev,node). 
 
-Definition at line 433 of file util.\+h.
+Definition at line 436 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}\label{group__rlists_ga63ab59e50f2007a6bfedb0180a73b06f}} 
 \index{Resource lists@{Resource lists}!rlist\+\_\+push\+\_\+front@{rlist\+\_\+push\+\_\+front}}
@@ -390,7 +393,7 @@ Assuming that {\ttfamily node} is not in the ring of {\ttfamily list}, this func
 
 This function is equivalent to {\ttfamily splice(list,node)}. 
 
-Definition at line 422 of file util.\+h.
+Definition at line 425 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_ga9177b286dcefd1d853aae220a98d3c7b}\label{group__rlists_ga9177b286dcefd1d853aae220a98d3c7b}} 
 \index{Resource lists@{Resource lists}!rlist\+\_\+remove@{rlist\+\_\+remove}}
@@ -412,7 +415,7 @@ the removed node
 \end{DoxyReturn}
 
 
-Definition at line 404 of file util.\+h.
+Definition at line 407 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_ga3911836f21f2f50b4caa2fa1d8e1f1de}\label{group__rlists_ga3911836f21f2f50b4caa2fa1d8e1f1de}} 
 \index{Resource lists@{Resource lists}!rlist\+\_\+reverse@{rlist\+\_\+reverse}}
@@ -426,7 +429,7 @@ Reverse a ring or list.
 
 This function will reverse the direction of a ring. 
 
-Definition at line 526 of file util.\+h.
+Definition at line 529 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_ga6016cbc055d242a03d823ebfec422c2b}\label{group__rlists_ga6016cbc055d242a03d823ebfec422c2b}} 
 \index{Resource lists@{Resource lists}!rlist\+\_\+select@{rlist\+\_\+select}}
@@ -440,7 +443,7 @@ Move nodes.
 
 Append all nodes of Lsrc which satisfy pred (that is, pred(...) returns non-\/zero) to the end of Ldest. 
 
-Definition at line 564 of file util.\+h.
+Definition at line 567 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_ga578e6dc256d4f1580bd8500edf374aca}\label{group__rlists_ga578e6dc256d4f1580bd8500edf374aca}} 
 \index{Resource lists@{Resource lists}!rlnode\+\_\+init@{rlnode\+\_\+init}}
@@ -473,7 +476,7 @@ the node itself
 \end{DoxyReturn}
 
 
-Definition at line 363 of file util.\+h.
+Definition at line 366 of file util.\+h.
 
 \mbox{\Hypertarget{group__rlists_gaccdb4bce65952fede472de20297eb36e}\label{group__rlists_gaccdb4bce65952fede472de20297eb36e}} 
 \index{Resource lists@{Resource lists}!rlnode\+\_\+new@{rlnode\+\_\+new}}
@@ -502,5 +505,5 @@ the node itself
 \end{DoxyReturn}
 
 
-Definition at line 342 of file util.\+h.
+Definition at line 345 of file util.\+h.
 

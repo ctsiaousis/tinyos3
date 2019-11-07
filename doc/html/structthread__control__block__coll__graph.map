@@ -1,10 +1,10 @@
 <map id="thread_control_block" name="thread_control_block">
-<area shape="rect" id="node2" href="$structprocess__control__block.html" title="Process Control Block. " alt="" coords="350,336,502,472"/>
-<area shape="rect" id="node4" href="$structresource__list__node.html" title="List node. " alt="" coords="519,579,650,700"/>
-<area shape="rect" id="node5" href="$structcore__control__block.html" title="Core control block. " alt="" coords="678,358,809,450"/>
-<area shape="rect" id="node9" href="$structprocess__thread__control__block.html" title="{process_thread_control\l_block\n|+ ref_count\l+ task\l+ argl\l+ args\l+ exit_val\l+ detached\l+ exited\l|}" alt="" coords="50,763,207,943"/>
-<area shape="rect" id="node3" href="$structCondVar.html" title="Condition variables. " alt="" coords="47,79,154,171"/>
-<area shape="rect" id="node8" href="$structfile__control__block.html" title="The file control block. " alt="" coords="582,807,705,899"/>
-<area shape="rect" id="node6" href="$structdevice__control__block.html" title="Device control block. " alt="" coords="833,358,977,450"/>
-<area shape="rect" id="node7" href="$structfile__operations.html" title="The device&#45;specific file operations table. " alt="" coords="918,64,1025,185"/>
+<area shape="rect" id="node2" href="$structprocess__control__block.html" title="Process Control Block. " alt="" coords="481,336,633,487"/>
+<area shape="rect" id="node4" href="$structresource__list__node.html" title="List node. " alt="" coords="391,608,521,729"/>
+<area shape="rect" id="node5" href="$structcore__control__block.html" title="Core control block. " alt="" coords="327,365,457,457"/>
+<area shape="rect" id="node9" href="$structprocess__thread__control__block.html" title="{process_thread_control\l_block\n|+ ref_count\l+ task\l+ argl\l+ args\l+ exit_val\l+ detached\l+ exited\l|}" alt="" coords="239,792,396,972"/>
+<area shape="rect" id="node3" href="$structCondVar.html" title="Condition variables. " alt="" coords="647,79,753,171"/>
+<area shape="rect" id="node8" href="$structfile__control__block.html" title="The file control block. " alt="" coords="652,836,775,928"/>
+<area shape="rect" id="node6" href="$structdevice__control__block.html" title="Device control block. " alt="" coords="781,365,925,457"/>
+<area shape="rect" id="node7" href="$structfile__operations.html" title="The device&#45;specific file operations table. " alt="" coords="867,64,973,185"/>
 </map>

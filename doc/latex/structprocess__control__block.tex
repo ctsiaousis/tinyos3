@@ -25,6 +25,12 @@ Collaboration diagram for process\+\_\+control\+\_\+block\+:
 \mbox{\Hypertarget{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}\label{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}} 
 \hyperlink{group__proc_gade1eea4d20492c4c97263201145e5097}{pid\+\_\+state} \hyperlink{structprocess__control__block_ae3334dd8a5747f108124c7129c27eea5}{pstate}
 \begin{DoxyCompactList}\small\item\em The pid state for this P\+CB. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocess__control__block_a0c0640e9a04c96c37cc311af563fe6e7}\label{structprocess__control__block_a0c0640e9a04c96c37cc311af563fe6e7}} 
+\hyperlink{group__rlists_ga8f6244877f7ce2322c90525217ea6e7a}{rlnode} {\bfseries thread\+\_\+list}
+\item 
+\mbox{\Hypertarget{structprocess__control__block_ab7fa47044b7cca54552dd45273f0a0ce}\label{structprocess__control__block_ab7fa47044b7cca54552dd45273f0a0ce}} 
+\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} {\bfseries thread\+\_\+count}
+\item 
 \mbox{\Hypertarget{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}\label{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}} 
 \hyperlink{group__proc_gadf327f09ee935cf1734c14e8849f0421}{P\+CB} $\ast$ \hyperlink{structprocess__control__block_af20d0c36862c6def80024b4586ff8934}{parent}
 \begin{DoxyCompactList}\small\item\em Parent\textquotesingle{}s pcb. \end{DoxyCompactList}\item 
@@ -84,7 +90,7 @@ Condition variable for {\ttfamily Wait\+Child}.
 
 This condition variable is broadcast each time a child process terminates. It is used in the implementation of {\ttfamily \hyperlink{group__syscalls_ga37017afba05480740d26b033975fef03}{Wait\+Child()}} 
 
-Definition at line 55 of file kernel\+\_\+proc.\+h.
+Definition at line 58 of file kernel\+\_\+proc.\+h.
 
 
 

@@ -113,7 +113,7 @@ The current thread.
 
 This is a pointer to the P\+CB of the owner process of the current thread, i.\+e., the thread currently executing on this core. 
 
-Definition at line 201 of file kernel\+\_\+sched.\+h.
+Definition at line 203 of file kernel\+\_\+sched.\+h.
 
 \mbox{\Hypertarget{group__scheduler_ga587a82c8931f0df72f43cc913ceb7e27}\label{group__scheduler_ga587a82c8931f0df72f43cc913ceb7e27}} 
 \index{Scheduler@{Scheduler}!C\+U\+R\+T\+H\+R\+E\+AD@{C\+U\+R\+T\+H\+R\+E\+AD}}
@@ -127,7 +127,7 @@ The current thread.
 
 This is a pointer to the T\+CB of the thread currently executing on this core. 
 
-Definition at line 193 of file kernel\+\_\+sched.\+h.
+Definition at line 195 of file kernel\+\_\+sched.\+h.
 
 \mbox{\Hypertarget{group__scheduler_gabc4f0f9abea1b5443308e4ea84b52b21}\label{group__scheduler_gabc4f0f9abea1b5443308e4ea84b52b21}} 
 \index{Scheduler@{Scheduler}!Q\+U\+A\+N\+T\+UM@{Q\+U\+A\+N\+T\+UM}}
@@ -141,7 +141,7 @@ Quantum (in microseconds)
 
 This is the default quantum for each thread, in microseconds. 
 
-Definition at line 299 of file kernel\+\_\+sched.\+h.
+Definition at line 301 of file kernel\+\_\+sched.\+h.
 
 \mbox{\Hypertarget{group__scheduler_ga90b7a8cb7bc3fdbd98014a3e15ee6e9a}\label{group__scheduler_ga90b7a8cb7bc3fdbd98014a3e15ee6e9a}} 
 \index{Scheduler@{Scheduler}!T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE@{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}}
@@ -155,7 +155,7 @@ Thread stack size.
 
 The default thread stack size in Tiny\+OS is 128 kbytes. 
 
-Definition at line 160 of file kernel\+\_\+sched.\+h.
+Definition at line 162 of file kernel\+\_\+sched.\+h.
 
 
 
@@ -342,7 +342,7 @@ Initialize the scheduler.
 
 This function is called during kernel initialization. 
 
-Definition at line 485 of file kernel\+\_\+sched.\+c.
+Definition at line 540 of file kernel\+\_\+sched.\+c.
 
 \mbox{\Hypertarget{group__scheduler_ga147600b59d656eb9d9558673c2fad36d}\label{group__scheduler_ga147600b59d656eb9d9558673c2fad36d}} 
 \index{Scheduler@{Scheduler}!run\+\_\+scheduler@{run\+\_\+scheduler}}
@@ -356,7 +356,7 @@ Enter the scheduler.
 
 This function is called at kernel initialization, by each core, to enter the scheduler. When this function returns, the scheduler has stopped (there are no more active threads) and the 
 
-Definition at line 495 of file kernel\+\_\+sched.\+c.
+Definition at line 552 of file kernel\+\_\+sched.\+c.
 
 \mbox{\Hypertarget{group__scheduler_ga0ab1a2dcfbfe3fb09cc24044efddfd34}\label{group__scheduler_ga0ab1a2dcfbfe3fb09cc24044efddfd34}} 
 \index{Scheduler@{Scheduler}!sleep\+\_\+releasing@{sleep\+\_\+releasing}}
@@ -391,7 +391,7 @@ A timeout can also be provided. If the timeout is not {\ttfamily N\+O\+\_\+\+T\+
 \end{DoxyParams}
 
 
-Definition at line 335 of file kernel\+\_\+sched.\+c.
+Definition at line 347 of file kernel\+\_\+sched.\+c.
 
 \mbox{\Hypertarget{group__scheduler_ga34517ad777ad754965f80fe0248c16e5}\label{group__scheduler_ga34517ad777ad754965f80fe0248c16e5}} 
 \index{Scheduler@{Scheduler}!spawn\+\_\+thread@{spawn\+\_\+thread}}
@@ -417,7 +417,7 @@ A pointer to the T\+CB of the new thread, in the {\ttfamily I\+N\+IT} state.
 \end{DoxyReturn}
 
 
-Definition at line 112 of file kernel\+\_\+sched.\+c.
+Definition at line 113 of file kernel\+\_\+sched.\+c.
 
 \mbox{\Hypertarget{group__scheduler_gae8301452fd9ae5bf7cd7f2676650ff06}\label{group__scheduler_gae8301452fd9ae5bf7cd7f2676650ff06}} 
 \index{Scheduler@{Scheduler}!wakeup@{wakeup}}
@@ -441,7 +441,7 @@ This call will change the state of a thread from {\ttfamily S\+T\+O\+P\+P\+ED} o
 \end{DoxyReturn}
 
 
-Definition at line 308 of file kernel\+\_\+sched.\+c.
+Definition at line 320 of file kernel\+\_\+sched.\+c.
 
 \mbox{\Hypertarget{group__scheduler_ga1db327892199949812ae5a52119f2e97}\label{group__scheduler_ga1db327892199949812ae5a52119f2e97}} 
 \index{Scheduler@{Scheduler}!yield@{yield}}
@@ -455,5 +455,5 @@ Give up the C\+PU.
 
 This call asks the scheduler to terminate the quantum of the current thread and possibly switch to a different thread. The scheduler may decide that it will renew the quantum for the current thread. 
 
-Definition at line 369 of file kernel\+\_\+sched.\+c.
+Definition at line 393 of file kernel\+\_\+sched.\+c.
 
