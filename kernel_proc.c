@@ -328,6 +328,7 @@ void sys_Exit(int exitval)
 
   PCB *curproc = CURPROC;  /* cache for efficiency */
 
+//if(curproc->thread_count == 0){
   /* Do all the other cleanup we want here, close files etc. */
   if(curproc->args) {
     free(curproc->args);
@@ -369,7 +370,13 @@ void sys_Exit(int exitval)
 
   /* Now, mark the process as exited. */
   curproc->pstate = ZOMBIE;
+//}else{
+//  ThreadExit(exitval);
+//}
+  curproc->thread_count--;
   curproc->exitval = exitval;
+
+  
 
   /* Bye-bye cruel world */
   kernel_sleep(EXITED, SCHED_USER);

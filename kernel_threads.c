@@ -7,19 +7,12 @@
 //se poio ptcb anoikei to thread? (basei tou tid)
 PTCB* find_ptcb(Tid_t tid){
 //pairnoume to proto stoixeio tis listas ptcb apo to pcb tou CURTHREAD
-  rlnode* test = CURPROC->thread_list.next;
-  while(test != &(CURPROC->thread_list)){
-    if((Tid_t)(test->ptcb) == tid){
-      return test->ptcb;
-    }else{
-      test = test->next;
-    }
-  }
-  return test->ptcb;
-/*  PTCB* ptcb = CURTHREAD->ptcb;
-  rlnode* fail = NULL;
-  rlnode* p = rlist_find(&CURPROC->thread_list, ptcb, fail);
-  return (PTCB*)p;*/
+  
+  PTCB* ptcb = (PTCB*)tid;
+  if(rlist_find(&CURPROC->thread_list, ptcb, NULL))
+    return ptcb;
+  else
+    return NULL;
   //ulopoiisi me rlnode* rlist_find(rlnode* List, void* key, rlnode* fail);
 }
 
@@ -71,7 +64,7 @@ Tid_t sys_CreateThread(Task task, int argl, void* args)
 
   //sundeseis ton pcb, ptcb kai tcb
   TCB *new_tcb = spawn_thread(CURPROC, initialize_thread); //na kanoume tin sunartisi
-  assert(new_tcb!=NULL);
+  //assert(new_tcb!=NULL);
   new_tcb->ptcb = ptcb; //to tcb deixnei to ptcb
   ptcb->tcb = new_tcb;
   ptcb->tcb->owner_pcb = CURTHREAD->owner_pcb;
@@ -101,13 +94,12 @@ Tid_t sys_ThreadSelf()
 int sys_ThreadJoin(Tid_t tid, int* exitval)
 {
   //dimiourgia topikou tcb kai ptcb gia taxutita
-  TCB* tcb = (TCB*)tid;
-  assert(tcb != NULL); //debug'em
-  PTCB* ptcb = (PTCB*)tid;  //rlist_find();
-  assert(ptcb != NULL);
+  
+  PTCB* ptcb = find_ptcb(tid);  //rlist_find();
+  //assert(ptcb != NULL);
 
 //DEN MPORO NA BALO TO TID_T TOU EAUTOU MOU
-  if((Tid_t)CURTHREAD==tid || ptcb == NULL || tcb == NULL){
+  if((Tid_t)CURTHREAD==tid || ptcb == NULL){
     return -1;
   }
 
@@ -151,7 +143,7 @@ int sys_ThreadJoin(Tid_t tid, int* exitval)
 int sys_ThreadDetach(Tid_t tid)
 {
   PTCB* ptcb = find_ptcb(tid);
-  assert(ptcb == NULL); //debugem
+  //assert(ptcb == NULL); //debugem
   if(ptcb->exited != 1){
     if(ptcb->ref_count > 0){ //an kapoia nimata perimenoun to exit_cv
       kernel_broadcast(&ptcb->exit_cv); //kane broadcast to condition variable
@@ -175,13 +167,13 @@ void sys_ThreadExit(int exitval)
   //euresi tou current ptcb meso tou current tcb
   PTCB* ptcb = CURTHREAD->ptcb;
 
-  //Cond_Broadcast(&ptcb->exit_cv); //to broadcast apo _cc.h
-//to eixame kernel_broadcast(xoris to &) alla ebgaze warning kai to allaze automata
+  
 //initialize ton exit metabliton tou ptcb
   ptcb->exited = 1;
   ptcb->exit_val = exitval;
   kernel_broadcast(&ptcb->exit_cv);//broadcast sto exit_cv gia na ksipnisoun osoi perimenoun
   //elegxos threadcount kai refcount
+  if(ptcb->ref_count == 0)
   rlist_remove(&ptcb->thread_list_node);
   
 //an thread count == 0 katharizo kai enimerono to PTCB opos tin sys_exit
@@ -231,6 +223,7 @@ void sys_ThreadExit(int exitval)
   curproc->pstate = ZOMBIE;
   }
   CURPROC->exitval=exitval;
+  CURPROC->thread_count--;
   //kernel_unlock();
   kernel_sleep(EXITED,SCHED_USER);//as paei to thread gia nani
   //kernel_lock();
