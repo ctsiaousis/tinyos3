@@ -1,7 +1,0 @@
-<map id="kernel_cc.h" name="kernel_cc.h">
-<area shape="rect" id="node2" href="$kernel__sys_8h_source.html" title="kernel_sys.h" alt="" coords="53,80,149,107"/>
-<area shape="rect" id="node7" href="$kernel__sched_8h.html" title="TinyOS kernel: The Scheduler API. " alt="" coords="174,80,285,107"/>
-<area shape="rect" id="node3" href="$bios_8h.html" title="The Virtual Machine API. " alt="" coords="73,155,130,181"/>
-<area shape="rect" id="node6" href="$tinyos_8h.html" title="Public kernel API. " alt="" coords="154,155,222,181"/>
-<area shape="rect" id="node8" href="$util_8h.html" title="Tinyos utility code. " alt="" coords="340,155,391,181"/>
-</map>
