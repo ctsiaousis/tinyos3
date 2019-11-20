@@ -1,0 +1,1038 @@
+\hypertarget{group__syscalls}{}\section{System calls.}
+\label{group__syscalls}\index{System calls.@{System calls.}}
+
+
+Public kernel A\+PI.  
+
+
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structCondVar}{Cond\+Var}
+\begin{DoxyCompactList}\small\item\em Condition variables. \end{DoxyCompactList}\item 
+struct \hyperlink{structpipe__s}{pipe\+\_\+s}
+\begin{DoxyCompactList}\small\item\em A pair of file ids, describing a pipe. \end{DoxyCompactList}\item 
+struct \hyperlink{structprocinfo}{procinfo}
+\begin{DoxyCompactList}\small\item\em A struct containing process-\/related information for a non-\/free pid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{group__syscalls_gaf22d54bd4d558803b5ccbc6eb21f83b2}\label{group__syscalls_gaf22d54bd4d558803b5ccbc6eb21f83b2}} 
+\#define \hyperlink{group__syscalls_gaf22d54bd4d558803b5ccbc6eb21f83b2}{N\+O\+P\+R\+OC}~(-\/1)
+\begin{DoxyCompactList}\small\item\em The invalid P\+ID. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__syscalls_ga63e32d00bc48471b4db49d481ac228dc}\label{group__syscalls_ga63e32d00bc48471b4db49d481ac228dc}} 
+\#define \hyperlink{group__syscalls_ga63e32d00bc48471b4db49d481ac228dc}{M\+A\+X\+\_\+\+P\+R\+OC}~65536
+\begin{DoxyCompactList}\small\item\em The maximum number of processes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__syscalls_ga9c697bf9e856897ad75f28190a6f0b68}\label{group__syscalls_ga9c697bf9e856897ad75f28190a6f0b68}} 
+\#define \hyperlink{group__syscalls_ga9c697bf9e856897ad75f28190a6f0b68}{M\+A\+X\+\_\+\+F\+I\+L\+E\+ID}~16
+\begin{DoxyCompactList}\small\item\em The maximum number of open files per process. Only values 0 to M\+A\+X\+\_\+\+F\+I\+L\+E\+I\+D-\/1 are legal for file descriptors. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__syscalls_ga80bacbaea8dd6aecf216d85d981bcb21}\label{group__syscalls_ga80bacbaea8dd6aecf216d85d981bcb21}} 
+\#define \hyperlink{group__syscalls_ga80bacbaea8dd6aecf216d85d981bcb21}{N\+O\+F\+I\+LE}~(-\/1)
+\begin{DoxyCompactList}\small\item\em The invalid file id. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__syscalls_ga00ccfb785dd0b09ec7091fc213c2f491}\label{group__syscalls_ga00ccfb785dd0b09ec7091fc213c2f491}} 
+\#define \hyperlink{group__syscalls_ga00ccfb785dd0b09ec7091fc213c2f491}{N\+O\+T\+H\+R\+E\+AD}~((\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\+\_\+t})0)
+\begin{DoxyCompactList}\small\item\em The invalid thread ID. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__syscalls_ga96be0bfc33e7e113099c7546798bec99}{M\+U\+T\+E\+X\+\_\+\+I\+N\+IT}~0
+\begin{DoxyCompactList}\small\item\em This macro is used to initialize mutexes. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__syscalls_ga6a7055a466bff255172e05f6ec82d792}{C\+O\+N\+D\+\_\+\+I\+N\+IT}~((\hyperlink{structCondVar}{Cond\+Var})\{ N\+U\+LL, \hyperlink{group__syscalls_ga96be0bfc33e7e113099c7546798bec99}{M\+U\+T\+E\+X\+\_\+\+I\+N\+IT} \})
+\begin{DoxyCompactList}\small\item\em This macro is used to initialize condition variables. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__syscalls_ga401e1a60d6381236216b6a130a6685bd}\label{group__syscalls_ga401e1a60d6381236216b6a130a6685bd}} 
+\#define \hyperlink{group__syscalls_ga401e1a60d6381236216b6a130a6685bd}{M\+A\+X\+\_\+\+P\+O\+RT}~1023
+\begin{DoxyCompactList}\small\item\em the maximum legal port \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__syscalls_gab71912b8841547d43a65ad40d730acd5}\label{group__syscalls_gab71912b8841547d43a65ad40d730acd5}} 
+\#define \hyperlink{group__syscalls_gab71912b8841547d43a65ad40d730acd5}{N\+O\+P\+O\+RT}~((\hyperlink{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}{port\+\_\+t})0)
+\begin{DoxyCompactList}\small\item\em a null value for a port \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__syscalls_ga657ad9e9d81dcca25fb225cf99051e0d}\label{group__syscalls_ga657ad9e9d81dcca25fb225cf99051e0d}} 
+\#define \hyperlink{group__syscalls_ga657ad9e9d81dcca25fb225cf99051e0d}{P\+R\+O\+C\+I\+N\+F\+O\+\_\+\+M\+A\+X\+\_\+\+A\+R\+G\+S\+\_\+\+S\+I\+ZE}~(128)
+\begin{DoxyCompactList}\small\item\em The max. size of args returned by a procinfo structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{group__syscalls_gafac07f3170763932fac97b6eab2c3984}\label{group__syscalls_gafac07f3170763932fac97b6eab2c3984}} 
+typedef int \hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t}
+\begin{DoxyCompactList}\small\item\em The type of a process ID. \end{DoxyCompactList}\item 
+typedef unsigned long \hyperlink{group__syscalls_gaf412159e5cef839836a5e7b19ee75d1c}{timeout\+\_\+t}
+\begin{DoxyCompactList}\small\item\em An integer type for time intervals. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}\label{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}} 
+typedef int \hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t}
+\begin{DoxyCompactList}\small\item\em The type of a file ID. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}\label{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}} 
+typedef uintptr\+\_\+t \hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\+\_\+t}
+\begin{DoxyCompactList}\small\item\em The type of a thread ID. \end{DoxyCompactList}\item 
+typedef char \hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex}
+\begin{DoxyCompactList}\small\item\em A mutex is used to provide mutual exclusion. \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}) (int, void $\ast$)
+\begin{DoxyCompactList}\small\item\em The signature for the main function of a process. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structpipe__s}{pipe\+\_\+s} \hyperlink{group__syscalls_gad56b5ceaaf7d3ab88b4be7f622314dfb}{pipe\+\_\+t}
+\begin{DoxyCompactList}\small\item\em A pair of file ids, describing a pipe. \end{DoxyCompactList}\item 
+typedef int16\+\_\+t \hyperlink{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}{port\+\_\+t}
+\begin{DoxyCompactList}\small\item\em A type for socket ports. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structprocinfo}{procinfo} \hyperlink{group__syscalls_ga9682d9066f643f8d18cff58fd3fb09b9}{procinfo}
+\begin{DoxyCompactList}\small\item\em A struct containing process-\/related information for a non-\/free pid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{group__syscalls_ga9eb10a0a72ca3149140272e9344a272b}{shutdown\+\_\+mode} \{ \hyperlink{group__syscalls_gga9eb10a0a72ca3149140272e9344a272bacbd27e0b4e3d4a02b0d833f919887d2d}{S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+R\+E\+AD} =1, 
+\hyperlink{group__syscalls_gga9eb10a0a72ca3149140272e9344a272ba9a7920b6a1eb57633bb981aa60edbe24}{S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+W\+R\+I\+TE} =2, 
+\hyperlink{group__syscalls_gga9eb10a0a72ca3149140272e9344a272bab67e72e17566af8eb432d0f3eba6d44d}{S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+B\+O\+TH} =3
+ \}\begin{DoxyCompactList}\small\item\em Socket shutdown modes. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__syscalls_ga1140be44df71d39edaf6a7262fb763ca}{Mutex\+\_\+\+Lock} (\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} $\ast$)
+\begin{DoxyCompactList}\small\item\em Lock a mutex. \end{DoxyCompactList}\item 
+void \hyperlink{group__syscalls_ga0b98d0315d0931d0c28104c36dd559c9}{Mutex\+\_\+\+Unlock} (\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} $\ast$)
+\begin{DoxyCompactList}\small\item\em Unlock a mutex that you locked. \end{DoxyCompactList}\item 
+int \hyperlink{group__syscalls_ga970dca2210b3f2ec8aedab7f542a9bf4}{Cond\+\_\+\+Wait} (\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} $\ast$mx, \hyperlink{structCondVar}{Cond\+Var} $\ast$cv)
+\begin{DoxyCompactList}\small\item\em Wait on a condition variable. \end{DoxyCompactList}\item 
+int \hyperlink{group__syscalls_ga4e955b769339be9ea6a0c1bd4151c48f}{Cond\+\_\+\+Timed\+Wait} (\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} $\ast$mx, \hyperlink{structCondVar}{Cond\+Var} $\ast$cv, \hyperlink{group__syscalls_gaf412159e5cef839836a5e7b19ee75d1c}{timeout\+\_\+t} timeout)
+\begin{DoxyCompactList}\small\item\em Wait on a condition variable. \end{DoxyCompactList}\item 
+void \hyperlink{group__syscalls_ga43f64f8be273d2fe77d7de5f4b81e22d}{Cond\+\_\+\+Signal} (\hyperlink{structCondVar}{Cond\+Var} $\ast$)
+\begin{DoxyCompactList}\small\item\em Signal a condition variable. \end{DoxyCompactList}\item 
+void \hyperlink{group__syscalls_ga8196aa2a48cad90742f254cc3b8fd351}{Cond\+\_\+\+Broadcast} (\hyperlink{structCondVar}{Cond\+Var} $\ast$)
+\begin{DoxyCompactList}\small\item\em Notify all threads waiting at a condition variable. \end{DoxyCompactList}\item 
+\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} \hyperlink{group__syscalls_ga737ad30d8105b4b76e3eb102dd016404}{Exec} (\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task} task, int argl, void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Create a new process. \end{DoxyCompactList}\item 
+void \hyperlink{group__syscalls_gabed0249344c12ecd4f8d440fc05a360a}{Exit} (int val)
+\begin{DoxyCompactList}\small\item\em Exit the current process. \end{DoxyCompactList}\item 
+\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} \hyperlink{group__syscalls_ga37017afba05480740d26b033975fef03}{Wait\+Child} (\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} pid, int $\ast$exitval)
+\begin{DoxyCompactList}\small\item\em Wait on a terminating child. \end{DoxyCompactList}\item 
+\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} \hyperlink{group__syscalls_ga5106ac1f078c5dde2d6fea3881c1a4fb}{Get\+Pid} (void)
+\begin{DoxyCompactList}\small\item\em Return the P\+ID of the caller. \end{DoxyCompactList}\item 
+\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} \hyperlink{group__syscalls_ga33ccb3f7c80d85e610206c0e1150657b}{Get\+P\+Pid} (void)
+\begin{DoxyCompactList}\small\item\em Return the P\+ID of the caller\textquotesingle{}s parent. \end{DoxyCompactList}\item 
+\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\+\_\+t} \hyperlink{group__syscalls_ga284070b5fddcc3653e146e63fcbfe6e3}{Create\+Thread} (\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task} task, int argl, void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Create a new thread in the current process. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__syscalls_ga75ffeb50fda6297110a2f07ef94d285c}\label{group__syscalls_ga75ffeb50fda6297110a2f07ef94d285c}} 
+\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\+\_\+t} \hyperlink{group__syscalls_ga75ffeb50fda6297110a2f07ef94d285c}{Thread\+Self} ()
+\begin{DoxyCompactList}\small\item\em Return the Tid of the current thread. \end{DoxyCompactList}\item 
+int \hyperlink{group__syscalls_ga9ffbb344eb33487ceef5442846a74be0}{Thread\+Join} (\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\+\_\+t} tid, int $\ast$exitval)
+\begin{DoxyCompactList}\small\item\em Join the given thread. \end{DoxyCompactList}\item 
+int \hyperlink{group__syscalls_ga5f957d985678728a418ff70a617fab4d}{Thread\+Detach} (\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\+\_\+t} tid)
+\begin{DoxyCompactList}\small\item\em Detach the given thread. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__syscalls_gab77e59bf31165db88a22ac8f031b8741}\label{group__syscalls_gab77e59bf31165db88a22ac8f031b8741}} 
+void \hyperlink{group__syscalls_gab77e59bf31165db88a22ac8f031b8741}{Thread\+Exit} (int exitval)
+\begin{DoxyCompactList}\small\item\em Terminate the current thread. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{group__syscalls_ga31576e1579c15b6b066038702e6557c7}{Get\+Terminal\+Devices} ()
+\begin{DoxyCompactList}\small\item\em Return the number of terminal devices available. \end{DoxyCompactList}\item 
+\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} \hyperlink{group__syscalls_ga6ea2b586a8dfcfc1e7065e1664a0fb35}{Open\+Terminal} (unsigned int termno)
+\begin{DoxyCompactList}\small\item\em Open a stream on terminal device \textquotesingle{}termno\textquotesingle{}. \end{DoxyCompactList}\item 
+\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} \hyperlink{group__syscalls_ga39805b4ae668b715fb43f0f1e6ce8c45}{Open\+Null} ()
+\begin{DoxyCompactList}\small\item\em Open a stream on the null device. \end{DoxyCompactList}\item 
+int \hyperlink{group__syscalls_ga3e9dc545a789eb45b2d356eabbac3ee3}{Read} (\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} fd, char $\ast$buf, unsigned int size)
+\begin{DoxyCompactList}\small\item\em Read bytes from a stream. \end{DoxyCompactList}\item 
+int \hyperlink{group__syscalls_gaf046f003fde24f79fb395c250137856c}{Write} (\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} fd, const char $\ast$buf, unsigned int size)
+\begin{DoxyCompactList}\small\item\em Write bytes to a stream. \end{DoxyCompactList}\item 
+int \hyperlink{group__syscalls_ga82187e2e98af053a2ab6cb516e9e7f5a}{Close} (\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} fd)
+\begin{DoxyCompactList}\small\item\em Close a file id. \end{DoxyCompactList}\item 
+int \hyperlink{group__syscalls_gacc048c60209e2dfb4b5cfc1c3f21aa88}{Dup2} (\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} oldfd, \hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} newfd)
+\begin{DoxyCompactList}\small\item\em Make a copy of a stream to a new file ID. \end{DoxyCompactList}\item 
+int \hyperlink{group__syscalls_gab6355ce54e047c31538ed5ed9108b5b3}{Pipe} (\hyperlink{group__syscalls_gad56b5ceaaf7d3ab88b4be7f622314dfb}{pipe\+\_\+t} $\ast$pipe)
+\begin{DoxyCompactList}\small\item\em Construct and return a pipe. \end{DoxyCompactList}\item 
+\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} \hyperlink{group__syscalls_gadf167321edde68e905173d8056d3eb2f}{Socket} (\hyperlink{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}{port\+\_\+t} port)
+\begin{DoxyCompactList}\small\item\em Return a new socket bound on a port. \end{DoxyCompactList}\item 
+int \hyperlink{group__syscalls_ga9ff5bae3e7b9e5bbf5a788a5ff739bf7}{Listen} (\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} sock)
+\begin{DoxyCompactList}\small\item\em Initialize a socket as a listening socket. \end{DoxyCompactList}\item 
+\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} \hyperlink{group__syscalls_ga8116ee944d1b03b6fb2fdba59b57d4a8}{Accept} (\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} lsock)
+\begin{DoxyCompactList}\small\item\em Wait for a connection. \end{DoxyCompactList}\item 
+int \hyperlink{group__syscalls_ga747ceadd43e9a4c72b08fffbadaefbdd}{Connect} (\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} sock, \hyperlink{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}{port\+\_\+t} port, \hyperlink{group__syscalls_gaf412159e5cef839836a5e7b19ee75d1c}{timeout\+\_\+t} timeout)
+\begin{DoxyCompactList}\small\item\em Create a connection to a listener at a specific port. \end{DoxyCompactList}\item 
+int \hyperlink{group__syscalls_ga61d49d63d8c0f9fc0917cc1bda6fdfcb}{Shut\+Down} (\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} sock, \hyperlink{group__syscalls_ga9eb10a0a72ca3149140272e9344a272b}{shutdown\+\_\+mode} how)
+\begin{DoxyCompactList}\small\item\em Shut down one direction of socket communication. \end{DoxyCompactList}\item 
+\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} \hyperlink{group__syscalls_gaf326b11574cdc84a9e21b9d860076821}{Open\+Info} ()
+\begin{DoxyCompactList}\small\item\em Open a kernel information stream. \end{DoxyCompactList}\item 
+void \hyperlink{group__syscalls_ga31d9ee7df9665928617a9f9c0cc6d361}{boot} (unsigned int ncores, unsigned int terminals, \hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task} boot\+\_\+task, int argl, void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Boot tinyos3. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Public kernel A\+PI. 
+
+This file contains the system calls offered by Tiny\+OS to the applications. These calls are split into three groups\+: (a) process control (b) concurrency control and (c) I/O 
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group__syscalls_ga6a7055a466bff255172e05f6ec82d792}\label{group__syscalls_ga6a7055a466bff255172e05f6ec82d792}} 
+\index{System calls.@{System calls.}!C\+O\+N\+D\+\_\+\+I\+N\+IT@{C\+O\+N\+D\+\_\+\+I\+N\+IT}}
+\index{C\+O\+N\+D\+\_\+\+I\+N\+IT@{C\+O\+N\+D\+\_\+\+I\+N\+IT}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{C\+O\+N\+D\+\_\+\+I\+N\+IT}{COND\_INIT}}
+{\footnotesize\ttfamily \#define C\+O\+N\+D\+\_\+\+I\+N\+IT~((\hyperlink{structCondVar}{Cond\+Var})\{ N\+U\+LL, \hyperlink{group__syscalls_ga96be0bfc33e7e113099c7546798bec99}{M\+U\+T\+E\+X\+\_\+\+I\+N\+IT} \})}
+
+
+
+This macro is used to initialize condition variables. 
+
+It is used as follows\+: 
+\begin{DoxyCode}
+\hyperlink{structCondVar}{CondVar} my\_cv = \hyperlink{group__syscalls_ga6a7055a466bff255172e05f6ec82d792}{COND\_INIT};
+\end{DoxyCode}
+ 
+
+Definition at line 136 of file tinyos.\+h.
+
+\mbox{\Hypertarget{group__syscalls_ga96be0bfc33e7e113099c7546798bec99}\label{group__syscalls_ga96be0bfc33e7e113099c7546798bec99}} 
+\index{System calls.@{System calls.}!M\+U\+T\+E\+X\+\_\+\+I\+N\+IT@{M\+U\+T\+E\+X\+\_\+\+I\+N\+IT}}
+\index{M\+U\+T\+E\+X\+\_\+\+I\+N\+IT@{M\+U\+T\+E\+X\+\_\+\+I\+N\+IT}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{M\+U\+T\+E\+X\+\_\+\+I\+N\+IT}{MUTEX\_INIT}}
+{\footnotesize\ttfamily \#define M\+U\+T\+E\+X\+\_\+\+I\+N\+IT~0}
+
+
+
+This macro is used to initialize mutexes. 
+
+Always initialize a mutex as follows\+: 
+\begin{DoxyCode}
+\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} my\_mutex = \hyperlink{group__syscalls_ga96be0bfc33e7e113099c7546798bec99}{MUTEX\_INIT};
+\end{DoxyCode}
+ 
+
+Definition at line 89 of file tinyos.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}\label{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}} 
+\index{System calls.@{System calls.}!Mutex@{Mutex}}
+\index{Mutex@{Mutex}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Mutex}{Mutex}}
+{\footnotesize\ttfamily typedef char \hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex}}
+
+
+
+A mutex is used to provide mutual exclusion. 
+
+Mutexes are used extensively to surround critical sections. The Tiny\+OS mutexes are suitable for use in user-\/space, as well as in the implementation of the kernel.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_ga1140be44df71d39edaf6a7262fb763ca}{Mutex\+\_\+\+Lock} 
+
+\hyperlink{group__syscalls_ga0b98d0315d0931d0c28104c36dd559c9}{Mutex\+\_\+\+Unlock} 
+
+\hyperlink{group__syscalls_ga96be0bfc33e7e113099c7546798bec99}{M\+U\+T\+E\+X\+\_\+\+I\+N\+IT} 
+\end{DoxySeeAlso}
+
+
+Definition at line 79 of file tinyos.\+h.
+
+\mbox{\Hypertarget{group__syscalls_gad56b5ceaaf7d3ab88b4be7f622314dfb}\label{group__syscalls_gad56b5ceaaf7d3ab88b4be7f622314dfb}} 
+\index{System calls.@{System calls.}!pipe\+\_\+t@{pipe\+\_\+t}}
+\index{pipe\+\_\+t@{pipe\+\_\+t}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{pipe\+\_\+t}{pipe\_t}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structpipe__s}{pipe\+\_\+s}  \hyperlink{group__syscalls_gad56b5ceaaf7d3ab88b4be7f622314dfb}{pipe\+\_\+t}}
+
+
+
+A pair of file ids, describing a pipe. 
+
+This structure is initialized by the {\ttfamily \hyperlink{group__syscalls_gab6355ce54e047c31538ed5ed9108b5b3}{Pipe()}} system call with two file descriptors, for the read and write ends of the pipe respectively. Writing bytes to the write end using {\ttfamily \hyperlink{group__syscalls_gaf046f003fde24f79fb395c250137856c}{Write()}} will make them available at the read end, unsing {\ttfamily \hyperlink{group__syscalls_ga3e9dc545a789eb45b2d356eabbac3ee3}{Read()}}. \mbox{\Hypertarget{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}\label{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}} 
+\index{System calls.@{System calls.}!port\+\_\+t@{port\+\_\+t}}
+\index{port\+\_\+t@{port\+\_\+t}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{port\+\_\+t}{port\_t}}
+{\footnotesize\ttfamily typedef int16\+\_\+t \hyperlink{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}{port\+\_\+t}}
+
+
+
+A type for socket ports. 
+
+A socket port is an integer between 1 and {\ttfamily M\+A\+X\+\_\+\+P\+O\+RT}. 
+
+Definition at line 545 of file tinyos.\+h.
+
+\mbox{\Hypertarget{group__syscalls_ga9682d9066f643f8d18cff58fd3fb09b9}\label{group__syscalls_ga9682d9066f643f8d18cff58fd3fb09b9}} 
+\index{System calls.@{System calls.}!procinfo@{procinfo}}
+\index{procinfo@{procinfo}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{procinfo}{procinfo}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structprocinfo}{procinfo}  \hyperlink{structprocinfo}{procinfo}}
+
+
+
+A struct containing process-\/related information for a non-\/free pid. 
+
+This structure is returned by information streams. \begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_gaf326b11574cdc84a9e21b9d860076821}{Open\+Info} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}\label{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}} 
+\index{System calls.@{System calls.}!Task@{Task}}
+\index{Task@{Task}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Task}{Task}}
+{\footnotesize\ttfamily typedef int($\ast$ Task) (int, void $\ast$)}
+
+
+
+The signature for the main function of a process. 
+
+New processes are created by calling a starting function, whose signature is Task. \begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_ga737ad30d8105b4b76e3eb102dd016404}{Exec} 
+\end{DoxySeeAlso}
+
+
+Definition at line 216 of file tinyos.\+h.
+
+\mbox{\Hypertarget{group__syscalls_gaf412159e5cef839836a5e7b19ee75d1c}\label{group__syscalls_gaf412159e5cef839836a5e7b19ee75d1c}} 
+\index{System calls.@{System calls.}!timeout\+\_\+t@{timeout\+\_\+t}}
+\index{timeout\+\_\+t@{timeout\+\_\+t}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{timeout\+\_\+t}{timeout\_t}}
+{\footnotesize\ttfamily typedef unsigned long \hyperlink{group__syscalls_gaf412159e5cef839836a5e7b19ee75d1c}{timeout\+\_\+t}}
+
+
+
+An integer type for time intervals. 
+
+The unit is milliseconds. 
+
+Definition at line 36 of file tinyos.\+h.
+
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{group__syscalls_ga9eb10a0a72ca3149140272e9344a272b}\label{group__syscalls_ga9eb10a0a72ca3149140272e9344a272b}} 
+\index{System calls.@{System calls.}!shutdown\+\_\+mode@{shutdown\+\_\+mode}}
+\index{shutdown\+\_\+mode@{shutdown\+\_\+mode}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{shutdown\+\_\+mode}{shutdown\_mode}}
+{\footnotesize\ttfamily enum \hyperlink{group__syscalls_ga9eb10a0a72ca3149140272e9344a272b}{shutdown\+\_\+mode}}
+
+
+
+Socket shutdown modes. 
+
+These constants define the legal values for passing the second argument to the {\ttfamily Shut\+Down} call.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_ga61d49d63d8c0f9fc0917cc1bda6fdfcb}{Shut\+Down} 
+\end{DoxySeeAlso}
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+R\+E\+AD@{S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+R\+E\+AD}!System calls.@{System calls.}}\index{System calls.@{System calls.}!S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+R\+E\+AD@{S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+R\+E\+AD}}}\mbox{\Hypertarget{group__syscalls_gga9eb10a0a72ca3149140272e9344a272bacbd27e0b4e3d4a02b0d833f919887d2d}\label{group__syscalls_gga9eb10a0a72ca3149140272e9344a272bacbd27e0b4e3d4a02b0d833f919887d2d}} 
+S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+R\+E\+AD&Shut down the read direction. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+W\+R\+I\+TE@{S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+W\+R\+I\+TE}!System calls.@{System calls.}}\index{System calls.@{System calls.}!S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+W\+R\+I\+TE@{S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+W\+R\+I\+TE}}}\mbox{\Hypertarget{group__syscalls_gga9eb10a0a72ca3149140272e9344a272ba9a7920b6a1eb57633bb981aa60edbe24}\label{group__syscalls_gga9eb10a0a72ca3149140272e9344a272ba9a7920b6a1eb57633bb981aa60edbe24}} 
+S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+W\+R\+I\+TE&Shut down the write direction. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+B\+O\+TH@{S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+B\+O\+TH}!System calls.@{System calls.}}\index{System calls.@{System calls.}!S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+B\+O\+TH@{S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+B\+O\+TH}}}\mbox{\Hypertarget{group__syscalls_gga9eb10a0a72ca3149140272e9344a272bab67e72e17566af8eb432d0f3eba6d44d}\label{group__syscalls_gga9eb10a0a72ca3149140272e9344a272bab67e72e17566af8eb432d0f3eba6d44d}} 
+S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+B\+O\+TH&Shut down both directions. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 660 of file tinyos.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group__syscalls_ga8116ee944d1b03b6fb2fdba59b57d4a8}\label{group__syscalls_ga8116ee944d1b03b6fb2fdba59b57d4a8}} 
+\index{System calls.@{System calls.}!Accept@{Accept}}
+\index{Accept@{Accept}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Accept()}{Accept()}}
+{\footnotesize\ttfamily \hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} Accept (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t}}]{lsock }\end{DoxyParamCaption})}
+
+
+
+Wait for a connection. 
+
+With a listening socket as its sole argument, this call will block waiting for a single {\ttfamily \hyperlink{group__syscalls_ga747ceadd43e9a4c72b08fffbadaefbdd}{Connect()}} request on the socket\textquotesingle{}s port. one which can be passed as an argument to {\ttfamily Accept}.
+
+It is possible (and desirable) to re-\/use the listening socket in multiple successive calls to Accept. This is a typical pattern\+: a thread blocks at Accept in a tight loop, where each iteration creates new a connection, and then some thread takes over the connection for communication with the client.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sock} & the socket to initialize as a listening socket \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a new socket file id on success, {\ttfamily N\+O\+F\+I\+LE} on error. Possible reasons for error\+:
+\begin{DoxyItemize}
+\item the file id is not legal
+\item the file id is not initialized by {\ttfamily \hyperlink{group__syscalls_ga9ff5bae3e7b9e5bbf5a788a5ff739bf7}{Listen()}} 
+\item the available file ids for the process are exhausted
+\item while waiting, the listening socket {\ttfamily lsock} was closed
+\end{DoxyItemize}
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_ga747ceadd43e9a4c72b08fffbadaefbdd}{Connect} 
+
+\hyperlink{group__syscalls_ga9ff5bae3e7b9e5bbf5a788a5ff739bf7}{Listen} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__syscalls_ga31d9ee7df9665928617a9f9c0cc6d361}\label{group__syscalls_ga31d9ee7df9665928617a9f9c0cc6d361}} 
+\index{System calls.@{System calls.}!boot@{boot}}
+\index{boot@{boot}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{boot()}{boot()}}
+{\footnotesize\ttfamily void boot (\begin{DoxyParamCaption}\item[{unsigned int}]{ncores,  }\item[{unsigned int}]{terminals,  }\item[{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}}]{boot\+\_\+task,  }\item[{int}]{argl,  }\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+
+
+
+Boot tinyos3. 
+
+The function must initialize the simulated computer with the given number of cpu cores and terminals, initialize tinyos and then execute the initial process using function boot\+\_\+task with parameters argl and args. The boot\+\_\+task execution can then create more processes.
+
+When the boot\+\_\+task process finishes, this call halts and cleans up Tiny\+OS structures and then returns. 
+
+Definition at line 62 of file kernel\+\_\+init.\+c.
+
+\mbox{\Hypertarget{group__syscalls_ga82187e2e98af053a2ab6cb516e9e7f5a}\label{group__syscalls_ga82187e2e98af053a2ab6cb516e9e7f5a}} 
+\index{System calls.@{System calls.}!Close@{Close}}
+\index{Close@{Close}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily int Close (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t}}]{fd }\end{DoxyParamCaption})}
+
+
+
+Close a file id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fd} & the file ID to close \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+This call returns 0 on success and -\/1 on failure. Note that it is not an error to call Close on a (valid) file id which is already closed. Possible reasons for failure\+:
+\begin{DoxyItemize}
+\item The file id is invalid.
+\item There was a I/O runtime problem. 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_ga8196aa2a48cad90742f254cc3b8fd351}\label{group__syscalls_ga8196aa2a48cad90742f254cc3b8fd351}} 
+\index{System calls.@{System calls.}!Cond\+\_\+\+Broadcast@{Cond\+\_\+\+Broadcast}}
+\index{Cond\+\_\+\+Broadcast@{Cond\+\_\+\+Broadcast}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Cond\+\_\+\+Broadcast()}{Cond\_Broadcast()}}
+{\footnotesize\ttfamily void Cond\+\_\+\+Broadcast (\begin{DoxyParamCaption}\item[{\hyperlink{structCondVar}{Cond\+Var} $\ast$}]{ }\end{DoxyParamCaption})}
+
+
+
+Notify all threads waiting at a condition variable. 
+
+Broadcast wakes up all threads sleeping on this condition variable. The calling thread is not preempted by the awoken threads.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_ga970dca2210b3f2ec8aedab7f542a9bf4}{Cond\+\_\+\+Wait} 
+
+\hyperlink{group__syscalls_ga43f64f8be273d2fe77d7de5f4b81e22d}{Cond\+\_\+\+Signal} 
+\end{DoxySeeAlso}
+
+
+Definition at line 195 of file kernel\+\_\+cc.\+c.
+
+\mbox{\Hypertarget{group__syscalls_ga43f64f8be273d2fe77d7de5f4b81e22d}\label{group__syscalls_ga43f64f8be273d2fe77d7de5f4b81e22d}} 
+\index{System calls.@{System calls.}!Cond\+\_\+\+Signal@{Cond\+\_\+\+Signal}}
+\index{Cond\+\_\+\+Signal@{Cond\+\_\+\+Signal}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Cond\+\_\+\+Signal()}{Cond\_Signal()}}
+{\footnotesize\ttfamily void Cond\+\_\+\+Signal (\begin{DoxyParamCaption}\item[{\hyperlink{structCondVar}{Cond\+Var} $\ast$}]{ }\end{DoxyParamCaption})}
+
+
+
+Signal a condition variable. 
+
+This call wakes up exactly one thread sleeping on this condition variable (if any). Note that the woken thread does not preempt the calling thread; i.\+e., this is a Mesa-\/style implementation. \begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_ga970dca2210b3f2ec8aedab7f542a9bf4}{Cond\+\_\+\+Wait} 
+
+\hyperlink{group__syscalls_ga8196aa2a48cad90742f254cc3b8fd351}{Cond\+\_\+\+Broadcast} 
+\end{DoxySeeAlso}
+
+
+Definition at line 187 of file kernel\+\_\+cc.\+c.
+
+\mbox{\Hypertarget{group__syscalls_ga4e955b769339be9ea6a0c1bd4151c48f}\label{group__syscalls_ga4e955b769339be9ea6a0c1bd4151c48f}} 
+\index{System calls.@{System calls.}!Cond\+\_\+\+Timed\+Wait@{Cond\+\_\+\+Timed\+Wait}}
+\index{Cond\+\_\+\+Timed\+Wait@{Cond\+\_\+\+Timed\+Wait}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Cond\+\_\+\+Timed\+Wait()}{Cond\_TimedWait()}}
+{\footnotesize\ttfamily int Cond\+\_\+\+Timed\+Wait (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} $\ast$}]{mx,  }\item[{\hyperlink{structCondVar}{Cond\+Var} $\ast$}]{cv,  }\item[{\hyperlink{group__syscalls_gaf412159e5cef839836a5e7b19ee75d1c}{timeout\+\_\+t}}]{timeout }\end{DoxyParamCaption})}
+
+
+
+Wait on a condition variable. 
+
+This must be called only while we have locked the mutex that is associated with this call. It will put the calling thread to sleep, unlocking the mutex. These operations happen atomically.
+
+When the thread is woken up later, it first re-\/locks the mutex and then returns. A thread may wake up if,
+\begin{DoxyItemize}
+\item another thread called {\ttfamily Cond\+\_\+\+Signal} or {\ttfamily Cond\+\_\+\+Broadcast} 
+\item the timeout expired
+\item other reasons, not specified
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em mx} & The mutex to be unlocked as the thread sleeps. \\
+\hline
+{\em cv} & The condition variable to sleep on. \\
+\hline
+{\em timeout} & The time in milliseconds to wait blocked on the condition. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if this thread was woken up by signal/broadcast, 0 otherwise 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_ga43f64f8be273d2fe77d7de5f4b81e22d}{Cond\+\_\+\+Signal} 
+
+\hyperlink{group__syscalls_ga8196aa2a48cad90742f254cc3b8fd351}{Cond\+\_\+\+Broadcast} 
+\end{DoxySeeAlso}
+
+
+Definition at line 180 of file kernel\+\_\+cc.\+c.
+
+\mbox{\Hypertarget{group__syscalls_ga970dca2210b3f2ec8aedab7f542a9bf4}\label{group__syscalls_ga970dca2210b3f2ec8aedab7f542a9bf4}} 
+\index{System calls.@{System calls.}!Cond\+\_\+\+Wait@{Cond\+\_\+\+Wait}}
+\index{Cond\+\_\+\+Wait@{Cond\+\_\+\+Wait}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Cond\+\_\+\+Wait()}{Cond\_Wait()}}
+{\footnotesize\ttfamily int Cond\+\_\+\+Wait (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} $\ast$}]{mx,  }\item[{\hyperlink{structCondVar}{Cond\+Var} $\ast$}]{cv }\end{DoxyParamCaption})}
+
+
+
+Wait on a condition variable. 
+
+This must be called only while we have locked the mutex that is associated with this call. It will put the calling thread to sleep, unlocking the mutex. These operations happen atomically.
+
+When the thread is woken up later, it first re-\/locks the mutex and then returns. A thread may wake up if,
+\begin{DoxyItemize}
+\item another thread called {\ttfamily Cond\+\_\+\+Signal} or {\ttfamily Cond\+\_\+\+Broadcast} 
+\item other reasons, not specified
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em mx} & The mutex to be unlocked as the thread sleeps. \\
+\hline
+{\em cv} & The condition variable to sleep on. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if this thread was woken up by signal/broadcast, 0 otherwise 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_ga43f64f8be273d2fe77d7de5f4b81e22d}{Cond\+\_\+\+Signal} 
+
+\hyperlink{group__syscalls_ga8196aa2a48cad90742f254cc3b8fd351}{Cond\+\_\+\+Broadcast} 
+\end{DoxySeeAlso}
+
+
+Definition at line 175 of file kernel\+\_\+cc.\+c.
+
+\mbox{\Hypertarget{group__syscalls_ga747ceadd43e9a4c72b08fffbadaefbdd}\label{group__syscalls_ga747ceadd43e9a4c72b08fffbadaefbdd}} 
+\index{System calls.@{System calls.}!Connect@{Connect}}
+\index{Connect@{Connect}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Connect()}{Connect()}}
+{\footnotesize\ttfamily int Connect (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t}}]{sock,  }\item[{\hyperlink{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}{port\+\_\+t}}]{port,  }\item[{\hyperlink{group__syscalls_gaf412159e5cef839836a5e7b19ee75d1c}{timeout\+\_\+t}}]{timeout }\end{DoxyParamCaption})}
+
+
+
+Create a connection to a listener at a specific port. 
+
+Given a socket {\ttfamily sock} and {\ttfamily port}, this call will attempt to establish a connection to a listening socket on that port. If sucessful, the {\ttfamily sock} stream is connected to the new stream created by the listener.
+
+The two connected sockets communicate by virtue of two pipes of opposite directions, but with one file descriptor servicing both pipes at each end.
+
+The connect call will block for approximately the specified amount of time. The resolution of this timeout is implementation specific, but should be in the order of 100\textquotesingle{}s of msec. Therefore, a timeout of at least 500 msec is reasonable. If a negative timeout is given, it means, \char`\"{}infinite timeout\char`\"{}.
+
+sock the socket to connect to the other end  port the port on which to seek a listening socket  timeout the approximate amount of time to wait for a connection. \begin{DoxyReturn}{Returns}
+0 on success and -\/1 on error. Possible reasons for error\+:
+\begin{DoxyItemize}
+\item the file id {\ttfamily sock} is not legal (i.\+e., an unconnected, non-\/listening socket)
+\item the given port is illegal.
+\item the port does not have a listening socket bound to it by {\ttfamily Listen}.
+\item the timeout has expired without a successful connection. 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_ga284070b5fddcc3653e146e63fcbfe6e3}\label{group__syscalls_ga284070b5fddcc3653e146e63fcbfe6e3}} 
+\index{System calls.@{System calls.}!Create\+Thread@{Create\+Thread}}
+\index{Create\+Thread@{Create\+Thread}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Create\+Thread()}{CreateThread()}}
+{\footnotesize\ttfamily \hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\+\_\+t} Create\+Thread (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}}]{task,  }\item[{int}]{argl,  }\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+
+
+
+Create a new thread in the current process. 
+
+The new thread is executed in the same process as the calling thread. If this thread returns from function task, the return value is used as an argument to {\ttfamily Thread\+Exit}.
+
+The new thread is created by executing function {\ttfamily task}, with the arguments of {\ttfamily argl} and {\ttfamily args} passed to it. Note that, unlike {\ttfamily Exec}, where argl and args must define a byte buffer, here there is no such requirement! The two arguments are passed to the new thread verbatim, and can be unrelated. It is the responsibility of the programmer to define their meaning.
+
+
+\begin{DoxyParams}{Parameters}
+{\em task} & a function to execute \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__syscalls_gacc048c60209e2dfb4b5cfc1c3f21aa88}\label{group__syscalls_gacc048c60209e2dfb4b5cfc1c3f21aa88}} 
+\index{System calls.@{System calls.}!Dup2@{Dup2}}
+\index{Dup2@{Dup2}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Dup2()}{Dup2()}}
+{\footnotesize\ttfamily int Dup2 (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t}}]{oldfd,  }\item[{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t}}]{newfd }\end{DoxyParamCaption})}
+
+
+
+Make a copy of a stream to a new file ID. 
+
+If {\ttfamily newfd} is already in use by another file, it is first closed (unless {\ttfamily oldfd==newfd}, in which case nothing happens).
+
+After the successful call, both oldfd and newfd refer to the same file object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em oldfd} & the file id to copy from \\
+\hline
+{\em newfd} & the new file id. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+This call returns 0 on success and -\/1 on failure. Possible reasons for failure\+:
+\begin{DoxyItemize}
+\item Either oldfd or newfd is invalid.
+\item oldfd is not an open file. 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_ga737ad30d8105b4b76e3eb102dd016404}\label{group__syscalls_ga737ad30d8105b4b76e3eb102dd016404}} 
+\index{System calls.@{System calls.}!Exec@{Exec}}
+\index{Exec@{Exec}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Exec()}{Exec()}}
+{\footnotesize\ttfamily \hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} Exec (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task}}]{task,  }\item[{int}]{argl,  }\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+
+
+
+Create a new process. 
+
+This call creates a new process by calling function {\ttfamily task}, passing it a byte array. The byte array is described by a pair of (int length,void$\ast$ position), and is a {\itshape copy} of the byte array defined by the (argl, args) pair of arguments to Exec.
+
+
+\begin{DoxyItemize}
+\item The new process inherits all file ids of the current process.
+\item The new process is a child of the current process.
+\item The new process is started with a thread executing {\ttfamily task}. When this thread returns, with an integer value, the process terminates, yielding this exit status.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em task} & the main function of the new process \\
+\hline
+{\em argl} & the length of byte array {\ttfamily args} \\
+\hline
+{\em args} & the byte array copied as argument to {\ttfamily task} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+On success, the pid of the new process is returned. On error, N\+O\+P\+R\+OC is returned. Possible errors\+:
+\begin{DoxyItemize}
+\item The maximum number of processes has been reached. 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_gabed0249344c12ecd4f8d440fc05a360a}\label{group__syscalls_gabed0249344c12ecd4f8d440fc05a360a}} 
+\index{System calls.@{System calls.}!Exit@{Exit}}
+\index{Exit@{Exit}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily void Exit (\begin{DoxyParamCaption}\item[{int}]{val }\end{DoxyParamCaption})}
+
+
+
+Exit the current process. 
+
+When this function is called by a process thread, the process terminates and sets its exit code to {\ttfamily val}.
+
+\begin{DoxyNote}{Note}
+Alternatively, the process may terminate by returning (with an integer return value) from its main function, in which case the return value of the main function becomes the exit status.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em val} & the exit status of the process \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_ga737ad30d8105b4b76e3eb102dd016404}{Exec} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__syscalls_ga5106ac1f078c5dde2d6fea3881c1a4fb}\label{group__syscalls_ga5106ac1f078c5dde2d6fea3881c1a4fb}} 
+\index{System calls.@{System calls.}!Get\+Pid@{Get\+Pid}}
+\index{Get\+Pid@{Get\+Pid}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Get\+Pid()}{GetPid()}}
+{\footnotesize\ttfamily \hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} Get\+Pid (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Return the P\+ID of the caller. 
+
+This function returns the pid of the current process \mbox{\Hypertarget{group__syscalls_ga33ccb3f7c80d85e610206c0e1150657b}\label{group__syscalls_ga33ccb3f7c80d85e610206c0e1150657b}} 
+\index{System calls.@{System calls.}!Get\+P\+Pid@{Get\+P\+Pid}}
+\index{Get\+P\+Pid@{Get\+P\+Pid}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Get\+P\+Pid()}{GetPPid()}}
+{\footnotesize\ttfamily \hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} Get\+P\+Pid (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Return the P\+ID of the caller\textquotesingle{}s parent. 
+
+This function returns the pid of the parent of the current process. \mbox{\Hypertarget{group__syscalls_ga31576e1579c15b6b066038702e6557c7}\label{group__syscalls_ga31576e1579c15b6b066038702e6557c7}} 
+\index{System calls.@{System calls.}!Get\+Terminal\+Devices@{Get\+Terminal\+Devices}}
+\index{Get\+Terminal\+Devices@{Get\+Terminal\+Devices}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Get\+Terminal\+Devices()}{GetTerminalDevices()}}
+{\footnotesize\ttfamily unsigned int Get\+Terminal\+Devices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Return the number of terminal devices available. 
+
+Terminals are numbered starting from 0. \mbox{\Hypertarget{group__syscalls_ga9ff5bae3e7b9e5bbf5a788a5ff739bf7}\label{group__syscalls_ga9ff5bae3e7b9e5bbf5a788a5ff739bf7}} 
+\index{System calls.@{System calls.}!Listen@{Listen}}
+\index{Listen@{Listen}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Listen()}{Listen()}}
+{\footnotesize\ttfamily int Listen (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t}}]{sock }\end{DoxyParamCaption})}
+
+
+
+Initialize a socket as a listening socket. 
+
+A listening socket is one which can be passed as an argument to {\ttfamily Accept}. Once a socket becomes a listening socket, it is not possible to call any other functions on it except {\ttfamily Accept},  and {\ttfamily \hyperlink{group__syscalls_gacc048c60209e2dfb4b5cfc1c3f21aa88}{Dup2()}}.
+
+The socket must be bound to a port, as a result of calling {\ttfamily Socket}. On each port there must be a unique listening socket (although any number of non-\/listening sockets are allowed).
+
+
+\begin{DoxyParams}{Parameters}
+{\em sock} & the socket to initialize as a listening socket \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on error. Possible reasons for error\+:
+\begin{DoxyItemize}
+\item the file id is not legal
+\item the socket is not bound to a port
+\item the port bound to the socket is occupied by another listener
+\item the socket has already been initialized 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_gadf167321edde68e905173d8056d3eb2f}{Socket} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__syscalls_ga1140be44df71d39edaf6a7262fb763ca}\label{group__syscalls_ga1140be44df71d39edaf6a7262fb763ca}} 
+\index{System calls.@{System calls.}!Mutex\+\_\+\+Lock@{Mutex\+\_\+\+Lock}}
+\index{Mutex\+\_\+\+Lock@{Mutex\+\_\+\+Lock}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Mutex\+\_\+\+Lock()}{Mutex\_Lock()}}
+{\footnotesize\ttfamily void Mutex\+\_\+\+Lock (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} $\ast$}]{ }\end{DoxyParamCaption})}
+
+
+
+Lock a mutex. 
+
+Lock a mutex, by waiting if necessary, as long as it takes. In user-\/space and in kernel-\/space (preemptive domain), the locking will yield after spinning for a few hundred times. In scheduler space (non-\/preemptive domain), the mutex lock operation is pure spinlock.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} 
+
+\hyperlink{group__syscalls_ga0b98d0315d0931d0c28104c36dd559c9}{Mutex\+\_\+\+Unlock} 
+
+\hyperlink{kernel__cc_8h_a6121802a0b64aae83288f60bf8a76834}{set\+\_\+core\+\_\+preemption} 
+\end{DoxySeeAlso}
+
+
+Definition at line 35 of file kernel\+\_\+cc.\+c.
+
+\mbox{\Hypertarget{group__syscalls_ga0b98d0315d0931d0c28104c36dd559c9}\label{group__syscalls_ga0b98d0315d0931d0c28104c36dd559c9}} 
+\index{System calls.@{System calls.}!Mutex\+\_\+\+Unlock@{Mutex\+\_\+\+Unlock}}
+\index{Mutex\+\_\+\+Unlock@{Mutex\+\_\+\+Unlock}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Mutex\+\_\+\+Unlock()}{Mutex\_Unlock()}}
+{\footnotesize\ttfamily void Mutex\+\_\+\+Unlock (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} $\ast$}]{ }\end{DoxyParamCaption})}
+
+
+
+Unlock a mutex that you locked. 
+
+This operation is non-\/blocking. \begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} 
+
+\hyperlink{group__syscalls_ga1140be44df71d39edaf6a7262fb763ca}{Mutex\+\_\+\+Lock} 
+\end{DoxySeeAlso}
+
+
+Definition at line 56 of file kernel\+\_\+cc.\+c.
+
+\mbox{\Hypertarget{group__syscalls_gaf326b11574cdc84a9e21b9d860076821}\label{group__syscalls_gaf326b11574cdc84a9e21b9d860076821}} 
+\index{System calls.@{System calls.}!Open\+Info@{Open\+Info}}
+\index{Open\+Info@{Open\+Info}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Open\+Info()}{OpenInfo()}}
+{\footnotesize\ttfamily \hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} Open\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Open a kernel information stream. 
+
+This is a read-\/only stream that returns a sequence of {\ttfamily procinfo} structures, each packed into a block of size {\ttfamily sizeof(procinfo)}.
+
+Each procinfo structure contains information pertaining to some used P\+CB (active or zombie) during the time of the stream.
+
+There is no guarantee of the timeliness of the information. A best-\/effort approach to return relevant system information is made.
+
+\begin{DoxyReturn}{Returns}
+a file id on success, or N\+O\+F\+I\+LE on error. Possible reasons for error are\+:
+\begin{DoxyItemize}
+\item the available file ids for the process are exhausted. 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_ga39805b4ae668b715fb43f0f1e6ce8c45}\label{group__syscalls_ga39805b4ae668b715fb43f0f1e6ce8c45}} 
+\index{System calls.@{System calls.}!Open\+Null@{Open\+Null}}
+\index{Open\+Null@{Open\+Null}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Open\+Null()}{OpenNull()}}
+{\footnotesize\ttfamily \hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} Open\+Null (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Open a stream on the null device. 
+
+The null device is a virtual device representing an \char`\"{}infinite\char`\"{} sequence of 0 bytes. Every read on this device returns the requested number of 0s. Also, every write to this device has no effecf.
+
+\begin{DoxyReturn}{Returns}
+On success, Open\+Null returns the file id for a new file for this terminal. On error, it returns N\+O\+F\+I\+LE. Possible errors are\+:
+\begin{DoxyItemize}
+\item The maximum number of file descriptors has been reached. 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_ga6ea2b586a8dfcfc1e7065e1664a0fb35}\label{group__syscalls_ga6ea2b586a8dfcfc1e7065e1664a0fb35}} 
+\index{System calls.@{System calls.}!Open\+Terminal@{Open\+Terminal}}
+\index{Open\+Terminal@{Open\+Terminal}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Open\+Terminal()}{OpenTerminal()}}
+{\footnotesize\ttfamily \hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} Open\+Terminal (\begin{DoxyParamCaption}\item[{unsigned int}]{termno }\end{DoxyParamCaption})}
+
+
+
+Open a stream on terminal device \textquotesingle{}termno\textquotesingle{}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em termno} & the terminal number to open \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the file ID of the new descriptor On success, Open\+Terminal returns the file id for a new file for this terminal. On error, it returns {\ttfamily N\+O\+F\+I\+LE}. Possible errors are\+:
+\begin{DoxyItemize}
+\item The terminal device does not exist.
+\item The maximum number of file descriptors has been reached. 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_gab6355ce54e047c31538ed5ed9108b5b3}\label{group__syscalls_gab6355ce54e047c31538ed5ed9108b5b3}} 
+\index{System calls.@{System calls.}!Pipe@{Pipe}}
+\index{Pipe@{Pipe}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Pipe()}{Pipe()}}
+{\footnotesize\ttfamily int Pipe (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_gad56b5ceaaf7d3ab88b4be7f622314dfb}{pipe\+\_\+t} $\ast$}]{pipe }\end{DoxyParamCaption})}
+
+
+
+Construct and return a pipe. 
+
+A pipe is a one-\/directional buffer accessed via two file ids, one for each end of the buffer. The size of the buffer is implementation-\/specific, but can be assumed to be between 4 and 16 kbytes.
+
+Once a pipe is constructed, it remains operational as long as both ends are open. If the read end is closed, the write end becomes unusable\+: calls on {\ttfamily Write} to it return error. On the other hand, if the write end is closed, the read end continues to operate until the buffer is empty, at which point calls to {\ttfamily Read} return 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pipe} & a pointer to a pipe\+\_\+t structure for storing the file ids. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, or -\/1 on error. Possible reasons for error\+:
+\begin{DoxyItemize}
+\item the available file ids for the process are exhausted. 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_ga3e9dc545a789eb45b2d356eabbac3ee3}\label{group__syscalls_ga3e9dc545a789eb45b2d356eabbac3ee3}} 
+\index{System calls.@{System calls.}!Read@{Read}}
+\index{Read@{Read}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Read()}{Read()}}
+{\footnotesize\ttfamily int Read (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t}}]{fd,  }\item[{char $\ast$}]{buf,  }\item[{unsigned int}]{size }\end{DoxyParamCaption})}
+
+
+
+Read bytes from a stream. 
+
+The {\ttfamily buf} and {\ttfamily size} arguments are, respectively, a buffer into which input data can be placed and the size of that buffer.
+
+As its function result, the {\ttfamily Read} function should return the number of bytes copied into {\ttfamily buf}, or {\ttfamily -\/1} on error. The call may return fewer bytes than {\ttfamily size}, but at least 1. A value of 0 indicates \char`\"{}end of file\char`\"{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fd} & the file ID of the stream to read from \\
+\hline
+{\em buf} & pointer to a byte buffer to receive the read data \\
+\hline
+{\em size} & maximum size of {\ttfamily buf} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of bytes copied, 0 if we have reached E\+OF, or -\/1, indicating some error. Possible errors are\+:
+\begin{DoxyItemize}
+\item The file descriptor is invalid.
+\item There was a I/O runtime problem. 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_ga61d49d63d8c0f9fc0917cc1bda6fdfcb}\label{group__syscalls_ga61d49d63d8c0f9fc0917cc1bda6fdfcb}} 
+\index{System calls.@{System calls.}!Shut\+Down@{Shut\+Down}}
+\index{Shut\+Down@{Shut\+Down}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Shut\+Down()}{ShutDown()}}
+{\footnotesize\ttfamily int Shut\+Down (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t}}]{sock,  }\item[{\hyperlink{group__syscalls_ga9eb10a0a72ca3149140272e9344a272b}{shutdown\+\_\+mode}}]{how }\end{DoxyParamCaption})}
+
+
+
+Shut down one direction of socket communication. 
+
+With a socket which is connected to another socket, this call will shut down one or the other direction of communication. The shut down of a direction has implications similar to those of a pipe\textquotesingle{}s end shutdown. More specifically, assume that this end is socket A, connected to socket B at the other end. Then,
+
+
+\begin{DoxyItemize}
+\item if {\ttfamily Shut\+Down(\+A, S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+R\+E\+A\+D)} is called, any attempt to call {\ttfamily Write(B,...)} will fail with a code of -\/1.
+\item if Shut\+Down(\+A, S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+W\+R\+I\+T\+E){\ttfamily is called, any attempt to call}Read(B,...)` will first exhaust the buffered data and then will return 0.
+\item if Shut\+Down(\+A, S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+B\+O\+T\+H)` is called, it is equivalent to shutting down both read and write.
+\end{DoxyItemize}
+
+After shutdown of socket A, the corresponding operation {\ttfamily Read(A,...)} or {\ttfamily Write(A,...)} will return -\/1.
+
+Shutting down multiple times is not an error.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sock} & the file ID of the socket to shut down. \\
+\hline
+{\em how} & the type of shutdown requested \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success and -\/1 on error. Possible reasons for error\+:
+\begin{DoxyItemize}
+\item the file id {\ttfamily sock} is not legal (a connected socket stream). 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_gadf167321edde68e905173d8056d3eb2f}\label{group__syscalls_gadf167321edde68e905173d8056d3eb2f}} 
+\index{System calls.@{System calls.}!Socket@{Socket}}
+\index{Socket@{Socket}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Socket()}{Socket()}}
+{\footnotesize\ttfamily \hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} Socket (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_ga13894e5a2ffd5febb7aeb90e87239d61}{port\+\_\+t}}]{port }\end{DoxyParamCaption})}
+
+
+
+Return a new socket bound on a port. 
+
+This function returns a file descriptor for a new socket object. If the {\ttfamily port} argument is N\+O\+P\+O\+RT, then the socket will not be bound to a port. Else, the socket will be bound to the specified port.
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & the port the new socket will be bound to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a file id for the new socket, or N\+O\+F\+I\+LE on error. Possible reasons for error\+:
+\begin{DoxyItemize}
+\item the port is iilegal
+\item the available file ids for the process are exhausted 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_ga5f957d985678728a418ff70a617fab4d}\label{group__syscalls_ga5f957d985678728a418ff70a617fab4d}} 
+\index{System calls.@{System calls.}!Thread\+Detach@{Thread\+Detach}}
+\index{Thread\+Detach@{Thread\+Detach}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Thread\+Detach()}{ThreadDetach()}}
+{\footnotesize\ttfamily int Thread\+Detach (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\+\_\+t}}]{tid }\end{DoxyParamCaption})}
+
+
+
+Detach the given thread. 
+
+This function makes the thread tid a detached thread. A detached thread is not joinable (Thread\+Join returns an error).
+
+Once a thread has exited, it cannot be detached. A thread can detach itself.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tid} & the tid of the thread to detach \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, and -\/1 on error. Possibe errors are\+:
+\begin{DoxyItemize}
+\item there is no thread with the given tid in this process.
+\item the tid corresponds to an exited thread. 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_ga9ffbb344eb33487ceef5442846a74be0}\label{group__syscalls_ga9ffbb344eb33487ceef5442846a74be0}} 
+\index{System calls.@{System calls.}!Thread\+Join@{Thread\+Join}}
+\index{Thread\+Join@{Thread\+Join}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Thread\+Join()}{ThreadJoin()}}
+{\footnotesize\ttfamily int Thread\+Join (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_gaf67ad1c55e6b2a79bf8a99106380ce01}{Tid\+\_\+t}}]{tid,  }\item[{int $\ast$}]{exitval }\end{DoxyParamCaption})}
+
+
+
+Join the given thread. 
+
+This function will wait for the thread with the given tid to exit, and return its exit status in {\ttfamily $\ast$exitval}. The tid must refer to a legal thread owned by the same process that owns the caller. Also, the thread must be undetached, or an error is returned.
+
+After a call to join succeeds, subsequent calls will fail (unless tid was re-\/cycled to a new thread).
+
+It is possible that multiple threads try to join the same thread. If these threads block, then all must return the exit status correctly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tid} & the thread to join \\
+\hline
+{\em exitval} & a location where to store the exit value of the joined thread. If N\+U\+LL, the exit status is not returned. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success and -\/1 on error. Possible errors are\+:
+\begin{DoxyItemize}
+\item there is no thread with the given tid in this process.
+\item the tid corresponds to the current thread.
+\item the tid corresponds to a detached thread. 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_ga37017afba05480740d26b033975fef03}\label{group__syscalls_ga37017afba05480740d26b033975fef03}} 
+\index{System calls.@{System calls.}!Wait\+Child@{Wait\+Child}}
+\index{Wait\+Child@{Wait\+Child}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Wait\+Child()}{WaitChild()}}
+{\footnotesize\ttfamily \hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} Wait\+Child (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t}}]{pid,  }\item[{int $\ast$}]{exitval }\end{DoxyParamCaption})}
+
+
+
+Wait on a terminating child. 
+
+This function will return the exit status of a terminated child process, waiting if necessary for a child process to end. When parameter {\ttfamily pid} holds the value of a specific child process of this process, {\ttfamily Wait\+Child} will wait for this specific process to finish. If parameter {\ttfamily pid} is equal to {\ttfamily N\+O\+P\+R\+OC}, then {\ttfamily Wait\+Child} will wait for any$\ast$ child process to exit.
+
+If parameter {\ttfamily exitval} is a not null, the exit code of the child process will be stored in the variable pointed to by status.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pid} & the process ID of the child to wait on, or {\ttfamily N\+O\+P\+R\+OC} to designate waiting for any child. \\
+\hline
+{\em exitval} & a location whithin which the exit status of the terminates \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+On success, {\ttfamily Wait\+Child} returns the pid of an exited child. On error, Wait\+Child returns {\ttfamily N\+O\+P\+R\+OC}. Possible errors are\+:
+\begin{DoxyItemize}
+\item the specified pid is not a valid pid.
+\item the specified process is not a child of this process.
+\item the process has no child processes to wait on (when pid=N\+O\+P\+R\+OC). 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__syscalls_gaf046f003fde24f79fb395c250137856c}\label{group__syscalls_gaf046f003fde24f79fb395c250137856c}} 
+\index{System calls.@{System calls.}!Write@{Write}}
+\index{Write@{Write}!System calls.@{System calls.}}
+\subsubsection{\texorpdfstring{Write()}{Write()}}
+{\footnotesize\ttfamily int Write (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t}}]{fd,  }\item[{const char $\ast$}]{buf,  }\item[{unsigned int}]{size }\end{DoxyParamCaption})}
+
+
+
+Write bytes to a stream. 
+
+The {\ttfamily buf} and {\ttfamily size} arguments are, respectively, a buffer into which input data can be placed and the size of that buffer.
+
+As its function result, the {\ttfamily Read} function should return the number of bytes copied into {\ttfamily buf}, or {\ttfamily -\/1} on error. The call may return fewer bytes than {\ttfamily size}, but at least 1.
+
+For terminals, the number of bytes copied should be equal to size.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fd} & the file ID of the stream to read from \\
+\hline
+{\em buf} & pointer to a byte buffer to receive the read data \\
+\hline
+{\em size} & maximum size of {\ttfamily buf} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+As its function result, the {\ttfamily Write} function should return the number of bytes copied from {\ttfamily buf}, or -\/1 on error. Possible errors are\+:
+\begin{DoxyItemize}
+\item The file id is invalid.
+\item There was a I/O runtime problem. 
+\end{DoxyItemize}
+\end{DoxyReturn}

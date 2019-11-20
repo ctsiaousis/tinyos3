@@ -1,0 +1,113 @@
+\hypertarget{structprocinfo}{}\section{procinfo Struct Reference}
+\label{structprocinfo}\index{procinfo@{procinfo}}
+
+
+A struct containing process-\/related information for a non-\/free pid.  
+
+
+
+
+{\ttfamily \#include $<$tinyos.\+h$>$}
+
+
+
+Collaboration diagram for procinfo\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=162pt]{structprocinfo__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structprocinfo_a2e87cd5f0bdfe214832ec20f53deeb50}\label{structprocinfo_a2e87cd5f0bdfe214832ec20f53deeb50}} 
+\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} \hyperlink{structprocinfo_a2e87cd5f0bdfe214832ec20f53deeb50}{pid}
+\begin{DoxyCompactList}\small\item\em The pid of the process. \end{DoxyCompactList}\item 
+\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} \hyperlink{structprocinfo_a790970c70987013b2712b7dd6d2b75b9}{ppid}
+\begin{DoxyCompactList}\small\item\em The parent pid of the process. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structprocinfo_a999dc5dbfee9902a9ea458944499efd3}\label{structprocinfo_a999dc5dbfee9902a9ea458944499efd3}} 
+int \hyperlink{structprocinfo_a999dc5dbfee9902a9ea458944499efd3}{alive}
+\begin{DoxyCompactList}\small\item\em Non-\/zero if process is alive, zero if process is zombie. \end{DoxyCompactList}\item 
+unsigned long \hyperlink{structprocinfo_ae1ed3afa8904729a1daf1b51780cf2cf}{thread\+\_\+count}
+\item 
+\mbox{\Hypertarget{structprocinfo_a4da339065f8780b37ab788f18ef9ed20}\label{structprocinfo_a4da339065f8780b37ab788f18ef9ed20}} 
+\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task} \hyperlink{structprocinfo_a4da339065f8780b37ab788f18ef9ed20}{main\+\_\+task}
+\begin{DoxyCompactList}\small\item\em The main task of the process. \end{DoxyCompactList}\item 
+int \hyperlink{structprocinfo_ac63081c5a10bc230c115eea36c5f22fd}{argl}
+\begin{DoxyCompactList}\small\item\em Argument length of main task. \end{DoxyCompactList}\item 
+char \hyperlink{structprocinfo_ac812ea3215fafc8ced9f91320b2d3959}{args} \mbox{[}\hyperlink{group__syscalls_ga657ad9e9d81dcca25fb225cf99051e0d}{P\+R\+O\+C\+I\+N\+F\+O\+\_\+\+M\+A\+X\+\_\+\+A\+R\+G\+S\+\_\+\+S\+I\+ZE}\mbox{]}
+\begin{DoxyCompactList}\small\item\em The first {\ttfamily P\+R\+O\+C\+I\+N\+F\+O\+\_\+\+M\+A\+X\+\_\+\+A\+R\+G\+S\+\_\+\+S\+I\+ZE} bytes of the argument of the main task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A struct containing process-\/related information for a non-\/free pid. 
+
+This structure is returned by information streams. \begin{DoxySeeAlso}{See also}
+\hyperlink{group__syscalls_gaf326b11574cdc84a9e21b9d860076821}{Open\+Info} 
+\end{DoxySeeAlso}
+
+
+Definition at line 716 of file tinyos.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structprocinfo_ac63081c5a10bc230c115eea36c5f22fd}\label{structprocinfo_ac63081c5a10bc230c115eea36c5f22fd}} 
+\index{procinfo@{procinfo}!argl@{argl}}
+\index{argl@{argl}!procinfo@{procinfo}}
+\subsubsection{\texorpdfstring{argl}{argl}}
+{\footnotesize\ttfamily int procinfo\+::argl}
+
+
+
+Argument length of main task. 
+
+Note that this is the real argument length, not just the length of the {\ttfamily args} field, which is limited at {\ttfamily P\+R\+O\+C\+I\+N\+F\+O\+\_\+\+M\+A\+X\+\_\+\+A\+R\+G\+S\+\_\+\+S\+I\+ZE}. 
+
+Definition at line 729 of file tinyos.\+h.
+
+\mbox{\Hypertarget{structprocinfo_ac812ea3215fafc8ced9f91320b2d3959}\label{structprocinfo_ac812ea3215fafc8ced9f91320b2d3959}} 
+\index{procinfo@{procinfo}!args@{args}}
+\index{args@{args}!procinfo@{procinfo}}
+\subsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily char procinfo\+::args\mbox{[}\hyperlink{group__syscalls_ga657ad9e9d81dcca25fb225cf99051e0d}{P\+R\+O\+C\+I\+N\+F\+O\+\_\+\+M\+A\+X\+\_\+\+A\+R\+G\+S\+\_\+\+S\+I\+ZE}\mbox{]}}
+
+
+
+The first {\ttfamily P\+R\+O\+C\+I\+N\+F\+O\+\_\+\+M\+A\+X\+\_\+\+A\+R\+G\+S\+\_\+\+S\+I\+ZE} bytes of the argument of the main task. 
+
+If the task\textquotesingle{}s argument is longer (as designated by the {\ttfamily argl} field), the bytes contained in this field are just the prefix. 
+
+Definition at line 734 of file tinyos.\+h.
+
+\mbox{\Hypertarget{structprocinfo_a790970c70987013b2712b7dd6d2b75b9}\label{structprocinfo_a790970c70987013b2712b7dd6d2b75b9}} 
+\index{procinfo@{procinfo}!ppid@{ppid}}
+\index{ppid@{ppid}!procinfo@{procinfo}}
+\subsubsection{\texorpdfstring{ppid}{ppid}}
+{\footnotesize\ttfamily \hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} procinfo\+::ppid}
+
+
+
+The parent pid of the process. 
+
+This is equal to N\+O\+P\+R\+OC for parentless procs. 
+
+Definition at line 719 of file tinyos.\+h.
+
+\mbox{\Hypertarget{structprocinfo_ae1ed3afa8904729a1daf1b51780cf2cf}\label{structprocinfo_ae1ed3afa8904729a1daf1b51780cf2cf}} 
+\index{procinfo@{procinfo}!thread\+\_\+count@{thread\+\_\+count}}
+\index{thread\+\_\+count@{thread\+\_\+count}!procinfo@{procinfo}}
+\subsubsection{\texorpdfstring{thread\+\_\+count}{thread\_count}}
+{\footnotesize\ttfamily unsigned long procinfo\+::thread\+\_\+count}
+
+Current no of threads. 
+
+Definition at line 725 of file tinyos.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tinyos_8h}{tinyos.\+h}\end{DoxyCompactItemize}

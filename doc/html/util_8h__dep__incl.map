@@ -1,0 +1,19 @@
+<map id="util.h" name="util.h">
+<area shape="rect" id="node2" href="$kernel__dev_8h.html" title="Device management. " alt="" coords="141,80,237,107"/>
+<area shape="rect" id="node8" href="$kernel__streams_8c_source.html" title="kernel_streams.c" alt="" coords="345,229,467,256"/>
+<area shape="rect" id="node10" href="$kernel__sched_8h.html" title="TinyOS kernel: The Scheduler API. " alt="" coords="452,80,563,107"/>
+<area shape="rect" id="node16" href="$tinyos__shell_8c_source.html" title="tinyos_shell.c" alt="" coords="587,80,689,107"/>
+<area shape="rect" id="node17" href="$tinyoslib_8c_source.html" title="tinyoslib.c" alt="" coords="713,80,795,107"/>
+<area shape="rect" id="node18" href="$util_8c_source.html" title="util.c" alt="" coords="819,80,870,107"/>
+<area shape="rect" id="node3" href="$kernel__streams_8h.html" title="Support for I/O streams. " alt="" coords="202,155,325,181"/>
+<area shape="rect" id="node5" href="$kernel__dev_8c_source.html" title="kernel_dev.c" alt="" coords="225,229,321,256"/>
+<area shape="rect" id="node6" href="$kernel__init_8c_source.html" title="kernel_init.c" alt="" coords="5,229,97,256"/>
+<area shape="rect" id="node4" href="$console_8c_source.html" title="console.c" alt="" coords="121,229,200,256"/>
+<area shape="rect" id="node7" href="$kernel__proc_8c_source.html" title="kernel_proc.c" alt="" coords="492,229,592,256"/>
+<area shape="rect" id="node9" href="$kernel__threads_8c_source.html" title="kernel_threads.c" alt="" coords="616,229,735,256"/>
+<area shape="rect" id="node11" href="$kernel__cc_8c.html" title="The implementation for concurrency control . " alt="" coords="759,229,848,256"/>
+<area shape="rect" id="node12" href="$kernel__proc_8h.html" title="The process table and process management. " alt="" coords="501,155,601,181"/>
+<area shape="rect" id="node13" href="$kernel__sched_8c_source.html" title="kernel_sched.c" alt="" coords="993,229,1104,256"/>
+<area shape="rect" id="node14" href="$kernel__cc_8h.html" title="Concurrency and preemption control API. " alt="" coords="625,155,715,181"/>
+<area shape="rect" id="node15" href="$kernel__sys_8c_source.html" title="kernel_sys.c" alt="" coords="873,229,969,256"/>
+</map>

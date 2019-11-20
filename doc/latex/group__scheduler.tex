@@ -1,0 +1,459 @@
+\hypertarget{group__scheduler}{}\section{Scheduler}
+\label{group__scheduler}\index{Scheduler@{Scheduler}}
+
+
+The Scheduler A\+PI.  
+
+
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structprocess__thread__control__block}{process\+\_\+thread\+\_\+control\+\_\+block}
+\item 
+struct \hyperlink{structthread__control__block}{thread\+\_\+control\+\_\+block}
+\begin{DoxyCompactList}\small\item\em The thread control block. \end{DoxyCompactList}\item 
+struct \hyperlink{structcore__control__block}{core\+\_\+control\+\_\+block}
+\begin{DoxyCompactList}\small\item\em Core control block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__scheduler_ga90b7a8cb7bc3fdbd98014a3e15ee6e9a}{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}~(128 $\ast$ 1024)
+\begin{DoxyCompactList}\small\item\em Thread stack size. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__scheduler_ga869aabe01f7b28027376354dd895b96b}\label{group__scheduler_ga869aabe01f7b28027376354dd895b96b}} 
+\#define \hyperlink{group__scheduler_ga869aabe01f7b28027376354dd895b96b}{C\+U\+R\+C\+O\+RE}~(\hyperlink{group__scheduler_ga3be3b151b275926dff3fb99bee765eab}{cctx}\mbox{[}\hyperlink{bios_8h_abac58ced7d51f54f2318b326bc991933}{cpu\+\_\+core\+\_\+id}\mbox{]})
+\begin{DoxyCompactList}\small\item\em The current core\textquotesingle{}s C\+CB. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__scheduler_ga587a82c8931f0df72f43cc913ceb7e27}{C\+U\+R\+T\+H\+R\+E\+AD}~(C\+U\+R\+C\+O\+R\+E.\+current\+\_\+thread)
+\begin{DoxyCompactList}\small\item\em The current thread. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}{C\+U\+R\+P\+R\+OC}~(\hyperlink{group__scheduler_ga587a82c8931f0df72f43cc913ceb7e27}{C\+U\+R\+T\+H\+R\+E\+AD}-\/$>$owner\+\_\+pcb)
+\begin{DoxyCompactList}\small\item\em The current thread. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__scheduler_ga462fb2ba6f2af99ec3d021ded436bb65}\label{group__scheduler_ga462fb2ba6f2af99ec3d021ded436bb65}} 
+\#define \hyperlink{group__scheduler_ga462fb2ba6f2af99ec3d021ded436bb65}{N\+O\+\_\+\+T\+I\+M\+E\+O\+UT}~((\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{Timer\+Duration})-\/1)
+\begin{DoxyCompactList}\small\item\em A timeout constant, denoting no timeout for sleep. \end{DoxyCompactList}\item 
+\#define \hyperlink{group__scheduler_gabc4f0f9abea1b5443308e4ea84b52b21}{Q\+U\+A\+N\+T\+UM}~(10000\+L)
+\begin{DoxyCompactList}\small\item\em Quantum (in microseconds) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{group__scheduler_gac8550626ee6df81e5ee46c9693b8cfce}\label{group__scheduler_gac8550626ee6df81e5ee46c9693b8cfce}} 
+typedef struct \hyperlink{structprocess__thread__control__block}{process\+\_\+thread\+\_\+control\+\_\+block} {\bfseries P\+T\+CB}
+\item 
+typedef struct \hyperlink{structthread__control__block}{thread\+\_\+control\+\_\+block} \hyperlink{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}{T\+CB}
+\begin{DoxyCompactList}\small\item\em The thread control block. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structcore__control__block}{core\+\_\+control\+\_\+block} \hyperlink{group__scheduler_ga7485b31e0dd9fd723bc2d75fba5206a0}{C\+CB}
+\begin{DoxyCompactList}\small\item\em Core control block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{group__scheduler_ga6c969c169777f82c104cf73e501df70f}{Thread\+\_\+state} \{ \newline
+\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fa0cb1b2c6a7db1f1084886c98909a3f36}{I\+N\+IT}, 
+\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fa6564f2f3e15be06b670547bbcaaf0798}{R\+E\+A\+DY}, 
+\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fa1061be6c3fb88d32829cba6f6b2be304}{R\+U\+N\+N\+I\+NG}, 
+\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fa948b2aee15f52b421fa4770c47bcfe8c}{S\+T\+O\+P\+P\+ED}, 
+\newline
+\hyperlink{group__scheduler_gga6c969c169777f82c104cf73e501df70fab9f9543350f6bd6191e52158daa88884}{E\+X\+I\+T\+ED}
+ \}\begin{DoxyCompactList}\small\item\em Thread state. \end{DoxyCompactList}
+\item 
+enum \hyperlink{group__scheduler_gab180b4aa356776bddcd724cef4f5deae}{Thread\+\_\+phase} \{ \hyperlink{group__scheduler_ggab180b4aa356776bddcd724cef4f5deaeaa826daca588e692c88114586b0de472b}{C\+T\+X\+\_\+\+C\+L\+E\+AN}, 
+\hyperlink{group__scheduler_ggab180b4aa356776bddcd724cef4f5deaea2b4b41fda67c1a83e6523675515c007b}{C\+T\+X\+\_\+\+D\+I\+R\+TY}
+ \}\begin{DoxyCompactList}\small\item\em Thread phase. \end{DoxyCompactList}
+\item 
+enum \hyperlink{group__scheduler_ga18795bc1ab00161fc27ce34b1895fb03}{Thread\+\_\+type} \{ \hyperlink{group__scheduler_gga18795bc1ab00161fc27ce34b1895fb03abc11b4e4eba50c875d7ed6bc34090dd3}{I\+D\+L\+E\+\_\+\+T\+H\+R\+E\+AD}, 
+\hyperlink{group__scheduler_gga18795bc1ab00161fc27ce34b1895fb03a1d3bb8be1deb6ac7be94fea88e1ed76b}{N\+O\+R\+M\+A\+L\+\_\+\+T\+H\+R\+E\+AD}
+ \}\begin{DoxyCompactList}\small\item\em Thread type. \end{DoxyCompactList}
+\item 
+enum \hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE} \{ \newline
+\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea99764e3e8f3195b33e888c816c9a0207}{S\+C\+H\+E\+D\+\_\+\+Q\+U\+A\+N\+T\+UM}, 
+\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbeaa19b25dfae8d75a5900bb23a1f6c64d8}{S\+C\+H\+E\+D\+\_\+\+IO}, 
+\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea7d3764881e09d1f0dbf2d8ef09640a37}{S\+C\+H\+E\+D\+\_\+\+M\+U\+T\+EX}, 
+\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea5f78cf7f43e406215d39f936fa99fd5a}{S\+C\+H\+E\+D\+\_\+\+P\+I\+PE}, 
+\newline
+\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea1b7d43bbe4e4eb4089beb28b2c8f7e50}{S\+C\+H\+E\+D\+\_\+\+P\+O\+LL}, 
+\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea525b9af8477ce2505c0d559940d827e5}{S\+C\+H\+E\+D\+\_\+\+I\+D\+LE}, 
+\hyperlink{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea9ead280a8852a73f1ba3368d66338275}{S\+C\+H\+E\+D\+\_\+\+U\+S\+ER}
+ \}\begin{DoxyCompactList}\small\item\em Designate different origins of scheduler invocation. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}{T\+CB} $\ast$ \hyperlink{group__scheduler_ga34517ad777ad754965f80fe0248c16e5}{spawn\+\_\+thread} (\hyperlink{group__proc_gadf327f09ee935cf1734c14e8849f0421}{P\+CB} $\ast$pcb, void($\ast$func)())
+\begin{DoxyCompactList}\small\item\em Create a new thread. \end{DoxyCompactList}\item 
+int \hyperlink{group__scheduler_gae8301452fd9ae5bf7cd7f2676650ff06}{wakeup} (\hyperlink{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}{T\+CB} $\ast$tcb)
+\begin{DoxyCompactList}\small\item\em Wakeup a blocked thread. \end{DoxyCompactList}\item 
+void \hyperlink{group__scheduler_ga0ab1a2dcfbfe3fb09cc24044efddfd34}{sleep\+\_\+releasing} (\hyperlink{group__scheduler_ga6c969c169777f82c104cf73e501df70f}{Thread\+\_\+state} newstate, \hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} $\ast$mx, enum \hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE} cause, \hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{Timer\+Duration} timeout)
+\begin{DoxyCompactList}\small\item\em Block the current thread. \end{DoxyCompactList}\item 
+void \hyperlink{group__scheduler_ga1db327892199949812ae5a52119f2e97}{yield} (enum \hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE} cause)
+\begin{DoxyCompactList}\small\item\em Give up the C\+PU. \end{DoxyCompactList}\item 
+void \hyperlink{group__scheduler_ga147600b59d656eb9d9558673c2fad36d}{run\+\_\+scheduler} (void)
+\begin{DoxyCompactList}\small\item\em Enter the scheduler. \end{DoxyCompactList}\item 
+void \hyperlink{group__scheduler_ga244fb594301322e79d11a7844c759bba}{initialize\+\_\+scheduler} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the scheduler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{group__scheduler_ga3be3b151b275926dff3fb99bee765eab}\label{group__scheduler_ga3be3b151b275926dff3fb99bee765eab}} 
+\hyperlink{group__scheduler_ga7485b31e0dd9fd723bc2d75fba5206a0}{C\+CB} \hyperlink{group__scheduler_ga3be3b151b275926dff3fb99bee765eab}{cctx} \mbox{[}\hyperlink{bios_8h_a009855593b59738d24dbfc236edb3b14}{M\+A\+X\+\_\+\+C\+O\+R\+ES}\mbox{]}
+\begin{DoxyCompactList}\small\item\em the array of Core Control Blocks (C\+CB) for the kernel \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The Scheduler A\+PI. 
+
+This file contains the definition of the scheduler A\+PI, exported to other modules of the kernel. 
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}\label{group__scheduler_gae3437e8e6787ef05b6576d03c5b6a0ca}} 
+\index{Scheduler@{Scheduler}!C\+U\+R\+P\+R\+OC@{C\+U\+R\+P\+R\+OC}}
+\index{C\+U\+R\+P\+R\+OC@{C\+U\+R\+P\+R\+OC}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{C\+U\+R\+P\+R\+OC}{CURPROC}}
+{\footnotesize\ttfamily \#define C\+U\+R\+P\+R\+OC~(\hyperlink{group__scheduler_ga587a82c8931f0df72f43cc913ceb7e27}{C\+U\+R\+T\+H\+R\+E\+AD}-\/$>$owner\+\_\+pcb)}
+
+
+
+The current thread. 
+
+This is a pointer to the P\+CB of the owner process of the current thread, i.\+e., the thread currently executing on this core. 
+
+Definition at line 203 of file kernel\+\_\+sched.\+h.
+
+\mbox{\Hypertarget{group__scheduler_ga587a82c8931f0df72f43cc913ceb7e27}\label{group__scheduler_ga587a82c8931f0df72f43cc913ceb7e27}} 
+\index{Scheduler@{Scheduler}!C\+U\+R\+T\+H\+R\+E\+AD@{C\+U\+R\+T\+H\+R\+E\+AD}}
+\index{C\+U\+R\+T\+H\+R\+E\+AD@{C\+U\+R\+T\+H\+R\+E\+AD}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{C\+U\+R\+T\+H\+R\+E\+AD}{CURTHREAD}}
+{\footnotesize\ttfamily \#define C\+U\+R\+T\+H\+R\+E\+AD~(C\+U\+R\+C\+O\+R\+E.\+current\+\_\+thread)}
+
+
+
+The current thread. 
+
+This is a pointer to the T\+CB of the thread currently executing on this core. 
+
+Definition at line 195 of file kernel\+\_\+sched.\+h.
+
+\mbox{\Hypertarget{group__scheduler_gabc4f0f9abea1b5443308e4ea84b52b21}\label{group__scheduler_gabc4f0f9abea1b5443308e4ea84b52b21}} 
+\index{Scheduler@{Scheduler}!Q\+U\+A\+N\+T\+UM@{Q\+U\+A\+N\+T\+UM}}
+\index{Q\+U\+A\+N\+T\+UM@{Q\+U\+A\+N\+T\+UM}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{Q\+U\+A\+N\+T\+UM}{QUANTUM}}
+{\footnotesize\ttfamily \#define Q\+U\+A\+N\+T\+UM~(10000\+L)}
+
+
+
+Quantum (in microseconds) 
+
+This is the default quantum for each thread, in microseconds. 
+
+Definition at line 301 of file kernel\+\_\+sched.\+h.
+
+\mbox{\Hypertarget{group__scheduler_ga90b7a8cb7bc3fdbd98014a3e15ee6e9a}\label{group__scheduler_ga90b7a8cb7bc3fdbd98014a3e15ee6e9a}} 
+\index{Scheduler@{Scheduler}!T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE@{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE@{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}{THREAD\_STACK\_SIZE}}
+{\footnotesize\ttfamily \#define T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE~(128 $\ast$ 1024)}
+
+
+
+Thread stack size. 
+
+The default thread stack size in Tiny\+OS is 128 kbytes. 
+
+Definition at line 162 of file kernel\+\_\+sched.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{group__scheduler_ga7485b31e0dd9fd723bc2d75fba5206a0}\label{group__scheduler_ga7485b31e0dd9fd723bc2d75fba5206a0}} 
+\index{Scheduler@{Scheduler}!C\+CB@{C\+CB}}
+\index{C\+CB@{C\+CB}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{C\+CB}{CCB}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structcore__control__block}{core\+\_\+control\+\_\+block}  \hyperlink{group__scheduler_ga7485b31e0dd9fd723bc2d75fba5206a0}{C\+CB}}
+
+
+
+Core control block. 
+
+Per-\/core info in memory (basically scheduler-\/related). \mbox{\Hypertarget{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}\label{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}} 
+\index{Scheduler@{Scheduler}!T\+CB@{T\+CB}}
+\index{T\+CB@{T\+CB}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{T\+CB}{TCB}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structthread__control__block}{thread\+\_\+control\+\_\+block}  \hyperlink{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}{T\+CB}}
+
+
+
+The thread control block. 
+
+An object of this type is associated to every thread. In this object are stored all the metadata that relate to the thread. 
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}\label{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}} 
+\index{Scheduler@{Scheduler}!S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE@{S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE}}
+\index{S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE@{S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE}{SCHED\_CAUSE}}
+{\footnotesize\ttfamily enum \hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE}}
+
+
+
+Designate different origins of scheduler invocation. 
+
+This is used in the scheduler heuristics to determine how to adjust the dynamic priority of the current thread. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+C\+H\+E\+D\+\_\+\+Q\+U\+A\+N\+T\+UM@{S\+C\+H\+E\+D\+\_\+\+Q\+U\+A\+N\+T\+UM}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!S\+C\+H\+E\+D\+\_\+\+Q\+U\+A\+N\+T\+UM@{S\+C\+H\+E\+D\+\_\+\+Q\+U\+A\+N\+T\+UM}}}\mbox{\Hypertarget{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea99764e3e8f3195b33e888c816c9a0207}\label{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea99764e3e8f3195b33e888c816c9a0207}} 
+S\+C\+H\+E\+D\+\_\+\+Q\+U\+A\+N\+T\+UM&The quantum has expired. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+C\+H\+E\+D\+\_\+\+IO@{S\+C\+H\+E\+D\+\_\+\+IO}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!S\+C\+H\+E\+D\+\_\+\+IO@{S\+C\+H\+E\+D\+\_\+\+IO}}}\mbox{\Hypertarget{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbeaa19b25dfae8d75a5900bb23a1f6c64d8}\label{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbeaa19b25dfae8d75a5900bb23a1f6c64d8}} 
+S\+C\+H\+E\+D\+\_\+\+IO&The thread is waiting for I/O. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+C\+H\+E\+D\+\_\+\+M\+U\+T\+EX@{S\+C\+H\+E\+D\+\_\+\+M\+U\+T\+EX}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!S\+C\+H\+E\+D\+\_\+\+M\+U\+T\+EX@{S\+C\+H\+E\+D\+\_\+\+M\+U\+T\+EX}}}\mbox{\Hypertarget{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea7d3764881e09d1f0dbf2d8ef09640a37}\label{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea7d3764881e09d1f0dbf2d8ef09640a37}} 
+S\+C\+H\+E\+D\+\_\+\+M\+U\+T\+EX&{\ttfamily Mutex\+\_\+\+Lock} yielded on contention \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+C\+H\+E\+D\+\_\+\+P\+I\+PE@{S\+C\+H\+E\+D\+\_\+\+P\+I\+PE}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!S\+C\+H\+E\+D\+\_\+\+P\+I\+PE@{S\+C\+H\+E\+D\+\_\+\+P\+I\+PE}}}\mbox{\Hypertarget{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea5f78cf7f43e406215d39f936fa99fd5a}\label{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea5f78cf7f43e406215d39f936fa99fd5a}} 
+S\+C\+H\+E\+D\+\_\+\+P\+I\+PE&Sleep at a pipe or socket. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+C\+H\+E\+D\+\_\+\+P\+O\+LL@{S\+C\+H\+E\+D\+\_\+\+P\+O\+LL}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!S\+C\+H\+E\+D\+\_\+\+P\+O\+LL@{S\+C\+H\+E\+D\+\_\+\+P\+O\+LL}}}\mbox{\Hypertarget{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea1b7d43bbe4e4eb4089beb28b2c8f7e50}\label{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea1b7d43bbe4e4eb4089beb28b2c8f7e50}} 
+S\+C\+H\+E\+D\+\_\+\+P\+O\+LL&The thread is polling a device. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+C\+H\+E\+D\+\_\+\+I\+D\+LE@{S\+C\+H\+E\+D\+\_\+\+I\+D\+LE}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!S\+C\+H\+E\+D\+\_\+\+I\+D\+LE@{S\+C\+H\+E\+D\+\_\+\+I\+D\+LE}}}\mbox{\Hypertarget{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea525b9af8477ce2505c0d559940d827e5}\label{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea525b9af8477ce2505c0d559940d827e5}} 
+S\+C\+H\+E\+D\+\_\+\+I\+D\+LE&The idle thread called yield. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+C\+H\+E\+D\+\_\+\+U\+S\+ER@{S\+C\+H\+E\+D\+\_\+\+U\+S\+ER}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!S\+C\+H\+E\+D\+\_\+\+U\+S\+ER@{S\+C\+H\+E\+D\+\_\+\+U\+S\+ER}}}\mbox{\Hypertarget{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea9ead280a8852a73f1ba3368d66338275}\label{group__scheduler_ggaad787d8d80312ffca3c0f197b3a25fbea9ead280a8852a73f1ba3368d66338275}} 
+S\+C\+H\+E\+D\+\_\+\+U\+S\+ER&User-\/space code called yield. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 84 of file kernel\+\_\+sched.\+h.
+
+\mbox{\Hypertarget{group__scheduler_gab180b4aa356776bddcd724cef4f5deae}\label{group__scheduler_gab180b4aa356776bddcd724cef4f5deae}} 
+\index{Scheduler@{Scheduler}!Thread\+\_\+phase@{Thread\+\_\+phase}}
+\index{Thread\+\_\+phase@{Thread\+\_\+phase}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{Thread\+\_\+phase}{Thread\_phase}}
+{\footnotesize\ttfamily enum \hyperlink{group__scheduler_gab180b4aa356776bddcd724cef4f5deae}{Thread\+\_\+phase}}
+
+
+
+Thread phase. 
+
+The phase of a thread denotes the state of its context stored in the {\ttfamily T\+CB} of the thread. A {\ttfamily C\+T\+X\+\_\+\+C\+L\+E\+AN} thread means that, the context stored in the T\+CB is up-\/to-\/date. In this case, it is legal to swap context to this thread. A {\ttfamily C\+T\+X\+\_\+\+D\+I\+R\+TY} thread marks the case when the thread was, or still is, being executed at some core, therefore its stored context should not be used.
+
+The following {\bfseries invariant} of the scheduler guarantees correctness\+:
+
+\begin{quote}
+A T\+CB is in the scheduler queue, if and only if, its {\ttfamily Thread\+\_\+state} is {\ttfamily R\+E\+A\+DY} and the {\ttfamily Thread\+\_\+phase} is {\ttfamily C\+T\+X\+\_\+\+C\+L\+E\+AN}. \end{quote}
+
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{group__scheduler_ga6c969c169777f82c104cf73e501df70f}{Thread\+\_\+state} 
+\end{DoxySeeAlso}
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C\+T\+X\+\_\+\+C\+L\+E\+AN@{C\+T\+X\+\_\+\+C\+L\+E\+AN}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!C\+T\+X\+\_\+\+C\+L\+E\+AN@{C\+T\+X\+\_\+\+C\+L\+E\+AN}}}\mbox{\Hypertarget{group__scheduler_ggab180b4aa356776bddcd724cef4f5deaeaa826daca588e692c88114586b0de472b}\label{group__scheduler_ggab180b4aa356776bddcd724cef4f5deaeaa826daca588e692c88114586b0de472b}} 
+C\+T\+X\+\_\+\+C\+L\+E\+AN&Context is clean. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C\+T\+X\+\_\+\+D\+I\+R\+TY@{C\+T\+X\+\_\+\+D\+I\+R\+TY}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!C\+T\+X\+\_\+\+D\+I\+R\+TY@{C\+T\+X\+\_\+\+D\+I\+R\+TY}}}\mbox{\Hypertarget{group__scheduler_ggab180b4aa356776bddcd724cef4f5deaea2b4b41fda67c1a83e6523675515c007b}\label{group__scheduler_ggab180b4aa356776bddcd724cef4f5deaea2b4b41fda67c1a83e6523675515c007b}} 
+C\+T\+X\+\_\+\+D\+I\+R\+TY&Context is dirty. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 66 of file kernel\+\_\+sched.\+h.
+
+\mbox{\Hypertarget{group__scheduler_ga6c969c169777f82c104cf73e501df70f}\label{group__scheduler_ga6c969c169777f82c104cf73e501df70f}} 
+\index{Scheduler@{Scheduler}!Thread\+\_\+state@{Thread\+\_\+state}}
+\index{Thread\+\_\+state@{Thread\+\_\+state}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{Thread\+\_\+state}{Thread\_state}}
+{\footnotesize\ttfamily enum \hyperlink{group__scheduler_ga6c969c169777f82c104cf73e501df70f}{Thread\+\_\+state}}
+
+
+
+Thread state. 
+
+A value of this type, together with a {\ttfamily Thread\+\_\+phase} value, completely determines the state of a thread.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{group__scheduler_gab180b4aa356776bddcd724cef4f5deae}{Thread\+\_\+phase} 
+\end{DoxySeeAlso}
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{I\+N\+IT@{I\+N\+IT}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!I\+N\+IT@{I\+N\+IT}}}\mbox{\Hypertarget{group__scheduler_gga6c969c169777f82c104cf73e501df70fa0cb1b2c6a7db1f1084886c98909a3f36}\label{group__scheduler_gga6c969c169777f82c104cf73e501df70fa0cb1b2c6a7db1f1084886c98909a3f36}} 
+I\+N\+IT&T\+CB initialising. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{R\+E\+A\+DY@{R\+E\+A\+DY}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!R\+E\+A\+DY@{R\+E\+A\+DY}}}\mbox{\Hypertarget{group__scheduler_gga6c969c169777f82c104cf73e501df70fa6564f2f3e15be06b670547bbcaaf0798}\label{group__scheduler_gga6c969c169777f82c104cf73e501df70fa6564f2f3e15be06b670547bbcaaf0798}} 
+R\+E\+A\+DY&A thread ready to be scheduled. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{R\+U\+N\+N\+I\+NG@{R\+U\+N\+N\+I\+NG}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!R\+U\+N\+N\+I\+NG@{R\+U\+N\+N\+I\+NG}}}\mbox{\Hypertarget{group__scheduler_gga6c969c169777f82c104cf73e501df70fa1061be6c3fb88d32829cba6f6b2be304}\label{group__scheduler_gga6c969c169777f82c104cf73e501df70fa1061be6c3fb88d32829cba6f6b2be304}} 
+R\+U\+N\+N\+I\+NG&A thread running on some core. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+T\+O\+P\+P\+ED@{S\+T\+O\+P\+P\+ED}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!S\+T\+O\+P\+P\+ED@{S\+T\+O\+P\+P\+ED}}}\mbox{\Hypertarget{group__scheduler_gga6c969c169777f82c104cf73e501df70fa948b2aee15f52b421fa4770c47bcfe8c}\label{group__scheduler_gga6c969c169777f82c104cf73e501df70fa948b2aee15f52b421fa4770c47bcfe8c}} 
+S\+T\+O\+P\+P\+ED&A blocked thread. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+X\+I\+T\+ED@{E\+X\+I\+T\+ED}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!E\+X\+I\+T\+ED@{E\+X\+I\+T\+ED}}}\mbox{\Hypertarget{group__scheduler_gga6c969c169777f82c104cf73e501df70fab9f9543350f6bd6191e52158daa88884}\label{group__scheduler_gga6c969c169777f82c104cf73e501df70fab9f9543350f6bd6191e52158daa88884}} 
+E\+X\+I\+T\+ED&A terminated thread. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 40 of file kernel\+\_\+sched.\+h.
+
+\mbox{\Hypertarget{group__scheduler_ga18795bc1ab00161fc27ce34b1895fb03}\label{group__scheduler_ga18795bc1ab00161fc27ce34b1895fb03}} 
+\index{Scheduler@{Scheduler}!Thread\+\_\+type@{Thread\+\_\+type}}
+\index{Thread\+\_\+type@{Thread\+\_\+type}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{Thread\+\_\+type}{Thread\_type}}
+{\footnotesize\ttfamily enum \hyperlink{group__scheduler_ga18795bc1ab00161fc27ce34b1895fb03}{Thread\+\_\+type}}
+
+
+
+Thread type. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{I\+D\+L\+E\+\_\+\+T\+H\+R\+E\+AD@{I\+D\+L\+E\+\_\+\+T\+H\+R\+E\+AD}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!I\+D\+L\+E\+\_\+\+T\+H\+R\+E\+AD@{I\+D\+L\+E\+\_\+\+T\+H\+R\+E\+AD}}}\mbox{\Hypertarget{group__scheduler_gga18795bc1ab00161fc27ce34b1895fb03abc11b4e4eba50c875d7ed6bc34090dd3}\label{group__scheduler_gga18795bc1ab00161fc27ce34b1895fb03abc11b4e4eba50c875d7ed6bc34090dd3}} 
+I\+D\+L\+E\+\_\+\+T\+H\+R\+E\+AD&Marks an idle thread. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{N\+O\+R\+M\+A\+L\+\_\+\+T\+H\+R\+E\+AD@{N\+O\+R\+M\+A\+L\+\_\+\+T\+H\+R\+E\+AD}!Scheduler@{Scheduler}}\index{Scheduler@{Scheduler}!N\+O\+R\+M\+A\+L\+\_\+\+T\+H\+R\+E\+AD@{N\+O\+R\+M\+A\+L\+\_\+\+T\+H\+R\+E\+AD}}}\mbox{\Hypertarget{group__scheduler_gga18795bc1ab00161fc27ce34b1895fb03a1d3bb8be1deb6ac7be94fea88e1ed76b}\label{group__scheduler_gga18795bc1ab00161fc27ce34b1895fb03a1d3bb8be1deb6ac7be94fea88e1ed76b}} 
+N\+O\+R\+M\+A\+L\+\_\+\+T\+H\+R\+E\+AD&Marks a normal thread. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 73 of file kernel\+\_\+sched.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group__scheduler_ga244fb594301322e79d11a7844c759bba}\label{group__scheduler_ga244fb594301322e79d11a7844c759bba}} 
+\index{Scheduler@{Scheduler}!initialize\+\_\+scheduler@{initialize\+\_\+scheduler}}
+\index{initialize\+\_\+scheduler@{initialize\+\_\+scheduler}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{initialize\+\_\+scheduler()}{initialize\_scheduler()}}
+{\footnotesize\ttfamily void initialize\+\_\+scheduler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialize the scheduler. 
+
+This function is called during kernel initialization. 
+
+Definition at line 540 of file kernel\+\_\+sched.\+c.
+
+\mbox{\Hypertarget{group__scheduler_ga147600b59d656eb9d9558673c2fad36d}\label{group__scheduler_ga147600b59d656eb9d9558673c2fad36d}} 
+\index{Scheduler@{Scheduler}!run\+\_\+scheduler@{run\+\_\+scheduler}}
+\index{run\+\_\+scheduler@{run\+\_\+scheduler}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{run\+\_\+scheduler()}{run\_scheduler()}}
+{\footnotesize\ttfamily void run\+\_\+scheduler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Enter the scheduler. 
+
+This function is called at kernel initialization, by each core, to enter the scheduler. When this function returns, the scheduler has stopped (there are no more active threads) and the 
+
+Definition at line 552 of file kernel\+\_\+sched.\+c.
+
+\mbox{\Hypertarget{group__scheduler_ga0ab1a2dcfbfe3fb09cc24044efddfd34}\label{group__scheduler_ga0ab1a2dcfbfe3fb09cc24044efddfd34}} 
+\index{Scheduler@{Scheduler}!sleep\+\_\+releasing@{sleep\+\_\+releasing}}
+\index{sleep\+\_\+releasing@{sleep\+\_\+releasing}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{sleep\+\_\+releasing()}{sleep\_releasing()}}
+{\footnotesize\ttfamily void sleep\+\_\+releasing (\begin{DoxyParamCaption}\item[{\hyperlink{group__scheduler_ga6c969c169777f82c104cf73e501df70f}{Thread\+\_\+state}}]{newstate,  }\item[{\hyperlink{group__syscalls_gaef2ec62cae8e0031fd19fc8b91083ade}{Mutex} $\ast$}]{mx,  }\item[{enum \hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE}}]{cause,  }\item[{\hyperlink{bios_8h_ae7291e5cd742fb9bc6d4aaa0d51bd0ee}{Timer\+Duration}}]{timeout }\end{DoxyParamCaption})}
+
+
+
+Block the current thread. 
+
+This call will block the current thread, changing its state to {\ttfamily S\+T\+O\+P\+P\+ED} or {\ttfamily E\+X\+I\+T\+ED}. Also, the mutex {\ttfamily mx}, if not {\ttfamily N\+U\+LL}, will be unlocked, atomically with the blocking of the thread.
+
+In particular, what is meant by \textquotesingle{}atomically\textquotesingle{} is that the thread state will change to {\ttfamily newstate} atomically with the mutex unlocking. Note that, the state of the current thread is {\ttfamily R\+U\+N\+N\+I\+NG}. Therefore, no other state change (such as a wakeup, a yield, another sleep etc) can happen \char`\"{}between\char`\"{} the thread\textquotesingle{}s state change and the unlocking.
+
+If the {\ttfamily newstate} is {\ttfamily E\+X\+I\+T\+ED}, the thread will block and also will eventually be cleaned-\/up by the scheduler. Its T\+CB should not be accessed in any way after this call.
+
+A cause for the sleep must be provided; this parameter indicates to the scheduler the source of the sleeping operation, and can be used in scheduler heuristics to adjust scheduling decisions.
+
+A timeout can also be provided. If the timeout is not {\ttfamily N\+O\+\_\+\+T\+I\+M\+E\+O\+UT}, then the thread will be made ready by the scheduler after the timeout duration has passed, even without a call to {\ttfamily \hyperlink{group__scheduler_gae8301452fd9ae5bf7cd7f2676650ff06}{wakeup()}} by another thread.
+
+
+\begin{DoxyParams}{Parameters}
+{\em newstate} & the new state for the current thread, which must be either stopped or exited \\
+\hline
+{\em mx} & the mutex to unlock. \\
+\hline
+{\em cause} & the cause of the sleep \\
+\hline
+{\em timeout} & a timeout for the sleep, or \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 347 of file kernel\+\_\+sched.\+c.
+
+\mbox{\Hypertarget{group__scheduler_ga34517ad777ad754965f80fe0248c16e5}\label{group__scheduler_ga34517ad777ad754965f80fe0248c16e5}} 
+\index{Scheduler@{Scheduler}!spawn\+\_\+thread@{spawn\+\_\+thread}}
+\index{spawn\+\_\+thread@{spawn\+\_\+thread}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{spawn\+\_\+thread()}{spawn\_thread()}}
+{\footnotesize\ttfamily \hyperlink{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}{T\+CB}$\ast$ spawn\+\_\+thread (\begin{DoxyParamCaption}\item[{\hyperlink{group__proc_gadf327f09ee935cf1734c14e8849f0421}{P\+CB} $\ast$}]{pcb,  }\item[{void($\ast$)()}]{func }\end{DoxyParamCaption})}
+
+
+
+Create a new thread. 
+
+This call creates a new thread, initializing and returning its T\+CB. The thread will belong to process {\ttfamily pcb} and execute {\ttfamily func}. Note that, the new thread is returned in the {\ttfamily I\+N\+IT} state. The caller must use {\ttfamily \hyperlink{group__scheduler_gae8301452fd9ae5bf7cd7f2676650ff06}{wakeup()}} to start it.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pcb} & The process control block of the owning process. The scheduler simply stores this value in the new T\+CB, and otherwise ignores it\\
+\hline
+{\em func} & The function to execute in the new thread. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the T\+CB of the new thread, in the {\ttfamily I\+N\+IT} state. 
+\end{DoxyReturn}
+
+
+Definition at line 113 of file kernel\+\_\+sched.\+c.
+
+\mbox{\Hypertarget{group__scheduler_gae8301452fd9ae5bf7cd7f2676650ff06}\label{group__scheduler_gae8301452fd9ae5bf7cd7f2676650ff06}} 
+\index{Scheduler@{Scheduler}!wakeup@{wakeup}}
+\index{wakeup@{wakeup}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{wakeup()}{wakeup()}}
+{\footnotesize\ttfamily int wakeup (\begin{DoxyParamCaption}\item[{\hyperlink{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}{T\+CB} $\ast$}]{tcb }\end{DoxyParamCaption})}
+
+
+
+Wakeup a blocked thread. 
+
+This call will change the state of a thread from {\ttfamily S\+T\+O\+P\+P\+ED} or {\ttfamily I\+N\+IT} (where the thread is blocked) to {\ttfamily R\+E\+A\+DY}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tcb} & the thread to be made {\ttfamily R\+E\+A\+DY}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the thread state was {\ttfamily S\+T\+O\+P\+P\+ED} or {\ttfamily I\+N\+IT}, 0 otherwise 
+\end{DoxyReturn}
+
+
+Definition at line 320 of file kernel\+\_\+sched.\+c.
+
+\mbox{\Hypertarget{group__scheduler_ga1db327892199949812ae5a52119f2e97}\label{group__scheduler_ga1db327892199949812ae5a52119f2e97}} 
+\index{Scheduler@{Scheduler}!yield@{yield}}
+\index{yield@{yield}!Scheduler@{Scheduler}}
+\subsubsection{\texorpdfstring{yield()}{yield()}}
+{\footnotesize\ttfamily void yield (\begin{DoxyParamCaption}\item[{enum \hyperlink{group__scheduler_gaad787d8d80312ffca3c0f197b3a25fbe}{S\+C\+H\+E\+D\+\_\+\+C\+A\+U\+SE}}]{cause }\end{DoxyParamCaption})}
+
+
+
+Give up the C\+PU. 
+
+This call asks the scheduler to terminate the quantum of the current thread and possibly switch to a different thread. The scheduler may decide that it will renew the quantum for the current thread. 
+
+Definition at line 393 of file kernel\+\_\+sched.\+c.
+

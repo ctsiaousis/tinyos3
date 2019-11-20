@@ -41,8 +41,11 @@
 typedef struct file_control_block
 {
   uint refcount;  			/**< @brief Reference counter. */
+	//edo bazo ena struct tupou pipe_CB.
   void* streamobj;			/**< @brief The stream object (e.g., a device) */
+	//open read write close.
   file_ops* streamfunc;		/**< @brief The stream implementation methods */
+	//oi adeioi komboi ton FCBs.
   rlnode freelist_node;		/**< @brief Intrusive list node */
 } FCB;
 

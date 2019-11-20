@@ -1,0 +1,53 @@
+\hypertarget{structcore__control__block}{}\section{core\+\_\+control\+\_\+block Struct Reference}
+\label{structcore__control__block}\index{core\+\_\+control\+\_\+block@{core\+\_\+control\+\_\+block}}
+
+
+Core control block.  
+
+
+
+
+{\ttfamily \#include $<$kernel\+\_\+sched.\+h$>$}
+
+
+
+Collaboration diagram for core\+\_\+control\+\_\+block\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcore__control__block__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structcore__control__block_a5208867f309bdd1656fd473f38b30bfe}\label{structcore__control__block_a5208867f309bdd1656fd473f38b30bfe}} 
+\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{structcore__control__block_a5208867f309bdd1656fd473f38b30bfe}{id}
+\begin{DoxyCompactList}\small\item\em The core id. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcore__control__block_aac649db5b9a99e693ed21c7e610834bf}\label{structcore__control__block_aac649db5b9a99e693ed21c7e610834bf}} 
+\hyperlink{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}{T\+CB} $\ast$ \hyperlink{structcore__control__block_aac649db5b9a99e693ed21c7e610834bf}{current\+\_\+thread}
+\begin{DoxyCompactList}\small\item\em Points to the thread currently owning the core. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcore__control__block_ae71bba6ddbd8709c51cd85efc3904a4e}\label{structcore__control__block_ae71bba6ddbd8709c51cd85efc3904a4e}} 
+\hyperlink{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}{T\+CB} $\ast$ \hyperlink{structcore__control__block_ae71bba6ddbd8709c51cd85efc3904a4e}{previous\+\_\+thread}
+\begin{DoxyCompactList}\small\item\em Points to the thread that previously owned the core. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcore__control__block_a6dd29dab4a95ce740f45370345408c52}\label{structcore__control__block_a6dd29dab4a95ce740f45370345408c52}} 
+\hyperlink{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}{T\+CB} \hyperlink{structcore__control__block_a6dd29dab4a95ce740f45370345408c52}{idle\+\_\+thread}
+\begin{DoxyCompactList}\small\item\em Used by the scheduler to handle the core\textquotesingle{}s idle thread. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcore__control__block_a858cde45d4478d73f60e839594b363f4}\label{structcore__control__block_a858cde45d4478d73f60e839594b363f4}} 
+sig\+\_\+atomic\+\_\+t \hyperlink{structcore__control__block_a858cde45d4478d73f60e839594b363f4}{preemption}
+\begin{DoxyCompactList}\small\item\em Marks preemption, used by the locking code. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Core control block. 
+
+Per-\/core info in memory (basically scheduler-\/related). 
+
+Definition at line 174 of file kernel\+\_\+sched.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kernel__sched_8h}{kernel\+\_\+sched.\+h}\end{DoxyCompactItemize}

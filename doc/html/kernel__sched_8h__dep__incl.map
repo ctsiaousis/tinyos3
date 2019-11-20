@@ -1,0 +1,12 @@
+<map id="kernel_sched.h" name="kernel_sched.h">
+<area shape="rect" id="node2" href="$kernel__cc_8c.html" title="The implementation for concurrency control . " alt="" coords="5,155,95,181"/>
+<area shape="rect" id="node3" href="$kernel__proc_8h.html" title="The process table and process management. " alt="" coords="507,80,607,107"/>
+<area shape="rect" id="node4" href="$kernel__dev_8c_source.html" title="kernel_dev.c" alt="" coords="239,155,335,181"/>
+<area shape="rect" id="node5" href="$kernel__init_8c_source.html" title="kernel_init.c" alt="" coords="909,155,1001,181"/>
+<area shape="rect" id="node7" href="$kernel__sched_8c_source.html" title="kernel_sched.c" alt="" coords="360,155,471,181"/>
+<area shape="rect" id="node8" href="$kernel__streams_8c_source.html" title="kernel_streams.c" alt="" coords="619,155,742,181"/>
+<area shape="rect" id="node9" href="$kernel__threads_8c_source.html" title="kernel_threads.c" alt="" coords="767,155,885,181"/>
+<area shape="rect" id="node10" href="$kernel__cc_8h.html" title="Concurrency and preemption control API. " alt="" coords="393,80,483,107"/>
+<area shape="rect" id="node6" href="$kernel__proc_8c_source.html" title="kernel_proc.c" alt="" coords="495,155,595,181"/>
+<area shape="rect" id="node11" href="$kernel__sys_8c_source.html" title="kernel_sys.c" alt="" coords="119,155,215,181"/>
+</map>

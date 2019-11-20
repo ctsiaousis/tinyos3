@@ -1,0 +1,160 @@
+\hypertarget{group__proc}{}\section{Processes}
+\label{group__proc}\index{Processes@{Processes}}
+
+
+The process table and process management.  
+
+
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structprocess__control__block}{process\+\_\+control\+\_\+block}
+\begin{DoxyCompactList}\small\item\em Process Control Block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \hyperlink{group__proc_ga4f133ac5f9b2ca9c1446889baee1dc05}{pid\+\_\+state\+\_\+e} \hyperlink{group__proc_gade1eea4d20492c4c97263201145e5097}{pid\+\_\+state}
+\begin{DoxyCompactList}\small\item\em P\+ID state. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structprocess__control__block}{process\+\_\+control\+\_\+block} \hyperlink{group__proc_gadf327f09ee935cf1734c14e8849f0421}{P\+CB}
+\begin{DoxyCompactList}\small\item\em Process Control Block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{group__proc_ga4f133ac5f9b2ca9c1446889baee1dc05}{pid\+\_\+state\+\_\+e} \{ \hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05acc62d1576546f3245237e1b232d838b6}{F\+R\+EE}, 
+\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a4f34c5c191d6e0d028ca831b6c0b1571}{A\+L\+I\+VE}, 
+\hyperlink{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a5dfb36109b24f39d54d5c3f48f53def8}{Z\+O\+M\+B\+IE}
+ \}\begin{DoxyCompactList}\small\item\em P\+ID state. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__proc_ga82948cbeb57bb0b6e15d1f14f06a2db3}{initialize\+\_\+processes} ()
+\begin{DoxyCompactList}\small\item\em Initialize the process table. \end{DoxyCompactList}\item 
+\hyperlink{group__proc_gadf327f09ee935cf1734c14e8849f0421}{P\+CB} $\ast$ \hyperlink{group__proc_ga10cf45ea8bc92b00bd1f25553b9cf5c8}{get\+\_\+pcb} (\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} pid)
+\begin{DoxyCompactList}\small\item\em Get the P\+CB for a P\+ID. \end{DoxyCompactList}\item 
+\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} \hyperlink{group__proc_ga110e884cb053244b18d1058751a78cfe}{get\+\_\+pid} (\hyperlink{group__proc_gadf327f09ee935cf1734c14e8849f0421}{P\+CB} $\ast$pcb)
+\begin{DoxyCompactList}\small\item\em Get the P\+ID of a P\+CB. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The process table and process management. 
+
+This file defines the P\+CB structure and basic helpers for process access. 
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{group__proc_gadf327f09ee935cf1734c14e8849f0421}\label{group__proc_gadf327f09ee935cf1734c14e8849f0421}} 
+\index{Processes@{Processes}!P\+CB@{P\+CB}}
+\index{P\+CB@{P\+CB}!Processes@{Processes}}
+\subsubsection{\texorpdfstring{P\+CB}{PCB}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structprocess__control__block}{process\+\_\+control\+\_\+block}  \hyperlink{group__proc_gadf327f09ee935cf1734c14e8849f0421}{P\+CB}}
+
+
+
+Process Control Block. 
+
+This structure holds all information pertaining to a process. \mbox{\Hypertarget{group__proc_gade1eea4d20492c4c97263201145e5097}\label{group__proc_gade1eea4d20492c4c97263201145e5097}} 
+\index{Processes@{Processes}!pid\+\_\+state@{pid\+\_\+state}}
+\index{pid\+\_\+state@{pid\+\_\+state}!Processes@{Processes}}
+\subsubsection{\texorpdfstring{pid\+\_\+state}{pid\_state}}
+{\footnotesize\ttfamily typedef enum \hyperlink{group__proc_ga4f133ac5f9b2ca9c1446889baee1dc05}{pid\+\_\+state\+\_\+e}  \hyperlink{group__proc_gade1eea4d20492c4c97263201145e5097}{pid\+\_\+state}}
+
+
+
+P\+ID state. 
+
+A P\+ID can be either free (no process is using it), A\+L\+I\+VE (some running process is using it), or Z\+O\+M\+B\+IE (a zombie process is using it). 
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{group__proc_ga4f133ac5f9b2ca9c1446889baee1dc05}\label{group__proc_ga4f133ac5f9b2ca9c1446889baee1dc05}} 
+\index{Processes@{Processes}!pid\+\_\+state\+\_\+e@{pid\+\_\+state\+\_\+e}}
+\index{pid\+\_\+state\+\_\+e@{pid\+\_\+state\+\_\+e}!Processes@{Processes}}
+\subsubsection{\texorpdfstring{pid\+\_\+state\+\_\+e}{pid\_state\_e}}
+{\footnotesize\ttfamily enum \hyperlink{group__proc_ga4f133ac5f9b2ca9c1446889baee1dc05}{pid\+\_\+state\+\_\+e}}
+
+
+
+P\+ID state. 
+
+A P\+ID can be either free (no process is using it), A\+L\+I\+VE (some running process is using it), or Z\+O\+M\+B\+IE (a zombie process is using it). \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{F\+R\+EE@{F\+R\+EE}!Processes@{Processes}}\index{Processes@{Processes}!F\+R\+EE@{F\+R\+EE}}}\mbox{\Hypertarget{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05acc62d1576546f3245237e1b232d838b6}\label{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05acc62d1576546f3245237e1b232d838b6}} 
+F\+R\+EE&The P\+ID is free and available. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A\+L\+I\+VE@{A\+L\+I\+VE}!Processes@{Processes}}\index{Processes@{Processes}!A\+L\+I\+VE@{A\+L\+I\+VE}}}\mbox{\Hypertarget{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a4f34c5c191d6e0d028ca831b6c0b1571}\label{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a4f34c5c191d6e0d028ca831b6c0b1571}} 
+A\+L\+I\+VE&The P\+ID is given to a process. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Z\+O\+M\+B\+IE@{Z\+O\+M\+B\+IE}!Processes@{Processes}}\index{Processes@{Processes}!Z\+O\+M\+B\+IE@{Z\+O\+M\+B\+IE}}}\mbox{\Hypertarget{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a5dfb36109b24f39d54d5c3f48f53def8}\label{group__proc_gga4f133ac5f9b2ca9c1446889baee1dc05a5dfb36109b24f39d54d5c3f48f53def8}} 
+Z\+O\+M\+B\+IE&The P\+ID is held by a zombie. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 27 of file kernel\+\_\+proc.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group__proc_ga10cf45ea8bc92b00bd1f25553b9cf5c8}\label{group__proc_ga10cf45ea8bc92b00bd1f25553b9cf5c8}} 
+\index{Processes@{Processes}!get\+\_\+pcb@{get\+\_\+pcb}}
+\index{get\+\_\+pcb@{get\+\_\+pcb}!Processes@{Processes}}
+\subsubsection{\texorpdfstring{get\+\_\+pcb()}{get\_pcb()}}
+{\footnotesize\ttfamily \hyperlink{group__proc_gadf327f09ee935cf1734c14e8849f0421}{P\+CB}$\ast$ get\+\_\+pcb (\begin{DoxyParamCaption}\item[{\hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t}}]{pid }\end{DoxyParamCaption})}
+
+
+
+Get the P\+CB for a P\+ID. 
+
+This function will return a pointer to the P\+CB of the process with a given P\+ID. If the P\+ID does not correspond to a process, the function returns {\ttfamily N\+U\+LL}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pid} & the pid of the process \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the P\+CB of the process, or N\+U\+LL. 
+\end{DoxyReturn}
+
+
+Definition at line 22 of file kernel\+\_\+proc.\+c.
+
+\mbox{\Hypertarget{group__proc_ga110e884cb053244b18d1058751a78cfe}\label{group__proc_ga110e884cb053244b18d1058751a78cfe}} 
+\index{Processes@{Processes}!get\+\_\+pid@{get\+\_\+pid}}
+\index{get\+\_\+pid@{get\+\_\+pid}!Processes@{Processes}}
+\subsubsection{\texorpdfstring{get\+\_\+pid()}{get\_pid()}}
+{\footnotesize\ttfamily \hyperlink{group__syscalls_gafac07f3170763932fac97b6eab2c3984}{Pid\+\_\+t} get\+\_\+pid (\begin{DoxyParamCaption}\item[{\hyperlink{group__proc_gadf327f09ee935cf1734c14e8849f0421}{P\+CB} $\ast$}]{pcb }\end{DoxyParamCaption})}
+
+
+
+Get the P\+ID of a P\+CB. 
+
+This function will return the P\+ID of the process whose P\+CB is pointed at by {\ttfamily pcb}. If the pcb does not correspond to a process, the function returns {\ttfamily N\+O\+P\+R\+OC}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pcb} & the pcb of the process \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the P\+ID of the process, or N\+O\+P\+R\+OC. 
+\end{DoxyReturn}
+
+
+Definition at line 27 of file kernel\+\_\+proc.\+c.
+
+\mbox{\Hypertarget{group__proc_ga82948cbeb57bb0b6e15d1f14f06a2db3}\label{group__proc_ga82948cbeb57bb0b6e15d1f14f06a2db3}} 
+\index{Processes@{Processes}!initialize\+\_\+processes@{initialize\+\_\+processes}}
+\index{initialize\+\_\+processes@{initialize\+\_\+processes}!Processes@{Processes}}
+\subsubsection{\texorpdfstring{initialize\+\_\+processes()}{initialize\_processes()}}
+{\footnotesize\ttfamily void initialize\+\_\+processes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initialize the process table. 
+
+This function is called during kernel initialization, to initialize any data structures related to process creation. 
+
+Definition at line 54 of file kernel\+\_\+proc.\+c.
+

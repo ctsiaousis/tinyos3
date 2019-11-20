@@ -1,0 +1,55 @@
+\hypertarget{kernel__streams_8h}{}\section{kernel\+\_\+streams.\+h File Reference}
+\label{kernel__streams_8h}\index{kernel\+\_\+streams.\+h@{kernel\+\_\+streams.\+h}}
+
+
+Support for I/O streams.  
+
+
+{\ttfamily \#include \char`\"{}tinyos.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}kernel\+\_\+dev.\+h\char`\"{}}\newline
+Include dependency graph for kernel\+\_\+streams.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kernel__streams_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kernel__streams_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structfile__control__block}{file\+\_\+control\+\_\+block}
+\begin{DoxyCompactList}\small\item\em The file control block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structfile__control__block}{file\+\_\+control\+\_\+block} \hyperlink{group__streams_ga0c7e751afb9d6cadebf070961804d400}{F\+CB}
+\begin{DoxyCompactList}\small\item\em The file control block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__streams_ga147537248d983b0cc6cc7e8b39245f09}{initialize\+\_\+files} ()
+\begin{DoxyCompactList}\small\item\em Initialization for files and streams. \end{DoxyCompactList}\item 
+void \hyperlink{group__streams_ga409efca0b415dfdabe868c292d1daf66}{F\+C\+B\+\_\+incref} (\hyperlink{group__streams_ga0c7e751afb9d6cadebf070961804d400}{F\+CB} $\ast$fcb)
+\begin{DoxyCompactList}\small\item\em Increase the reference count of an fcb. \end{DoxyCompactList}\item 
+int \hyperlink{group__streams_ga26586eafc28dd1f2ac5bc7402922aa36}{F\+C\+B\+\_\+decref} (\hyperlink{group__streams_ga0c7e751afb9d6cadebf070961804d400}{F\+CB} $\ast$fcb)
+\begin{DoxyCompactList}\small\item\em Decrease the reference count of the fcb. \end{DoxyCompactList}\item 
+int \hyperlink{group__streams_ga462269376de145171b87b7bc3036e4f8}{F\+C\+B\+\_\+reserve} (size\+\_\+t num, \hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} $\ast$fid, \hyperlink{group__streams_ga0c7e751afb9d6cadebf070961804d400}{F\+CB} $\ast$$\ast$fcb)
+\begin{DoxyCompactList}\small\item\em Acquire a number of F\+C\+Bs and corresponding fids. \end{DoxyCompactList}\item 
+void \hyperlink{group__streams_gac44c094845a8d4e2e13f9df5b17274df}{F\+C\+B\+\_\+unreserve} (size\+\_\+t num, \hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} $\ast$fid, \hyperlink{group__streams_ga0c7e751afb9d6cadebf070961804d400}{F\+CB} $\ast$$\ast$fcb)
+\begin{DoxyCompactList}\small\item\em Release a number of F\+C\+Bs and corresponding fids. \end{DoxyCompactList}\item 
+\hyperlink{group__streams_ga0c7e751afb9d6cadebf070961804d400}{F\+CB} $\ast$ \hyperlink{group__streams_ga36b4f172aba29ba2660d0aed0f10d60b}{get\+\_\+fcb} (\hyperlink{group__syscalls_ga5097222c5f0da97d92d4712359abc38f}{Fid\+\_\+t} fid)
+\begin{DoxyCompactList}\small\item\em Translate an fid to an F\+CB. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Support for I/O streams. 
+
