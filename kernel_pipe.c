@@ -92,12 +92,59 @@ int pipe_write(void* this, const char* buf, unsigned int size)
 int reader_Close(void* streamobj)
 {
 //kane pipeCB->pit.read = NOFILE
+	pipe_CB* pipeCB = (pipe_CB*) streamobj; //27/11/19
+
+	if(pipeCB != NULL)
+	{
+		pipeCB->pit.read = NOFILE;
+		//anti gia to pit.read mipos na baloume sto pipe.h 2 metablites
+		// int close_read kai int close_write gia tin diadikasia auti?
+
+		//pipe_CB->close_read = 0;
+
+		//if(pipeCB->close_write == 0;)
+		//{
+		//	pipeCB = NULL;
+		//	free(pipeCB);
+		//}
+		
+		if(pipeCB->pit.write == NOFILE)
+		{
+			pipeCB = NULL;
+			//free(pipeCB)   ?
+		}
+		return 0;
+	}
+
 	return -1;
 }
 
 int writer_Close(void* streamobj)
 {
 //kane pipeCB->pit.write = NOFILE
+	pipe_CB* pipeCB = (pipe_CB*) streamobj;
+
+	if(pipeCB != NULL)
+		{
+			pipeCB->pit.write = NOFILE;
+			//anti gia to pit.read mipos na baloume sto pipe.h 2 metablites
+			// int close_read kai int close_write gia tin diadikasia auti?
+
+			//pipe_CB->close_write = 0;
+
+			//if(pipeCB->close_write == 0;)
+			//{
+			//	pipeCB = NULL;
+			//	free(pipeCB);
+			//}
+		
+		if(pipeCB->pit.read == NOFILE)
+		{
+			pipeCB = NULL;
+			//free(pipeCB)   ?
+		}
+		return 0;
+	}
 	return -1;
 }
 
