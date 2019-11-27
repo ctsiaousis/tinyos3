@@ -1,22 +1,8 @@
 
 #include "tinyos.h"
 #include "kernel_pipe.h"
-/*
-file_ops reader_ops = {
-  .Open = NULL,
-  .Read = pipe_read,
-  .Write = nothingConst,
-  .Close = reader_Close
-};
 
 
-file_ops writer_ops = {
-  .Open = NULL,
-  .Read = nothing,
-  .Write = pipe_write,
-  .Close = writer_Close
-};
-*/
 int nothing(void* this, char *buf, unsigned int size){
 	return -1;
 }

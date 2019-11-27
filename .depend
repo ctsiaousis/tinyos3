@@ -26,7 +26,8 @@ kernel_threads.o: kernel_threads.c tinyos.h kernel_cc.h kernel_sys.h \
  bios.h kernel_sched.h util.h kernel_proc.h kernel_streams.h kernel_dev.h
 kernel_dev.o: kernel_dev.c kernel_cc.h kernel_sys.h bios.h tinyos.h \
  kernel_sched.h util.h kernel_dev.h kernel_streams.h kernel_proc.h
-kernel_pipe.o: kernel_pipe.c tinyos.h kernel_pipe.h bios.h util.h
+kernel_pipe.o: kernel_pipe.c tinyos.h kernel_pipe.h bios.h util.h \
+ kernel_dev.h
 kernel_cc.o: kernel_cc.c kernel_sched.h bios.h tinyos.h util.h \
  kernel_proc.h kernel_cc.h kernel_sys.h
 kernel_proc.o: kernel_proc.c kernel_cc.h kernel_sys.h bios.h tinyos.h \
