@@ -3,12 +3,15 @@
 #include "tinyos.h"
 #include "util.h"
 #include "kernel_dev.h"
+#include "kernel_streams.h"
+#include "kernel_cc.h"
 
+#define BUF_SIZE 8192
 
 typedef struct pipe_control_block
 {
 	pipe_t pit;
-	char* buffer;
+	char buffer[BUF_SIZE];
 	uint readPTR;
 	uint writePTR;
 	CondVar hasSpace;
