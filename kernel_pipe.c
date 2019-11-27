@@ -1,10 +1,49 @@
 
 #include "tinyos.h"
+#include "kernel_pipe.h"
+/*
+file_ops reader_ops = {
+  .Open = NULL,
+  .Read = pipe_read,
+  .Write = nothingConst,
+  .Close = reader_Close
+};
 
-typedef struct pipe_control_block
-{
 
-}pipe_CB;
+file_ops writer_ops = {
+  .Open = NULL,
+  .Read = nothing,
+  .Write = pipe_write,
+  .Close = writer_Close
+};
+*/
+int nothing(void* this, char *buf, unsigned int size){
+	return -1;
+}
+
+int nothingConst(void* this, const char *buf, unsigned int size){
+	return -1;
+}
+
+int pipe_read(void* this, char *buf, unsigned int size){
+
+	return -1;
+}
+
+int pipe_write(void* this, const char* buf, unsigned int size){
+
+	return -1;
+}
+
+int reader_Close(void* streamobj){
+
+	return -1;
+}
+
+int writer_Close(void* streamobj){
+	
+	return -1;
+}
 
 int sys_Pipe(pipe_t* pipe)
 {
