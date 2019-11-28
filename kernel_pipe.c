@@ -28,18 +28,31 @@ int pipe_read(void* this, char *buf, unsigned int size)
 
 	int count = 0;
 
+	wait:
 	//an o readPTR ftasei ton writePTR kane sleep sto hasData
-	while((pipeCB->readPTR + 1)%BUF_SIZE == pipeCB->writePTR && pipeCB->pit.write != NOFILE){
+	while(pipeCB->readPTR == pipeCB->writePTR && pipeCB->pit.write != NOFILE && pipeCB->pit.read != NOFILE){
+		kernel_broadcast(&(pipeCB->hasSpace));
 		kernel_wait(&(pipeCB->hasData), SCHED_PIPE);
 	}
 
 	//an o writer exei kanei close diabase mexri telous
-
+	if(pipeCB->pit.write == NOFILE){
+		while(pipeCB->readPTR < pipeCB->writePTR){
+			if(count == size)
+				return count;
+			buf[count] = pipeCB->buffer[pipeCB->readPTR];
+			pipeCB->readPTR = (pipeCB->readPTR + 1) % BUF_SIZE;
+			count++;
+		}
+		return count;
+	}
 	//as diabasoume to solinaki
-	while(count < size && count != BUF_SIZE){
+	while(count != size){
 		//an omos o reader paei na diabasi kati pou den exei grafei, ksou
-		if((pipeCB->readPTR + 1)%BUF_SIZE == pipeCB->writePTR)
+		if(pipeCB->readPTR  == pipeCB->writePTR){
+			goto wait;
 			break;
+		}
 		buf[count] = pipeCB->buffer[pipeCB->readPTR];
 		pipeCB->buffer[pipeCB->readPTR] = '\0';
 		pipeCB->readPTR = (pipeCB->readPTR + 1) % BUF_SIZE;
@@ -65,17 +78,20 @@ int pipe_write(void* this, const char* buf, unsigned int size)
 
 	int count = 0;
 
+	w8:
 	//an o writePTR ftasei ton readPTR kane sleep sto hasSpace
-	while((pipeCB->writePTR + 1)%BUF_SIZE == pipeCB->readPTR){
+	while((pipeCB->writePTR + 1)%BUF_SIZE == pipeCB->readPTR && pipeCB->pit.read != NOFILE){
+		kernel_broadcast(&(pipeCB->hasData));
 		kernel_wait(&(pipeCB->hasSpace), SCHED_PIPE);
 	}
 
 	//as grapsoume sto solinaki
-	while(count < size && count != BUF_SIZE){
+	while(count != size){
 		//an omos o writer paei na grapsei kati pou den diabasame ksou
-		if((pipeCB->writePTR + 1)%BUF_SIZE == pipeCB->readPTR)
+		if((pipeCB->writePTR + 1)%BUF_SIZE == pipeCB->readPTR && pipeCB->pit.read != NOFILE){
+			goto w8;
 			break;
-
+		}
 		/*bale ston buffer tou pipe stin thesi tou wrPTR 
 		tin thesi counter tou buf tou orismatos */
 		pipeCB->buffer[pipeCB->writePTR] = buf[count];

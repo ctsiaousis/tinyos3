@@ -1142,8 +1142,8 @@ BOOT_TEST(test_pipe_single_producer,
 	}
 
 	int N = 10000000;
-	ASSERT(Exec(data_consumer, sizeof(N), &N)!=NOPROC);
 	ASSERT(Exec(data_producer, sizeof(N), &N)!=NOPROC);
+	ASSERT(Exec(data_consumer, sizeof(N), &N)!=NOPROC);
 
 	Close(0);
 	Close(1);
