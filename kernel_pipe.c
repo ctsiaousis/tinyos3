@@ -28,13 +28,6 @@ int pipe_read(void* this, char *buf, unsigned int size)
 
 	int count = 0;
 
-	wait:
-	//an o readPTR ftasei ton writePTR kane sleep sto hasData
-	while(pipeCB->readPTR == pipeCB->writePTR && pipeCB->pit.write != NOFILE && pipeCB->pit.read != NOFILE){
-		kernel_broadcast(&(pipeCB->hasSpace));
-		kernel_wait(&(pipeCB->hasData), SCHED_PIPE);
-	}
-
 	//an o writer exei kanei close diabase mexri telous
 	if(pipeCB->pit.write == NOFILE){
 		while(pipeCB->readPTR < pipeCB->writePTR){
@@ -46,13 +39,18 @@ int pipe_read(void* this, char *buf, unsigned int size)
 		}
 		return count;
 	}
+		
+	//an o readPTR ftasei ton writePTR kane sleep sto hasData
+	while(pipeCB->readPTR == pipeCB->writePTR && pipeCB->pit.write != NOFILE){
+		//kernel_broadcast(&(pipeCB->hasSpace));
+		kernel_wait(&(pipeCB->hasData), SCHED_PIPE);
+	}
+
 	//as diabasoume to solinaki
-	while(count != size){
+	while(count != size && count < BUF_SIZE){
 		//an omos o reader paei na diabasi kati pou den exei grafei, ksou
-		if(pipeCB->readPTR  == pipeCB->writePTR){
-			goto wait;
+		if(pipeCB->readPTR  == pipeCB->writePTR)
 			break;
-		}
 		buf[count] = pipeCB->buffer[pipeCB->readPTR];
 		pipeCB->buffer[pipeCB->readPTR] = '\0';
 		pipeCB->readPTR = (pipeCB->readPTR + 1) % BUF_SIZE;
@@ -78,20 +76,17 @@ int pipe_write(void* this, const char* buf, unsigned int size)
 
 	int count = 0;
 
-	w8:
 	//an o writePTR ftasei ton readPTR kane sleep sto hasSpace
 	while((pipeCB->writePTR + 1)%BUF_SIZE == pipeCB->readPTR && pipeCB->pit.read != NOFILE){
-		kernel_broadcast(&(pipeCB->hasData));
+		//kernel_broadcast(&(pipeCB->hasData));
 		kernel_wait(&(pipeCB->hasSpace), SCHED_PIPE);
 	}
 
 	//as grapsoume sto solinaki
-	while(count != size){
+	while(count != size && count < BUF_SIZE){
 		//an omos o writer paei na grapsei kati pou den diabasame ksou
-		if((pipeCB->writePTR + 1)%BUF_SIZE == pipeCB->readPTR && pipeCB->pit.read != NOFILE){
-			goto w8;
+		if((pipeCB->writePTR + 1)%BUF_SIZE == pipeCB->readPTR && pipeCB->pit.read != NOFILE)
 			break;
-		}
 		/*bale ston buffer tou pipe stin thesi tou wrPTR 
 		tin thesi counter tou buf tou orismatos */
 		pipeCB->buffer[pipeCB->writePTR] = buf[count];
@@ -116,18 +111,12 @@ int reader_Close(void* streamobj)
 		//anti gia to pit.read mipos na baloume sto pipe.h 2 metablites
 		// int close_read kai int close_write gia tin diadikasia auti?
 
-		//pipe_CB->close_read = 0;
-
-		//if(pipeCB->close_write == 0;)
-		//{
-		//	pipeCB = NULL;
-		//	free(pipeCB);
-		//}
-		
 		if(pipeCB->pit.write == NOFILE)
 		{
 			pipeCB = NULL;
 			//free(pipeCB)   ?
+		}else{
+			kernel_broadcast(&(pipeCB->hasSpace));
 		}
 		return 0;
 	}
@@ -145,19 +134,13 @@ int writer_Close(void* streamobj)
 			pipeCB->pit.write = NOFILE;
 			//anti gia to pit.read mipos na baloume sto pipe.h 2 metablites
 			// int close_read kai int close_write gia tin diadikasia auti?
-
-			//pipe_CB->close_write = 0;
-
-			//if(pipeCB->close_write == 0;)
-			//{
-			//	pipeCB = NULL;
-			//	free(pipeCB);
-			//}
 		
 		if(pipeCB->pit.read == NOFILE)
 		{
 			pipeCB = NULL;
 			//free(pipeCB)   ?
+		}else{
+			kernel_broadcast(&(pipeCB->hasData));
 		}
 		return 0;
 	}
