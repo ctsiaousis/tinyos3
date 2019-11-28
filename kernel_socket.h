@@ -4,7 +4,6 @@
 #include "kernel_dev.h"
 #include "kernel_pipe.h"
 
-
 typedef enum socket_state
 {
 	UNBOUND,
@@ -22,11 +21,8 @@ typedef struct peer_socket
 {
 	pipe_CB* readPipe;
 	pipe_CB* writePipe;
-	sockType peer;
+	sockType peer; //perito 99%
 	//ta kato isos theloun diaforetiko struct
-	rlnode node; 
-  	CondVar cv;
-  	int admitted;
 }sockPee;
 
 typedef struct socket_control_block
@@ -41,6 +37,15 @@ typedef struct socket_control_block
 	};
 
 }socketCB;
+
+typedef struct queue_node
+{
+	Fid_t fid; //na tou anatheto timi kapos kapou
+	socketCB* reqSock;
+	rlnode node; 
+  	CondVar cv;
+  	int admitted;
+}qNode;
 
 
 
