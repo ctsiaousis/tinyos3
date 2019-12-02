@@ -99,7 +99,7 @@ int sys_ThreadJoin(Tid_t tid, int* exitval)
   //assert(ptcb != NULL);
 
 //DEN MPORO NA BALO TO TID_T TOU EAUTOU MOU
-  if((Tid_t)CURTHREAD==tid || ptcb == NULL){
+  if((Tid_t)CURTHREAD==tid ||ptcb == NULL){
     return -1;
   }
 

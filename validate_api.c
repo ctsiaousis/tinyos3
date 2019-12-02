@@ -1320,7 +1320,7 @@ BOOT_TEST(test_listen_fails_on_occupied_port,
 	)
 {
 	Fid_t f = Socket(100);
-	ASSERT(Listen(f)==0);
+	ASSERT(Listen(f)==0); //edo
 	ASSERT(Listen(Socket(100))==-1);
 	Close(f);
 	ASSERT(Listen(Socket(100))==0);	
@@ -1734,6 +1734,7 @@ TEST_SUITE(socket_tests,
 	"A suite of tests for sockets."
 	)
 {
+	/**/
 	&test_socket_constructor_many_per_port,
 	&test_socket_constructor_out_of_fids,
 	&test_socket_constructor_illegal_port,

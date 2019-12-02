@@ -13,14 +13,14 @@ file_ops socket_func = {
 };
 
 
+
 Fid_t sys_Socket(port_t port)
 {
 	/*fcb_reserv me ena (anti gia 2, pipe)
 	sto fcb bazo to SCB kai to socket_func*/
 
-	if(port <= NOPORT || port > MAX_PORT || PORT_MAP[port] != NULL)
+	if(port < NOPORT || port > MAX_PORT)
   		return NOFILE;
-
 
 	Fid_t fid[1];
 	FCB* fcb[1];
@@ -35,6 +35,10 @@ Fid_t sys_Socket(port_t port)
 
 	fcb[0]->streamobj = cb;
   	fcb[0]->streamfunc = &socket_func;
+
+  	if(PORT_MAP[port] != NULL){
+  		return fid[0];
+  	}
   	
   	PORT_MAP[port] = cb;
 
@@ -44,21 +48,26 @@ Fid_t sys_Socket(port_t port)
 int sys_Listen(Fid_t sock)
 {
 	FCB* fcb = get_fcb(sock);
+		//fprintf(stderr, "%s\n","geisu stel");
 	if(fcb != NULL && fcb->streamfunc == &socket_func){
 		socketCB* cb = fcb->streamobj;
 
-		if(cb == NULL) return -1;
-		if(cb->port <= NOPORT) return -1;
-		if(cb->port > MAX_PORT) return -1;
-		if((PORT_MAP[cb->port])->type == LISTENER) return -1;
-		if(cb->type != UNBOUND) return -1;
+		if(cb == NULL) 
+			return -1;
+		if(cb->port <= NOPORT || cb->port > MAX_PORT) 
+			return -1;
+		if((PORT_MAP[cb->port])->type == LISTENER) 
+			return -1;
+		if(cb->type != UNBOUND) 
+			return -1;
+		//if(PORT_MAP[cb->port] != NULL) return -1;
 		
 		cb->type = LISTENER;
 		rlnode_init(&cb->listener.request_queue, NULL);
 		cb->listener.req = COND_INIT;
 		return 0;
-	}else
-		return -1;
+	}
+	return -1;
 }
 
 
@@ -111,7 +120,7 @@ Fid_t sys_Accept(Fid_t lsock)
 
 //i enosi egine!! den exo idea an trexei xexex
 		if(pipe1 != NULL && pipe2 != NULL){
-			peer->type = PEER;
+			peer->peer.type = PEER;
 			peer->peer.readPipe = pipe2;
 			peer->peer.writePipe = pipe1;
 
@@ -121,7 +130,7 @@ Fid_t sys_Accept(Fid_t lsock)
 		}
 
 		reqNode->admitted = 1;
-		kernel_broadcast(&reqNode->cv); //isos signal
+		kernel_signal(&reqNode->cv); //isos signal
 
 		return peerID;
 	}
@@ -131,38 +140,44 @@ Fid_t sys_Accept(Fid_t lsock)
 
 int sys_Connect(Fid_t sock, port_t port, timeout_t timeout)
 {
-	// fprintf(stderr, "%s\n","Mphkame sth synarthsh Connect" );
 	FCB* fcb = get_fcb(sock);
-	int timeout_not_expired;
-	if((fcb!=NULL) && (fcb->streamfunc!=NULL) && (port>NOPORT && port<=MAX_PORT) ) {
-		socketCB* client1 = fcb->streamobj;
-		socketCB* listener = PORT_MAP[port];
-		// fprintf(stderr, "%s\n","Mphkame sthn prwth if" );
+	int timedOut;
 
-		if((client1->type == UNBOUND) && (listener!=NULL) && (PORT_MAP[port]->type == LISTENER)) {
-			// fprintf(stderr, "%s\n","Mphkame sthn if poy gyrnaei 0" );
-			qNode* req_node = (qNode*)xmalloc(sizeof(qNode));
-			req_node->reqSock = client1;
-		  	rlnode_init(& req_node->node, req_node);
-		  	req_node->cv = COND_INIT;
-		  	req_node->admitted = 0;
-			// Push back
-			rlist_push_back(& (listener->listener.request_queue), & (req_node->node) );
-			kernel_signal(& listener->listener.req); //broadcast??
-			while(req_node->admitted == 0) {	
-				timeout_not_expired = kernel_timedwait(& req_node->cv, SCHED_PIPE, timeout);
+	if(fcb==NULL) return -1;
+	if(fcb->streamfunc == NULL) return -1;
+	if(port <= NOPORT || port > MAX_PORT) return -1;
 
-				if(!timeout_not_expired) //an den egine expired rip
-				{
-					return -1;
-				}
-			}
-			free(req_node);
-			req_node = NULL;
-			return 0;
-		}
+	socketCB* peer = fcb->streamobj;
+	socketCB* listener = PORT_MAP[port];
+	
+
+	if(peer->type != UNBOUND) return -1; //isos !=
+	if(listener == NULL) return -1;
+	if(listener->type != LISTENER) return -1;
+
+
+	qNode* node = (qNode*) xmalloc(sizeof(qNode));
+	node->reqSock = peer;
+	node->fid = sock; //maybe yes maybe no
+	rlnode_init(&node->node, node);
+	node->admitted = 0;
+	node->cv = COND_INIT;
+	rlist_push_back(&(listener->listener.request_queue), &node->node);
+
+	kernel_signal(&(listener->listener.req));
+
+	//if(is_rlist_empty(&listener->listener.request_queue)){
+	
+	//}
+
+	while(node->admitted == 0){
+		timedOut = kernel_timedwait(&node->cv, SCHED_PIPE, timeout);
+		if(!timedOut) 
+			return -1;
 	}
-	return -1;
+	free(node);
+	node = NULL;
+	return 0;
 }
 
 
@@ -193,6 +208,24 @@ int socket_write(void* this, const char* buf, unsigned int size)
 
 int socket_close(void* this)
 {
+	if(this!=NULL){
+		socketCB* cb = (socketCB*) this;
+
+		if(cb->type == PEER){
+			int r,w;
+			r = reader_Close(cb->peer.readPipe); //0 an ola kalos
+			w = writer_Close(cb->peer.writePipe); //0 an ola kalos
+			if(r+w != 0)
+				return -1;
+		}
+
+		if(cb->type == LISTENER) //an einai kai listener tautoxrona
+			kernel_broadcast(&cb->listener.req);
+		
+		free(cb);
+		cb = NULL;
+		return 0;
+	}
 	return NOFILE;
 }
 
