@@ -69,7 +69,7 @@ int pipe_read(void* this, char *buf, unsigned int size)
 		if(pipeCB->readPTR  == pipeCB->writePTR)
 			break;
 		buf[count] = pipeCB->buffer[pipeCB->readPTR];
-		pipeCB->buffer[pipeCB->readPTR] = '\0';
+		//pipeCB->buffer[pipeCB->readPTR] = '\0';
 		pipeCB->readPTR = (pipeCB->readPTR + 1) % BUF_SIZE;
 		count++;
 	}

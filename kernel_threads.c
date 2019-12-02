@@ -95,8 +95,9 @@ int sys_ThreadJoin(Tid_t tid, int* exitval)
 {
   //dimiourgia topikou tcb kai ptcb gia taxutita
   
-  PTCB* ptcb = find_ptcb(tid);  //rlist_find();
-  //assert(ptcb != NULL);
+  //PTCB* ptcb = find_ptcb(tid);  //rlist_find();
+  PTCB* ptcb = (PTCB*)tid;
+  assert(ptcb != NULL);
 
 //DEN MPORO NA BALO TO TID_T TOU EAUTOU MOU
   if((Tid_t)CURTHREAD==tid ||ptcb == NULL){
