@@ -2,6 +2,7 @@
 #include <assert.h>
 #include "kernel_cc.h"
 #include "kernel_proc.h"
+#include "kernel_info.h"
 #include "kernel_streams.h"
 
 
@@ -382,10 +383,17 @@ void sys_Exit(int exitval)
   kernel_sleep(EXITED, SCHED_USER);
 }
 
-
+//-----------------------------INFO-----------------------
 
 Fid_t sys_OpenInfo()
 {
 	return NOFILE;
 }
 
+int info_Read(void* this, char *buf, unsigned int size){
+  return 0;
+}
+
+int info_Close(void* this){
+  return 0;
+}

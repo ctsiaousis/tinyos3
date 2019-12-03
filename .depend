@@ -33,7 +33,8 @@ kernel_pipe.o: kernel_pipe.c tinyos.h kernel_pipe.h util.h kernel_dev.h \
 kernel_cc.o: kernel_cc.c kernel_sched.h bios.h tinyos.h util.h \
  kernel_proc.h kernel_cc.h kernel_sys.h
 kernel_proc.o: kernel_proc.c kernel_cc.h kernel_sys.h bios.h tinyos.h \
- kernel_sched.h util.h kernel_proc.h kernel_streams.h kernel_dev.h
+ kernel_sched.h util.h kernel_proc.h kernel_info.h kernel_pipe.h \
+ kernel_dev.h kernel_streams.h
 tinyoslib.o: tinyoslib.c util.h tinyos.h tinyoslib.h
 symposium.o: symposium.c util.h bios.h tinyos.h symposium.h
 util.o: util.c util.h
