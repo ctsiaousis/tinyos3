@@ -1734,7 +1734,7 @@ TEST_SUITE(socket_tests,
 	"A suite of tests for sockets."
 	)
 {
-	/**/
+	
 	&test_socket_constructor_many_per_port,
 	&test_socket_constructor_out_of_fids,
 	&test_socket_constructor_illegal_port,

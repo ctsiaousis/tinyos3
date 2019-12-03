@@ -80,6 +80,7 @@ Fid_t sys_Accept(Fid_t lsock)
 		if(cb == NULL) return -1;
 		if(cb->port <= NOPORT) return -1;
 		if(cb->port > MAX_PORT) return -1;
+		if(cb->type == PEER) return -1;
 		if((PORT_MAP[cb->port])->type != LISTENER) return -1;
 
 		while(is_rlist_empty(&cb->listener.request_queue))
@@ -94,10 +95,10 @@ Fid_t sys_Accept(Fid_t lsock)
 		socketCB* peer = peerFCB->streamobj; //peer pou dimiourgo
 
 //kai pairnoume kai to req peer
-		rlnode* requestNode = rlist_pop_front(&cb->listener.request_queue);
+		rlnode* requestNode = rlist_pop_front(&(cb->listener.request_queue));
 		qNode* reqNode = requestNode->obj;
-		Fid_t reqPeerID = reqNode->fid;
 		socketCB* reqPeer = reqNode->reqSock;
+		Fid_t reqPeerID = reqNode->fid;
 
 		if(reqPeer == NULL || peer == NULL) return -1;
 
