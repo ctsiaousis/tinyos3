@@ -86,13 +86,14 @@ Fid_t sys_Accept(Fid_t lsock)
 			kernel_wait(&cb->listener.req, SCHED_PIPE);
 //apo do kai kato exoume ksupnisei pano sto reqCV tou listener
 	//ara kanoume ton listener kai peer?
-		Fid_t peerID = sys_Socket(cb->port);
+		Fid_t peerID = sys_Socket(cb->port); //peer pou dimiourgo
 
 		if(peerID == NOFILE) return -1;
 //kanoume ton listener kai peer gia na epikoinonisei
 		FCB* peerFCB = get_fcb(peerID);
-		socketCB* peer = peerFCB->streamobj;
+		socketCB* peer = peerFCB->streamobj; //peer pou dimiourgo
 
+//kai pairnoume kai to req peer
 		rlnode* requestNode = rlist_pop_front(&cb->listener.request_queue);
 		qNode* reqNode = requestNode->obj;
 		Fid_t reqPeerID = reqNode->fid;
@@ -120,7 +121,7 @@ Fid_t sys_Accept(Fid_t lsock)
 
 //i enosi egine!! den exo idea an trexei xexex
 		if(pipe1 != NULL && pipe2 != NULL){
-			peer->peer.type = PEER;
+			peer->type = PEER;
 			peer->peer.readPipe = pipe2;
 			peer->peer.writePipe = pipe1;
 
@@ -130,7 +131,7 @@ Fid_t sys_Accept(Fid_t lsock)
 		}
 
 		reqNode->admitted = 1;
-		kernel_signal(&reqNode->cv); //isos signal
+		kernel_broadcast(&reqNode->cv); //isos signal
 
 		return peerID;
 	}
@@ -159,22 +160,23 @@ int sys_Connect(Fid_t sock, port_t port, timeout_t timeout)
 	qNode* node = (qNode*) xmalloc(sizeof(qNode));
 	node->reqSock = peer;
 	node->fid = sock; //maybe yes maybe no
-	rlnode_init(&node->node, node);
+	rlnode_init(&node->node, node); //isos null
 	node->admitted = 0;
 	node->cv = COND_INIT;
 	rlist_push_back(&(listener->listener.request_queue), &node->node);
 
-	kernel_signal(&(listener->listener.req));
 
 	//if(is_rlist_empty(&listener->listener.request_queue)){
 	
 	//}
 
+	kernel_broadcast(&(listener->listener.req));
 	while(node->admitted == 0){
 		timedOut = kernel_timedwait(&node->cv, SCHED_PIPE, timeout);
 		if(!timedOut) 
 			return -1;
 	}
+
 	free(node);
 	node = NULL;
 	return 0;
