@@ -21,7 +21,7 @@ typedef struct peer_socket
 {
 	pipe_CB* readPipe;
 	pipe_CB* writePipe;
-	sockType type; //perito 99%
+	//sockType type; //perito 99%
 	//ta kato isos theloun diaforetiko struct
 }sockPee;
 

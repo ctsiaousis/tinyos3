@@ -1762,7 +1762,7 @@ TEST_SUITE(socket_tests,
 	&test_socket_small_transfer,
 	&test_socket_single_producer,
 	&test_socket_multi_producer,
-/**/
+
 	&test_shudown_read,
 	&test_shudown_write,
 

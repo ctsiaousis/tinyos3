@@ -454,7 +454,11 @@ void yield(enum SCHED_CAUSE cause)
      case SCHED_MUTEX:
      	current->priority = (current->priority == 0) ? 0 : current->priority - 1;
       break;
+     case SCHED_PIPE:
+     	current->priority = prioritySize - 1;
+      break;
     default:
+    	current->priority = current->priority;
       break; 
   }
 

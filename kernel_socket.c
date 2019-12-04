@@ -103,8 +103,11 @@ Fid_t sys_Accept(Fid_t lsock)
 
 		socketCB* l = PORT_MAP[cb->port];
 		//oso i requestList tou L einai adeia
-		while(is_rlist_empty(&(l->listener.request_queue)))
-			kernel_timedwait(&(l->listener.req), SCHED_PIPE, 10000);	//perimene na se ksupnisei kapoios request
+		while(is_rlist_empty(&(l->listener.request_queue))){
+			kernel_wait(&(l->listener.req), SCHED_PIPE);	//perimene na se ksupnisei kapoios request
+			if(PORT_MAP[cb->port] == NULL)
+				return -1;
+		}
 
 	//apo do kai kato exoume ksupnisei pano sto reqCV tou listener
 		//dimiourgo ena peer gia na enoso me ton requester
@@ -159,7 +162,7 @@ Fid_t sys_Accept(Fid_t lsock)
 	//dilono ston kombo oti eksupiretithike, basei autou kanei free ap to reqnode i connect
 		reqNode->admitted = 1;
 		//ksupna requester, s eftiaksa
-		kernel_broadcast(&(reqNode->cv)); //isos signal
+		kernel_signal(&(reqNode->cv)); //isos signal
 
 		return peerID;		//ola kalos
 	}
