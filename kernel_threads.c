@@ -40,13 +40,14 @@ Tid_t sys_CreateThread(Task task, int argl, void* args)
 {
   if(task != NULL){
   //to megethos tou allocation prepei na nai pol/sio tou PTCB size
-  PTCB *ptcb = (PTCB *)xmalloc(sizeof(PTCB));
+  PTCB* ptcb = (PTCB *)xmalloc(sizeof(PTCB));
   //gia taxutita kanoume ena instance tou pcb
+  //TCB* tcb = (TCB *)xmalloc(sizeof(TCB));
   TCB* tcb = CURPROC->main_thread;
 
 
   /* Initialize the other attributes */
-  ptcb->ref_count = 0; //arxikopoiisi tou refCount sto 0
+  ptcb->ref_count = 1; //arxikopoiisi tou refCount sto 0
   ptcb->tcb = tcb; //to ptcb deixnei to tcb
   ptcb->task = task;
   ptcb->argl = argl;
@@ -95,12 +96,12 @@ int sys_ThreadJoin(Tid_t tid, int* exitval)
 {
   //dimiourgia topikou tcb kai ptcb gia taxutita
   
-  //PTCB* ptcb = find_ptcb(tid);  //rlist_find();
-  PTCB* ptcb = (PTCB*)tid;
-  assert(ptcb != NULL);
+  PTCB* ptcb = find_ptcb(tid);  //rlist_find();
+  //PTCB* ptcb = (PTCB*)tid;
+  //assert(ptcb != NULL);
 
 //DEN MPORO NA BALO TO TID_T TOU EAUTOU MOU
-  if((Tid_t)CURTHREAD==tid ||ptcb == NULL){
+  if((Tid_t)CURTHREAD==tid || ptcb == NULL){
     return -1;
   }
 

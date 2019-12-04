@@ -8,7 +8,7 @@ int info_Close(void* this);
 
 typedef struct procinfo_cb{
 	procinfo curinfo;
-	char cursor[MAX_PROC - 1]
+	char cursor[MAX_PROC - 1];
 }infoCB;
 file_ops info_ops = {
   .Open = NULL,

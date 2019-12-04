@@ -76,10 +76,10 @@ int sys_Listen(Fid_t sock)
 
 		//kane to tupe listener
 		cb->type = LISTENER;
-		//arxikopoiise tin oura sto unionTypeListener
-		rlnode_init(&cb->listener.request_queue, NULL);
 		//arxikopoiise to condVar pou ksupna otan exo kainourio requestNode stin lista
 		cb->listener.req = COND_INIT;
+		//arxikopoiise tin oura sto unionTypeListener
+		rlnode_init(&(cb->listener.request_queue), NULL);
 		return 0;						//ola kalos
 	}
 	return -1;							//ola kakos
@@ -101,9 +101,10 @@ Fid_t sys_Accept(Fid_t lsock)
 		if(cb->type == PEER) return -1;							//exei idi sundesi
 		if((PORT_MAP[cb->port])->type != LISTENER) return -1;	//den deixnei se valid listener
 
+		socketCB* l = PORT_MAP[cb->port];
 		//oso i requestList tou L einai adeia
-		while(is_rlist_empty(&cb->listener.request_queue))
-			kernel_wait(&cb->listener.req, SCHED_PIPE); //perimene na se ksupnisei kapoios requester
+		while(is_rlist_empty(&(l->listener.request_queue)))
+			kernel_timedwait(&(l->listener.req), SCHED_PIPE, 10000);	//perimene na se ksupnisei kapoios request
 
 	//apo do kai kato exoume ksupnisei pano sto reqCV tou listener
 		//dimiourgo ena peer gia na enoso me ton requester
@@ -116,7 +117,7 @@ Fid_t sys_Accept(Fid_t lsock)
 		socketCB* peer = peerFCB->streamobj;
 
 		//pairno ton proto node ap to reqList tou L
-		rlnode* requestNode = rlist_pop_front(&(cb->listener.request_queue));
+		rlnode* requestNode = rlist_pop_front(&(l->listener.request_queue));
 		//pairno to struct tupou qNode ap to rlnode
 		qNode* reqNode = requestNode->obj;
 		//pairno to peer apo auto
@@ -158,7 +159,7 @@ Fid_t sys_Accept(Fid_t lsock)
 	//dilono ston kombo oti eksupiretithike, basei autou kanei free ap to reqnode i connect
 		reqNode->admitted = 1;
 		//ksupna requester, s eftiaksa
-		kernel_broadcast(&reqNode->cv); //isos signal
+		kernel_broadcast(&(reqNode->cv)); //isos signal
 
 		return peerID;		//ola kalos
 	}
@@ -199,14 +200,14 @@ int sys_Connect(Fid_t sock, port_t port, timeout_t timeout)
 	//initialize tou condition variable
 	node->cv = COND_INIT;
 	//bale to requestNode stin lista tou listener
-	rlist_push_back(&(listener->listener.request_queue), &node->node);
+	rlist_push_back(&(PORT_MAP[port]->listener.request_queue), &node->node);
 
 	//ksupna ton listener etoimos na enotho!!!11!!!!
-	kernel_broadcast(&(listener->listener.req));
+	kernel_broadcast(&(PORT_MAP[port]->listener.req));
 	//oso den mou dinei simasia o xazos
 	while(node->admitted == 0){
 		//nani nani to pedi mas kanei mexri time out
-		timedOut = kernel_timedwait(&node->cv, SCHED_PIPE, timeout);
+		timedOut = kernel_timedwait(&(node->cv), SCHED_PIPE, timeout);
 		if(!timedOut) 
 			return -1; //telos xronou
 	}
