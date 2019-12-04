@@ -220,6 +220,33 @@ int sys_Connect(Fid_t sock, port_t port, timeout_t timeout)
 
 int sys_ShutDown(Fid_t sock, shutdown_mode how)
 {
+	FCB* fcb = get_fcb(sock);
+	if(fcb==NULL) return -1;							//akuro fcb
+	if(fcb->streamfunc != &socket_func) return -1;		//akuro pedio sunartisis
+	if(how < 1 || how > 3) return -1;					//akuro mode
+
+	socketCB* cb = fcb->streamobj;
+
+	if(cb != NULL && cb->type == PEER){
+		int r,w;
+		switch(how)
+		{
+		case SHUTDOWN_READ:
+			return reader_Close(cb->peer.readPipe);
+			break;
+		case SHUTDOWN_WRITE:
+			return writer_Close(cb->peer.writePipe);
+			break;
+		case SHUTDOWN_BOTH:
+			r = reader_Close(cb->peer.readPipe);
+			w = writer_Close(cb->peer.writePipe);
+			if((r+w) == 0)
+				return 0;
+			else
+				return -1;
+			break;
+		}
+	}
 	return -1;
 }
 
@@ -268,9 +295,10 @@ int socket_close(void* this)
 				return -1;
 		}
 
-		if(cb->type == LISTENER) //an einai kai listener
+		if(cb->type == LISTENER){ //an einai kai listener
 			kernel_broadcast(&cb->listener.req); //ksupna ton listener
-		
+			PORT_MAP[cb->port] = NULL; 			//vgale ton L ap ton pinaka ton socket
+		}
 		free(cb);
 		cb = NULL;
 		return 0;		//ola kalos

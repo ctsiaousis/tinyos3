@@ -1,0 +1,16 @@
+<map id="queue_node" name="queue_node">
+<area shape="rect" id="node2" href="$structCondVar.html" title="Condition variables. " alt="" coords="235,20,342,112"/>
+<area shape="rect" id="node4" href="$structprocess__control__block.html" title="Process Control Block. " alt="" coords="653,204,805,355"/>
+<area shape="rect" id="node8" href="$structprocess__thread__control__block.html" title="{process_thread_control\l_block\n|+ ref_count\l+ task\l+ argl\l+ args\l+ exit_val\l+ detached\l+ exited\l|}" alt="" coords="709,1053,866,1233"/>
+<area shape="rect" id="node12" href="$structlistener__socket.html" title="{listener_socket\n||}" alt="" coords="248,803,359,881"/>
+<area shape="rect" id="node14" href="$structpipe__control__block.html" title="{pipe_control_block\n|+ buffer\l+ readPTR\l+ writePTR\l|}" alt="" coords="121,226,251,333"/>
+<area shape="rect" id="node3" href="$structresource__list__node.html" title="List node. " alt="" coords="641,476,771,597"/>
+<area shape="rect" id="node5" href="$structfile__control__block.html" title="The file control block. " alt="" coords="959,796,1082,888"/>
+<area shape="rect" id="node7" href="$structthread__control__block.html" title="The thread control block. " alt="" coords="551,723,693,961"/>
+<area shape="rect" id="node6" href="$structfile__operations.html" title="The device&#45;specific file operations table. " alt="" coords="1069,5,1175,127"/>
+<area shape="rect" id="node10" href="$structdevice__control__block.html" title="Device control block. " alt="" coords="938,233,1082,325"/>
+<area shape="rect" id="node9" href="$structcore__control__block.html" title="Core control block. " alt="" coords="470,1097,601,1189"/>
+<area shape="rect" id="node11" href="$structsocket__control__block.html" title="{socket_control_block\n|+ type\l+ port\l+ @2\l|}" alt="" coords="157,1090,303,1197"/>
+<area shape="rect" id="node13" href="$structpeer__socket.html" title="{peer_socket\n|+ type\l|}" alt="" coords="139,621,233,699"/>
+<area shape="rect" id="node15" href="$structpipe__s.html" title="A pair of file ids, describing a pipe. " alt="" coords="5,20,68,112"/>
+</map>

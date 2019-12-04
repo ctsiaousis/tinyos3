@@ -47,7 +47,12 @@ typedef struct queue_node
   	int admitted;
 }qNode;
 
-
+//thread barrier gia sosto sugxronismo gia pollous purines
+typedef struct barrier{
+	int count;
+	int epoch;
+	CondVar reached;
+}bar;
 
 
 socketCB* PORT_MAP[MAX_PORT + 1] = { NULL };

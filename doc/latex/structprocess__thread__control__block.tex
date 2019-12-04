@@ -1,0 +1,57 @@
+\hypertarget{structprocess__thread__control__block}{}\section{process\+\_\+thread\+\_\+control\+\_\+block Struct Reference}
+\label{structprocess__thread__control__block}\index{process\+\_\+thread\+\_\+control\+\_\+block@{process\+\_\+thread\+\_\+control\+\_\+block}}
+
+
+Collaboration diagram for process\+\_\+thread\+\_\+control\+\_\+block\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structprocess__thread__control__block__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structprocess__thread__control__block_a26a74f761ef83b063591bce5b3e74e45}\label{structprocess__thread__control__block_a26a74f761ef83b063591bce5b3e74e45}} 
+\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} {\bfseries ref\+\_\+count}
+\item 
+\mbox{\Hypertarget{structprocess__thread__control__block_a017064ee9f9b582aba4fefdbb1109d58}\label{structprocess__thread__control__block_a017064ee9f9b582aba4fefdbb1109d58}} 
+\hyperlink{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}{T\+CB} $\ast$ {\bfseries tcb}
+\item 
+\mbox{\Hypertarget{structprocess__thread__control__block_a7a4758a8f6801ba747939daed9bf0a2b}\label{structprocess__thread__control__block_a7a4758a8f6801ba747939daed9bf0a2b}} 
+\hyperlink{group__rlists_ga8f6244877f7ce2322c90525217ea6e7a}{rlnode} {\bfseries thread\+\_\+list\+\_\+node}
+\item 
+\mbox{\Hypertarget{structprocess__thread__control__block_a1685f472448d01ec92e39723f37b15fc}\label{structprocess__thread__control__block_a1685f472448d01ec92e39723f37b15fc}} 
+\hyperlink{group__syscalls_gaec3f2f835e105271fbbc00272c0ba984}{Task} {\bfseries task}
+\item 
+\mbox{\Hypertarget{structprocess__thread__control__block_afe4baa9de9fc12a689b72c3445b0f024}\label{structprocess__thread__control__block_afe4baa9de9fc12a689b72c3445b0f024}} 
+int {\bfseries argl}
+\item 
+\mbox{\Hypertarget{structprocess__thread__control__block_a38980424abac6df706714f291678b3ef}\label{structprocess__thread__control__block_a38980424abac6df706714f291678b3ef}} 
+void $\ast$ {\bfseries args}
+\item 
+\mbox{\Hypertarget{structprocess__thread__control__block_a834a356465471369e67586170a755ee1}\label{structprocess__thread__control__block_a834a356465471369e67586170a755ee1}} 
+int {\bfseries exit\+\_\+val}
+\item 
+\mbox{\Hypertarget{structprocess__thread__control__block_aa358c23603b1949eab39bb46d2dc3b2b}\label{structprocess__thread__control__block_aa358c23603b1949eab39bb46d2dc3b2b}} 
+int {\bfseries detached}
+\item 
+\mbox{\Hypertarget{structprocess__thread__control__block_a82f3f6173804416baca330d08a0b9a42}\label{structprocess__thread__control__block_a82f3f6173804416baca330d08a0b9a42}} 
+int {\bfseries exited}
+\item 
+\mbox{\Hypertarget{structprocess__thread__control__block_ad73b76633d2d7051082a20a3237c5d25}\label{structprocess__thread__control__block_ad73b76633d2d7051082a20a3237c5d25}} 
+\hyperlink{structCondVar}{Cond\+Var} {\bfseries exit\+\_\+cv}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 94 of file kernel\+\_\+sched.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kernel__sched_8h}{kernel\+\_\+sched.\+h}\end{DoxyCompactItemize}

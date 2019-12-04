@@ -1,0 +1,238 @@
+\hypertarget{symposium_8h}{}\section{symposium.\+h File Reference}
+\label{symposium_8h}\index{symposium.\+h@{symposium.\+h}}
+
+
+An implementation of Dining Philosophers.  
+
+
+{\ttfamily \#include \char`\"{}tinyos.\+h\char`\"{}}\newline
+Include dependency graph for symposium.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=155pt]{symposium_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{symposium_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsymposium__t}{symposium\+\_\+t}
+\begin{DoxyCompactList}\small\item\em A symposium definition. \end{DoxyCompactList}\item 
+struct \hyperlink{structSymposiumTable}{Symposium\+Table}
+\begin{DoxyCompactList}\small\item\em A symposium monitor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{symposium_8h_aa8c7593792d981b932c6eb4a9188edff}\label{symposium_8h_aa8c7593792d981b932c6eb4a9188edff}} 
+\#define \hyperlink{symposium_8h_aa8c7593792d981b932c6eb4a9188edff}{F\+B\+A\+SE}~35
+\begin{DoxyCompactList}\small\item\em The default for constant $F_\text{BASE}$. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{symposium_8h_a2c3f0109071e4c85f626dab0a13dda90}\label{symposium_8h_a2c3f0109071e4c85f626dab0a13dda90}} 
+\#define \hyperlink{symposium_8h_a2c3f0109071e4c85f626dab0a13dda90}{F\+G\+AP}~10
+\begin{DoxyCompactList}\small\item\em The default for constant $F_\text{GAP}$. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{symposium_8h_a9fced5fb7d50a8fa2e8ae45b0cae3520}\label{symposium_8h_a9fced5fb7d50a8fa2e8ae45b0cae3520}} 
+enum \hyperlink{symposium_8h_a9fced5fb7d50a8fa2e8ae45b0cae3520}{P\+H\+IL} \{ {\bfseries N\+O\+T\+H\+E\+RE} =0, 
+{\bfseries T\+H\+I\+N\+K\+I\+NG}, 
+{\bfseries H\+U\+N\+G\+RY}, 
+{\bfseries E\+A\+T\+I\+NG}
+ \}\begin{DoxyCompactList}\small\item\em A philosopher\textquotesingle{}s state. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \hyperlink{symposium_8h_a84513d2aec8501a26825e23f0e450ca5}{fibo} (unsigned int n)
+\begin{DoxyCompactList}\small\item\em Compute the n-\/th Fibonacci number recursively. \end{DoxyCompactList}\item 
+void \hyperlink{symposium_8h_a900dd2c0958369a94ba06efb7a352216}{adjust\+\_\+symposium} (\hyperlink{structsymposium__t}{symposium\+\_\+t} $\ast$table, int d\+B\+A\+SE, int d\+G\+AP)
+\begin{DoxyCompactList}\small\item\em Adjust a symposium\textquotesingle{}s duration. \end{DoxyCompactList}\item 
+void \hyperlink{symposium_8h_acee238ec1bec29869630d48b21c54904}{Symposium\+Table\+\_\+init} (\hyperlink{structSymposiumTable}{Symposium\+Table} $\ast$table, \hyperlink{structsymposium__t}{symposium\+\_\+t} $\ast$symp)
+\begin{DoxyCompactList}\small\item\em Initialize a symposium monitor. \end{DoxyCompactList}\item 
+void \hyperlink{symposium_8h_af52cdc1038db2959d8af09fa5f13032f}{Symposium\+Table\+\_\+destroy} (\hyperlink{structSymposiumTable}{Symposium\+Table} $\ast$table)
+\begin{DoxyCompactList}\small\item\em Destroy a symposium monitor. \end{DoxyCompactList}\item 
+void \hyperlink{symposium_8h_ad0a96304b18eeb599ee43e14ed1c2e56}{Symposium\+Table\+\_\+philosopher} (\hyperlink{structSymposiumTable}{Symposium\+Table} $\ast$table, int i)
+\begin{DoxyCompactList}\small\item\em The philosopher. \end{DoxyCompactList}\item 
+int \hyperlink{symposium_8h_a5214bc7f5ae83c1db2e14b40dea86948}{Symposium\+Of\+Threads} (int argl, void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Run a symposium using threads. \end{DoxyCompactList}\item 
+int \hyperlink{symposium_8h_a528034fb39aa477a05b57211c9614ebe}{Symposium\+Of\+Processes} (int argl, void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Run a symposium using processes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An implementation of Dining Philosophers. 
+
+The Dining Philisophers are sitting around a Symposium roundtable. Each philosopher comes to the table, cycles between thinking and eating a number of times, and leaves the table. However,
+\begin{DoxyItemize}
+\item in order to eat she needs to hold a fork in each hand, and
+\item there is only one fork between two philosophers. Therefore, a philosopher may wait hungry for forks to become available.
+\end{DoxyItemize}
+
+In our simulation, a philosopher is a thread. The symposium is implemented as a monitor, with each philosopher waiting at their own condition variable.
+
+During each thinking or eating period, a philosopher computes Fibonacci numbers using an exponentially expensive recursion\+: \[ F(n+2) = F(n+1) + F(n) \] with $F(0) = 0$ and $F(1)=1$. The complexity of this recursion is $ O( \phi^n )$ where $\phi=\frac{1+\sqrt{5}}{2}\approx 1.618$ is the {\bfseries golden ratio}.
+
+For each thinking session, an integer $n$ is drawn uniformly at random from the set $ [f_\text{min}, f_\text{max}] $.
+
+Overall, a symposium is specified by four numbers\+:
+\begin{DoxyItemize}
+\item {\ttfamily N}, the number of philosophers
+\item {\ttfamily bites}, the number of times each of them eats
+\item $f_\text{min}, f_\text{max}$ which determine the time of each thinking and eating period.
+\end{DoxyItemize}
+
+In order to make symposia with a large number of philosophers or number of bites, we can compute suitable values of $f_\text{min}, f_\text{max}$. We use the following simple formulas\+: \[ f_\text{min} = F_\text{BASE} - \log_\phi( 2*N*\text{bites} ) \] and \[ f_\text{max} = f_\text{min} + F_\text{GAP}. \]
+
+The constants $F_\text{BASE}$ and $F_\text{GAP}$ are defined in the source code.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{symposium_8h_aa8c7593792d981b932c6eb4a9188edff}{F\+B\+A\+SE} 
+
+\hyperlink{symposium_8h_a2c3f0109071e4c85f626dab0a13dda90}{F\+G\+AP} 
+\end{DoxySeeAlso}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{symposium_8h_a900dd2c0958369a94ba06efb7a352216}\label{symposium_8h_a900dd2c0958369a94ba06efb7a352216}} 
+\index{symposium.\+h@{symposium.\+h}!adjust\+\_\+symposium@{adjust\+\_\+symposium}}
+\index{adjust\+\_\+symposium@{adjust\+\_\+symposium}!symposium.\+h@{symposium.\+h}}
+\subsubsection{\texorpdfstring{adjust\+\_\+symposium()}{adjust\_symposium()}}
+{\footnotesize\ttfamily void adjust\+\_\+symposium (\begin{DoxyParamCaption}\item[{\hyperlink{structsymposium__t}{symposium\+\_\+t} $\ast$}]{table,  }\item[{int}]{d\+B\+A\+SE,  }\item[{int}]{d\+G\+AP }\end{DoxyParamCaption})}
+
+
+
+Adjust a symposium\textquotesingle{}s duration. 
+
+This function computes $f_\text{min}, f_\text{max}$ based on the values \[ F_\text{BASE} = \text{FBASE}+\text{dBASE} \] and \[ F_\text{GAP} = \text{FGAP}+\text{dGAP}. \]
+
+The computed values are stored in {\ttfamily table}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & the symposium table whose $f$-\/values are computed. \\
+\hline
+{\em d\+B\+A\+SE} & added to \hyperlink{symposium_8h_aa8c7593792d981b932c6eb4a9188edff}{F\+B\+A\+SE} \\
+\hline
+{\em d\+G\+AP} & added to \hyperlink{symposium_8h_a2c3f0109071e4c85f626dab0a13dda90}{F\+G\+AP} \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{symposium_8h_aa8c7593792d981b932c6eb4a9188edff}{F\+B\+A\+SE} 
+
+\hyperlink{symposium_8h_a2c3f0109071e4c85f626dab0a13dda90}{F\+G\+AP} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{symposium_8h_a84513d2aec8501a26825e23f0e450ca5}\label{symposium_8h_a84513d2aec8501a26825e23f0e450ca5}} 
+\index{symposium.\+h@{symposium.\+h}!fibo@{fibo}}
+\index{fibo@{fibo}!symposium.\+h@{symposium.\+h}}
+\subsubsection{\texorpdfstring{fibo()}{fibo()}}
+{\footnotesize\ttfamily unsigned int fibo (\begin{DoxyParamCaption}\item[{unsigned int}]{n }\end{DoxyParamCaption})}
+
+
+
+Compute the n-\/th Fibonacci number recursively. 
+
+The purpose of this function is to burn C\+PU cycles. Its complexity is $ O( \phi^n )$ where $\phi=\frac{1+\sqrt{5}}{2}\approx 1.618$ is the golden ratio.
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & the index of the Fibonacci number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the n-\/th Fibonacci number 
+\end{DoxyReturn}
+\mbox{\Hypertarget{symposium_8h_a528034fb39aa477a05b57211c9614ebe}\label{symposium_8h_a528034fb39aa477a05b57211c9614ebe}} 
+\index{symposium.\+h@{symposium.\+h}!Symposium\+Of\+Processes@{Symposium\+Of\+Processes}}
+\index{Symposium\+Of\+Processes@{Symposium\+Of\+Processes}!symposium.\+h@{symposium.\+h}}
+\subsubsection{\texorpdfstring{Symposium\+Of\+Processes()}{SymposiumOfProcesses()}}
+{\footnotesize\ttfamily int Symposium\+Of\+Processes (\begin{DoxyParamCaption}\item[{int}]{argl,  }\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+
+
+
+Run a symposium using processes. 
+
+In this implememntation, each philosopher is a process.
+
+This program can be called as follows\+: 
+\begin{DoxyCode}
+\hyperlink{structsymposium__t}{symposium\_t} symp = ...;
+\hyperlink{group__syscalls_ga737ad30d8105b4b76e3eb102dd016404}{Exec}(SymposiumProcesses, \textcolor{keyword}{sizeof}(symp), &symp);
+\end{DoxyCode}
+ \mbox{\Hypertarget{symposium_8h_a5214bc7f5ae83c1db2e14b40dea86948}\label{symposium_8h_a5214bc7f5ae83c1db2e14b40dea86948}} 
+\index{symposium.\+h@{symposium.\+h}!Symposium\+Of\+Threads@{Symposium\+Of\+Threads}}
+\index{Symposium\+Of\+Threads@{Symposium\+Of\+Threads}!symposium.\+h@{symposium.\+h}}
+\subsubsection{\texorpdfstring{Symposium\+Of\+Threads()}{SymposiumOfThreads()}}
+{\footnotesize\ttfamily int Symposium\+Of\+Threads (\begin{DoxyParamCaption}\item[{int}]{argl,  }\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+
+
+
+Run a symposium using threads. 
+
+In this implememntation, each philosopher is a thread.
+
+This program can be called as follows\+: 
+\begin{DoxyCode}
+\hyperlink{structsymposium__t}{symposium\_t} symp = ...;
+\hyperlink{group__syscalls_ga737ad30d8105b4b76e3eb102dd016404}{Exec}(\hyperlink{symposium_8h_a5214bc7f5ae83c1db2e14b40dea86948}{SymposiumOfThreads}, \textcolor{keyword}{sizeof}(symp), &symp);
+\end{DoxyCode}
+ \mbox{\Hypertarget{symposium_8h_af52cdc1038db2959d8af09fa5f13032f}\label{symposium_8h_af52cdc1038db2959d8af09fa5f13032f}} 
+\index{symposium.\+h@{symposium.\+h}!Symposium\+Table\+\_\+destroy@{Symposium\+Table\+\_\+destroy}}
+\index{Symposium\+Table\+\_\+destroy@{Symposium\+Table\+\_\+destroy}!symposium.\+h@{symposium.\+h}}
+\subsubsection{\texorpdfstring{Symposium\+Table\+\_\+destroy()}{SymposiumTable\_destroy()}}
+{\footnotesize\ttfamily void Symposium\+Table\+\_\+destroy (\begin{DoxyParamCaption}\item[{\hyperlink{structSymposiumTable}{Symposium\+Table} $\ast$}]{table }\end{DoxyParamCaption})}
+
+
+
+Destroy a symposium monitor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & the monitor \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{symposium_8h_acee238ec1bec29869630d48b21c54904}\label{symposium_8h_acee238ec1bec29869630d48b21c54904}} 
+\index{symposium.\+h@{symposium.\+h}!Symposium\+Table\+\_\+init@{Symposium\+Table\+\_\+init}}
+\index{Symposium\+Table\+\_\+init@{Symposium\+Table\+\_\+init}!symposium.\+h@{symposium.\+h}}
+\subsubsection{\texorpdfstring{Symposium\+Table\+\_\+init()}{SymposiumTable\_init()}}
+{\footnotesize\ttfamily void Symposium\+Table\+\_\+init (\begin{DoxyParamCaption}\item[{\hyperlink{structSymposiumTable}{Symposium\+Table} $\ast$}]{table,  }\item[{\hyperlink{structsymposium__t}{symposium\+\_\+t} $\ast$}]{symp }\end{DoxyParamCaption})}
+
+
+
+Initialize a symposium monitor. 
+
+Note\+: this method allocates memory. Therefore, \hyperlink{symposium_8h_af52cdc1038db2959d8af09fa5f13032f}{Symposium\+Table\+\_\+destroy} must be called
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & the monitor \\
+\hline
+{\em symp} & the symposium \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{symposium_8h_ad0a96304b18eeb599ee43e14ed1c2e56}\label{symposium_8h_ad0a96304b18eeb599ee43e14ed1c2e56}} 
+\index{symposium.\+h@{symposium.\+h}!Symposium\+Table\+\_\+philosopher@{Symposium\+Table\+\_\+philosopher}}
+\index{Symposium\+Table\+\_\+philosopher@{Symposium\+Table\+\_\+philosopher}!symposium.\+h@{symposium.\+h}}
+\subsubsection{\texorpdfstring{Symposium\+Table\+\_\+philosopher()}{SymposiumTable\_philosopher()}}
+{\footnotesize\ttfamily void Symposium\+Table\+\_\+philosopher (\begin{DoxyParamCaption}\item[{\hyperlink{structSymposiumTable}{Symposium\+Table} $\ast$}]{table,  }\item[{int}]{i }\end{DoxyParamCaption})}
+
+
+
+The philosopher. 
+
+This function implements philosopher logic. A symposium consists of {\ttfamily N} threads or processes executing this function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & the symposium monitor \\
+\hline
+{\em i} & the philosopher index \\
+\hline
+\end{DoxyParams}

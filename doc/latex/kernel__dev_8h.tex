@@ -1,0 +1,61 @@
+\hypertarget{kernel__dev_8h}{}\section{kernel\+\_\+dev.\+h File Reference}
+\label{kernel__dev_8h}\index{kernel\+\_\+dev.\+h@{kernel\+\_\+dev.\+h}}
+
+
+Device management.  
+
+
+{\ttfamily \#include \char`\"{}util.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}bios.\+h\char`\"{}}\newline
+Include dependency graph for kernel\+\_\+dev.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kernel__dev_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kernel__dev_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structfile__operations}{file\+\_\+operations}
+\begin{DoxyCompactList}\small\item\em The device-\/specific file operations table. \end{DoxyCompactList}\item 
+struct \hyperlink{structdevice__control__block}{device\+\_\+control\+\_\+block}
+\begin{DoxyCompactList}\small\item\em Device control block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structfile__operations}{file\+\_\+operations} \hyperlink{group__dev_gaab625d8ae3a95e942ed10ed1579f5042}{file\+\_\+ops}
+\begin{DoxyCompactList}\small\item\em The device-\/specific file operations table. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{structdevice__control__block}{device\+\_\+control\+\_\+block} \hyperlink{group__dev_gaf0e2d4a982667466d84f6fb7522611d6}{D\+CB}
+\begin{DoxyCompactList}\small\item\em Device control block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{group__dev_ga879ceac20e83b2375e5b49f4379b0c90}{Device\+\_\+type} \{ \hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90a8ca9ed7c2fc080b6706582ccf828b08f}{D\+E\+V\+\_\+\+N\+U\+LL}, 
+\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90adb43c91cf279ccd4510abaed9425bacc}{D\+E\+V\+\_\+\+S\+E\+R\+I\+AL}, 
+\hyperlink{group__dev_gga879ceac20e83b2375e5b49f4379b0c90a4d07dfbc7e68d26e2d92773a37381ce7}{D\+E\+V\+\_\+\+M\+AX}
+ \}\begin{DoxyCompactList}\small\item\em The device type. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__dev_ga840b5c2460abea4a19a201f7d6d035c8}{initialize\+\_\+devices} ()
+\begin{DoxyCompactList}\small\item\em Initialization for devices. \end{DoxyCompactList}\item 
+int \hyperlink{group__dev_ga6d8e08550640c9819aa07b6bba9fa6ed}{device\+\_\+open} (\hyperlink{group__dev_ga879ceac20e83b2375e5b49f4379b0c90}{Device\+\_\+type} major, \hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} minor, void $\ast$$\ast$obj, \hyperlink{group__dev_gaab625d8ae3a95e942ed10ed1579f5042}{file\+\_\+ops} $\ast$$\ast$ops)
+\begin{DoxyCompactList}\small\item\em Open a device. \end{DoxyCompactList}\item 
+\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{group__dev_ga0808cf584a510e0eff6908a5313ce296}{device\+\_\+no} (\hyperlink{group__dev_ga879ceac20e83b2375e5b49f4379b0c90}{Device\+\_\+type} major)
+\begin{DoxyCompactList}\small\item\em Get the number of devices of a particular major number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Device management. 
+

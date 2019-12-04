@@ -1,0 +1,73 @@
+\hypertarget{structresource__list__node}{}\section{resource\+\_\+list\+\_\+node Struct Reference}
+\label{structresource__list__node}\index{resource\+\_\+list\+\_\+node@{resource\+\_\+list\+\_\+node}}
+
+
+List node.  
+
+
+
+
+{\ttfamily \#include $<$util.\+h$>$}
+
+
+
+Collaboration diagram for resource\+\_\+list\+\_\+node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structresource__list__node__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\hyperlink{group__proc_gadf327f09ee935cf1734c14e8849f0421}{PCB} $\ast$ {\bfseries pcb}\\
+\>\hyperlink{group__scheduler_gaf88d9c946bf70b36a1e8bc34383abfc9}{TCB} $\ast$ {\bfseries tcb}\\
+\>\hyperlink{structprocess__thread__control__block}{PTCB} $\ast$ {\bfseries ptcb}\\
+\>\hyperlink{group__scheduler_ga7485b31e0dd9fd723bc2d75fba5206a0}{CCB} $\ast$ {\bfseries ccb}\\
+\>\hyperlink{group__dev_gaf0e2d4a982667466d84f6fb7522611d6}{DCB} $\ast$ {\bfseries dcb}\\
+\>\hyperlink{group__streams_ga0c7e751afb9d6cadebf070961804d400}{FCB} $\ast$ {\bfseries fcb}\\
+\>void $\ast$ {\bfseries obj}\\
+\>\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\_ptr} {\bfseries node}\\
+\>intptr\_t {\bfseries num}\\
+\>uintptr\_t {\bfseries unum}\\
+\}; \\
+
+\end{tabbing}\begin{DoxyCompactList}\small\item\em The list node\textquotesingle{}s key. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structresource__list__node_a280b77fdcee186bcaade02f76322d183}\label{structresource__list__node_a280b77fdcee186bcaade02f76322d183}} 
+\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr} \hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}
+\begin{DoxyCompactList}\small\item\em Pointer to previous node. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}\label{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}} 
+\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr} \hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}
+\begin{DoxyCompactList}\small\item\em Pointer to next node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+List node. 
+
+Definition at line 301 of file util.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structresource__list__node_ab118c72add904f5d81a787f15ac50162}\label{structresource__list__node_ab118c72add904f5d81a787f15ac50162}} 
+\subsubsection{\texorpdfstring{"@7}{@7}}
+{\footnotesize\ttfamily union \{ ... \} }
+
+
+
+The list node\textquotesingle{}s key. 
+
+The key (data element) of a list node is stored in a union of several pointer and integer types. This allows for easy access, without the need for casting. For example, 
+\begin{DoxyCode}
+\hyperlink{structthread__control__block}{TCB}* tcb = mynode->tcb;
+\end{DoxyCode}
+ 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{util_8h}{util.\+h}\end{DoxyCompactItemize}

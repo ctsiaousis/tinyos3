@@ -1,0 +1,50 @@
+\hypertarget{structfile__control__block}{}\section{file\+\_\+control\+\_\+block Struct Reference}
+\label{structfile__control__block}\index{file\+\_\+control\+\_\+block@{file\+\_\+control\+\_\+block}}
+
+
+The file control block.  
+
+
+
+
+{\ttfamily \#include $<$kernel\+\_\+streams.\+h$>$}
+
+
+
+Collaboration diagram for file\+\_\+control\+\_\+block\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structfile__control__block__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structfile__control__block_a629271d79f15500a74096ec65a4adedb}\label{structfile__control__block_a629271d79f15500a74096ec65a4adedb}} 
+\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint} \hyperlink{structfile__control__block_a629271d79f15500a74096ec65a4adedb}{refcount}
+\begin{DoxyCompactList}\small\item\em Reference counter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structfile__control__block_a1460eb54b4a65e747b9b9ec3f6a798d6}\label{structfile__control__block_a1460eb54b4a65e747b9b9ec3f6a798d6}} 
+void $\ast$ \hyperlink{structfile__control__block_a1460eb54b4a65e747b9b9ec3f6a798d6}{streamobj}
+\begin{DoxyCompactList}\small\item\em The stream object (e.\+g., a device) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structfile__control__block_aa49f26d3baceeb074fa00f9e5caf978b}\label{structfile__control__block_aa49f26d3baceeb074fa00f9e5caf978b}} 
+\hyperlink{group__dev_gaab625d8ae3a95e942ed10ed1579f5042}{file\+\_\+ops} $\ast$ \hyperlink{structfile__control__block_aa49f26d3baceeb074fa00f9e5caf978b}{streamfunc}
+\begin{DoxyCompactList}\small\item\em The stream implementation methods. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structfile__control__block_ac84640123f400fa3fe3cb64df08e6bd6}\label{structfile__control__block_ac84640123f400fa3fe3cb64df08e6bd6}} 
+\hyperlink{group__rlists_ga8f6244877f7ce2322c90525217ea6e7a}{rlnode} \hyperlink{structfile__control__block_ac84640123f400fa3fe3cb64df08e6bd6}{freelist\+\_\+node}
+\begin{DoxyCompactList}\small\item\em Intrusive list node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The file control block. 
+
+A file control block provides a uniform object to the system calls, and contains pointers to device-\/specific functions. 
+
+Definition at line 41 of file kernel\+\_\+streams.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kernel__streams_8h}{kernel\+\_\+streams.\+h}\end{DoxyCompactItemize}
