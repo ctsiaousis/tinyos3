@@ -1,5 +1,0 @@
-<map id="peer_socket" name="peer_socket">
-<area shape="rect" id="node2" href="$structpipe__control__block.html" title="{pipe_control_block\n|+ buffer\l+ readPTR\l+ writePTR\l|}" alt="" coords="48,175,179,281"/>
-<area shape="rect" id="node3" href="$structCondVar.html" title="Condition variables. " alt="" coords="5,5,112,97"/>
-<area shape="rect" id="node4" href="$structpipe__s.html" title="A pair of file ids, describing a pipe. " alt="" coords="137,5,199,97"/>
-</map>
