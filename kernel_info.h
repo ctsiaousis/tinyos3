@@ -6,6 +6,10 @@
 int info_Read(void* this, char *buf, unsigned int size);
 int info_Close(void* this);
 
+typedef struct procinfo_cb{
+	procinfo curinfo;
+	char cursor[MAX_PROC - 1]
+}infoCB;
 file_ops info_ops = {
   .Open = NULL,
   .Read = info_Read,
