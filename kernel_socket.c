@@ -227,27 +227,30 @@ int sys_ShutDown(Fid_t sock, shutdown_mode how)
 
 	socketCB* cb = fcb->streamobj;
 
-	if(cb != NULL && cb->type == PEER){
+	if(cb != NULL && cb->type == PEER){ //an uparxei socket ki exei sundesi
 		int r,w;
-		switch(how)
+		switch(how) //case pano sto shutdown mode
 		{
-		case SHUTDOWN_READ:
-			return reader_Close(cb->peer.readPipe);
+		case SHUTDOWN_READ: 		//an exo kleisimo read
+			return reader_Close(cb->peer.readPipe);	//kleino to readPipe tou socket
 			break;
 		case SHUTDOWN_WRITE:
-			return writer_Close(cb->peer.writePipe);
+			return writer_Close(cb->peer.writePipe); //kleino to writePipe tou socket
 			break;
-		case SHUTDOWN_BOTH:
+		case SHUTDOWN_BOTH:		//kleino kai ta duo
 			r = reader_Close(cb->peer.readPipe);
 			w = writer_Close(cb->peer.writePipe);
-			if((r+w) == 0)
-				return 0;
+			if((r+w) == 0)	//me elegxo an egine sosta
+				return 0;		//ola kalos
 			else
-				return -1;
+				return -1;		//ola kakos
 			break;
+		default:		//kapos perase lathos timi!
+			fprintf(stderr, "%s\n","Unknown shutdown_mode.\n");
+			return -1;
 		}
 	}
-	return -1;
+	return -1;	//ola kakos
 }
 
 int socket_read(void* this, char *buf, unsigned int size)
