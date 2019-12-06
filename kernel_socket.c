@@ -133,8 +133,8 @@ Fid_t sys_Accept(Fid_t lsock)
 //exoume dimiourgisei ta 2 peers ora na baloume 2 pipes
 	//1
 		pipe_CB* pipe1 = (pipe_CB*) xmalloc(sizeof(pipe_CB));
-		pipe1->pit.read = reqPeerID;
-		pipe1->pit.write = peerID;
+		pipe1->pit.read = reqPeerID;		//den ftaiei to pit gia to seg
+		pipe1->pit.write = peerID;			//testarismeno me 2 malloc
 		pipe1->readPTR = 0;
 		pipe1->writePTR = 0;
 		pipe1->hasSpace = COND_INIT;

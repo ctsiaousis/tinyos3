@@ -131,7 +131,7 @@ int reader_Close(void* streamobj)
 		if(pipeCB->pit.write == NOFILE)
 		{
 			pipeCB = NULL;
-			//free(pipeCB)   ?
+			free(pipeCB);
 		}else{
 			kernel_broadcast(&(pipeCB->hasSpace));
 		}
@@ -155,7 +155,7 @@ int writer_Close(void* streamobj)
 		if(pipeCB->pit.read == NOFILE)
 		{
 			pipeCB = NULL;
-			//free(pipeCB)   ?
+			free(pipeCB);
 		}else{
 			kernel_broadcast(&(pipeCB->hasData));
 		}
