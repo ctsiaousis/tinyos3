@@ -103,8 +103,8 @@ Fid_t sys_Accept(Fid_t lsock)
 
 		socketCB* l = PORT_MAP[cb->port];
 		//oso i requestList tou L einai adeia
-		while(is_rlist_empty(&(l->listener.request_queue))){
-			kernel_wait(&(l->listener.req), SCHED_PIPE);	//perimene na se ksupnisei kapoios request
+		while(is_rlist_empty(&(PORT_MAP[cb->port]->listener.request_queue))){
+			kernel_wait(&(PORT_MAP[cb->port]->listener.req), SCHED_USER);	//perimene na se ksupnisei kapoios request
 			if(PORT_MAP[cb->port] == NULL)
 				return -1;
 		}
@@ -177,7 +177,7 @@ int sys_Connect(Fid_t sock, port_t port, timeout_t timeout)
 	int timedOut; //den mporoume na perimenoume gia panta tin sundesi
 
 	if(fcb==NULL) return -1;							//akuro fcb
-	if(fcb->streamfunc == NULL) return -1;				//akuro pedio sunartisis
+	if(fcb->streamfunc != &socket_func) return -1;		//akuro pedio sunartisis
 	if(port <= NOPORT || port > MAX_PORT) return -1;	//akuro port
 
 	//pare socket apo fcb
@@ -197,7 +197,7 @@ int sys_Connect(Fid_t sock, port_t port, timeout_t timeout)
 	//to xreiazomaste gia na kseroume to fid tou requester enonontas ta pies
 	node->fid = sock; 
 	//initialize tou kombou
-	rlnode_init(&node->node, node); //isos null
+	rlnode_init(&node->node, node);
 	//arxikopoiisi sto 0 afou den to xei strosei o listener
 	node->admitted = 0;
 	//initialize tou condition variable
@@ -210,14 +210,14 @@ int sys_Connect(Fid_t sock, port_t port, timeout_t timeout)
 	//oso den mou dinei simasia o xazos
 	while(node->admitted == 0){
 		//nani nani to pedi mas kanei mexri time out
-		timedOut = kernel_timedwait(&(node->cv), SCHED_PIPE, timeout);
+		timedOut = kernel_timedwait(&node->cv, SCHED_PIPE, timeout);
 		if(!timedOut) 
 			return -1; //telos xronou
 	}
 
 	//yas me estrose! den xreiazetai o kombos giati exo enosi
-	free(node);
 	node = NULL;
+	//free(node);
 	return 0;		//ola kalos =)
 }
 
@@ -303,10 +303,10 @@ int socket_close(void* this)
 		}
 
 		if(cb->type == LISTENER){ //an einai kai listener
-			kernel_broadcast(&cb->listener.req); //ksupna ton listener
 			PORT_MAP[cb->port] = NULL; 			//vgale ton L ap ton pinaka ton socket
+			kernel_broadcast(&cb->listener.req); //ksupna ton listener
 		}
-		free(cb);
+		//free(cb);
 		cb = NULL;
 		return 0;		//ola kalos
 	}

@@ -39,46 +39,46 @@ void initialize_thread(){
 Tid_t sys_CreateThread(Task task, int argl, void* args)
 {
   if(task != NULL){
-  //to megethos tou allocation prepei na nai pol/sio tou PTCB size
-  PTCB* ptcb = (PTCB *)xmalloc(sizeof(PTCB));
-  //gia taxutita kanoume ena instance tou pcb
-  //TCB* tcb = (TCB *)xmalloc(sizeof(TCB));
-  TCB* tcb = CURPROC->main_thread;
+    //to megethos tou allocation prepei na nai pol/sio tou PTCB size
+    PTCB* ptcb = (PTCB *)xmalloc(sizeof(PTCB));
+    //gia taxutita kanoume ena instance tou pcb
+    //TCB* tcb = (TCB *)xmalloc(sizeof(TCB));
+    TCB* tcb = CURPROC->main_thread;
 
 
-  /* Initialize the other attributes */
-  ptcb->ref_count = 1; //arxikopoiisi tou refCount sto 0
-  ptcb->tcb = tcb; //to ptcb deixnei to tcb
-  ptcb->task = task;
-  ptcb->argl = argl;
-  ptcb->args = (args==NULL)?NULL:args;
-  ptcb->exited = 0;
-  ptcb->detached = 0;
-  ptcb->exit_val = CURPROC->exitval;
-  ptcb->exit_cv = COND_INIT;
+    /* Initialize the other attributes */
+    ptcb->ref_count = 1; //arxikopoiisi tou refCount sto 0
+    ptcb->tcb = tcb; //to ptcb deixnei to tcb
+    ptcb->task = task;
+    ptcb->argl = argl;
+    ptcb->args = (args==NULL)?NULL:args;
+    ptcb->exited = 0;
+    ptcb->detached = 0;
+    ptcb->exit_val = CURPROC->exitval;
+    ptcb->exit_cv = COND_INIT;
 
 
-  //auksano ton counter tou pcb, afou tou prostheto ena tcb
-  CURPROC->thread_count++;
+    //auksano ton counter tou pcb, afou tou prostheto ena tcb
+    CURPROC->thread_count++;
 
-  CURTHREAD->ptcb = ptcb; //tcb deixnei ptcb
+    CURTHREAD->ptcb = ptcb; //tcb deixnei ptcb
 
-  //sundeseis ton pcb, ptcb kai tcb
-  TCB *new_tcb = spawn_thread(CURPROC, initialize_thread); //na kanoume tin sunartisi
-  //assert(new_tcb!=NULL);
-  new_tcb->ptcb = ptcb; //to tcb deixnei to ptcb
-  ptcb->tcb = new_tcb;
-  ptcb->tcb->owner_pcb = CURTHREAD->owner_pcb;
+    //sundeseis ton pcb, ptcb kai tcb
+    TCB *new_tcb = spawn_thread(CURPROC, initialize_thread); //na kanoume tin sunartisi
+    //assert(new_tcb!=NULL);
+    new_tcb->ptcb = ptcb; //to tcb deixnei to ptcb
+    ptcb->tcb = new_tcb;
+    ptcb->tcb->owner_pcb = new_tcb->owner_pcb;
 
-  //initialize ton kombo tis listas ptcb
-  rlnode_init(&ptcb->thread_list_node, ptcb); //o header ton ptcbs
-  rlist_push_back(&CURPROC->thread_list, &ptcb->thread_list_node); //pcb deixnei ptcb
+    //initialize ton kombo tis listas ptcb
+    rlnode_init(&ptcb->thread_list_node, ptcb); //o header ton ptcbs
+    rlist_push_back(&CURPROC->thread_list, &ptcb->thread_list_node); //pcb deixnei ptcb
 
-  wakeup(ptcb->tcb);
+    wakeup(ptcb->tcb);
 
-	return (Tid_t)ptcb;
-}
-else return NOTHREAD;
+  	return (Tid_t)ptcb;
+  }else 
+    return NOTHREAD;
 }
 
 /**
@@ -132,8 +132,8 @@ int sys_ThreadJoin(Tid_t tid, int* exitval)
   }
 
   if(ptcb->ref_count == 0){ //an kaneis den perimenei to exitCV
-    rlist_remove(&ptcb->thread_list_node);
-    free(ptcb);
+    //rlist_remove(&ptcb->thread_list_node);
+    //free(ptcb);
   }
 
   return 0; //ola kalos
@@ -155,7 +155,7 @@ int sys_ThreadDetach(Tid_t tid)
     //to thread einai detached kai mporoume argotera na to diagrapsoume
     TCB* tcb = ptcb->tcb;
     ptcb->exit_val = tcb->owner_pcb->exitval;
-    free(ptcb->tcb);
+    //free(ptcb->tcb);
     return 0; //ola kalos
   }
 	return -1; //ola kakos

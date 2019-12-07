@@ -387,7 +387,23 @@ void sys_Exit(int exitval)
 
 Fid_t sys_OpenInfo()
 {
-	return NOFILE;
+  Fid_t fid[1];
+  FCB* fcb[1];
+
+  int fid_works = FCB_reserve(1,fid,fcb);
+
+  if(fid_works==0) 
+    return NOFILE;
+
+  procinfo* info_cb=xmalloc(sizeof(procinfo));
+
+  if(info_cb==NULL)
+    return NOFILE;
+
+  fcb[0]->streamobj= info_cb;
+  fcb[0]->streamfunc= &(info_ops);
+
+  return fid[0];
 }
 
 int info_Read(void* this, char *buf, unsigned int size){

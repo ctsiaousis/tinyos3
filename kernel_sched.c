@@ -565,7 +565,7 @@ void run_scheduler()
 	curcore->idle_thread.wakeup_time = NO_TIMEOUT;
 	rlnode_init(&curcore->idle_thread.sched_node, &curcore->idle_thread);
 /*test den kseroume an exei noima gia to idle thread auto*/
-	curcore->idle_thread.priority = prioritySize / 2;
+	curcore->idle_thread.priority = 0;
 
 	curcore->idle_thread.its = QUANTUM;
 	curcore->idle_thread.rts = QUANTUM;
