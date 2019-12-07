@@ -384,6 +384,7 @@ void sys_Exit(int exitval)
 }
 
 //-----------------------------INFO-----------------------
+int pid_counter=2;
 
 Fid_t sys_OpenInfo()
 {
@@ -406,10 +407,63 @@ Fid_t sys_OpenInfo()
   return fid[0];
 }
 
-int info_Read(void* this, char *buf, unsigned int size){
-  return 0;
+int info_Read(void* this, char *buf, unsigned int size)
+{
+  procinfo* proc_cb= (procinfo*) this;
+
+  Pid_t cur_pid;
+  Pid_t cur_ppid;
+
+  while(1)
+  {
+    if(pid_counter==MAX_PROC)
+      {
+        fprintf(stderr, "%s\n","MAX_PROC has been reached" );
+        pid_counter=2;
+        return -1;
+      }
+    pid_counter=pid_counter+1;
+
+    if(PT[pid_counter-1].pstate!=FREE) //found it 
+    {
+      break;
+    }
+  }
+
+    proc_cb->pid=cur_pid;
+    proc_cb->ppid=cur_ppid;
+
+
+
+    if(PT[pid_counter-1].pstate==ZOMBIE)
+    {
+      proc_cb->alive=0; //is not alive
+    }
+    else
+    {
+      proc_cb->alive=1; //is alive
+    }
+
+    proc_cb->thread_count=rlist_len(&PT[pid_counter-1].thread_list);
+    fprintf(stderr, "%s%lu\n","thread count:",proc_cb->thread_count);
+    proc_cb->main_task=PT[pid_counter-1].argl;
+
+    memcpy(proc_cb->args, PT[pid_counter-1].args, PROCINFO_MAX_ARGS_SIZE);
+
+    memcpy(buf,proc_cb,size);
+
+    return size;
 }
 
-int info_Close(void* this){
-  return 0;
+int info_Close(void* this)
+{
+  procinfo* proc=(procinfo*) this;
+  if(proc!=NULL) {   
+    free(proc);
+    proc = NULL;
+
+    return 0;
+  }
+
+  return -1;
 }
