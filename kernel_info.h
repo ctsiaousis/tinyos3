@@ -7,8 +7,8 @@ int info_Read(void* this, char *buf, unsigned int size);
 int info_Close(void* this);
 
 typedef struct procinfo_cb{
-	procinfo curinfo;
-	char cursor[MAX_PROC - 1];
+	procinfo curinfo;	//tinyos.h:716
+	int cursor;			//apo 0 eos MAX_PROC-1
 }infoCB;
 
 file_ops info_ops = {

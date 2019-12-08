@@ -384,7 +384,6 @@ void sys_Exit(int exitval)
 }
 
 //-----------------------------INFO-----------------------
-int pid_counter=2;
 
 Fid_t sys_OpenInfo()
 {
@@ -392,11 +391,11 @@ Fid_t sys_OpenInfo()
   FCB* fcb[1];
 
   int fid_works = FCB_reserve(1,fid,fcb);
-
-  if(fid_works==0) 
+  if(!fid_works) 
     return NOFILE;
 
-  procinfo* info_cb=xmalloc(sizeof(procinfo));
+  infoCB* info_cb = (infoCB*) xmalloc(sizeof(infoCB));
+  info_cb->cursor = 1;
 
   if(info_cb==NULL)
     return NOFILE;
@@ -409,59 +408,63 @@ Fid_t sys_OpenInfo()
 
 int info_Read(void* this, char *buf, unsigned int size)
 {
-  procinfo* proc_cb= (procinfo*) this;
+  infoCB* info_cb = (infoCB*) this;
 
   Pid_t cur_pid;
   Pid_t cur_ppid;
 
-  while(1)
-  {
-    if(pid_counter==MAX_PROC)
-      {
-        fprintf(stderr, "%s\n","MAX_PROC has been reached" );
-        pid_counter=2;
-        return -1;
-      }
-    pid_counter=pid_counter+1;
+  while (info_cb->cursor <= MAX_PROC) {
+    info_cb->cursor += 1;
 
-    if(PT[pid_counter-1].pstate!=FREE) //found it 
-    {
+    if(info_cb->cursor == MAX_PROC){
+      info_cb->cursor=1;
+      return -1;
+    }
+
+    if(PT[info_cb->cursor].pstate!=FREE){
+      cur_pid = info_cb->cursor;                //to ID tou proc
+      int i;
+      PCB* parent = PT[info_cb->cursor].parent; //to Parent PCB
+
+      for(i = 0; i < MAX_PROC; i++){            //loop gia anazitisi
+        if(&PT[i] == parent)                    //tou parent ID
+          break;                                //sto ProccessTable
+      }
+
+      cur_ppid = i;                             //to ID tou parent
       break;
     }
+
   }
 
-    proc_cb->pid=cur_pid;
-    proc_cb->ppid=cur_ppid;
+  info_cb->curinfo.pid=cur_pid;
+  info_cb->curinfo.ppid=cur_ppid;
 
 
 
-    if(PT[pid_counter-1].pstate==ZOMBIE)
-    {
-      proc_cb->alive=0; //is not alive
-    }
-    else
-    {
-      proc_cb->alive=1; //is alive
-    }
+  if(PT[info_cb->cursor].pstate==ZOMBIE)                          //copy pState
+    info_cb->curinfo.alive = 0; //is not alive
+  else
+    info_cb->curinfo.alive = 1; //is alive
 
-    proc_cb->thread_count=rlist_len(&PT[pid_counter-1].thread_list);
-    fprintf(stderr, "%s%lu\n","thread count:",proc_cb->thread_count);
-    proc_cb->main_task=PT[pid_counter-1].argl;
+  info_cb->curinfo.thread_count = rlist_len(&PT[info_cb->cursor].thread_list);  //copy #threadlist
+  info_cb->curinfo.main_task=PT[info_cb->cursor].main_task;                     //copy main task
+  info_cb->curinfo.argl=PT[info_cb->cursor].argl;                               //copy argl
 
-    memcpy(proc_cb->args, PT[pid_counter-1].args, PROCINFO_MAX_ARGS_SIZE);
+  memcpy(info_cb->curinfo.args, PT[info_cb->cursor].args, PROCINFO_MAX_ARGS_SIZE);  //copy args
 
-    memcpy(buf,proc_cb,size);
+  memcpy(buf,&(info_cb->curinfo),size); //copy curinfo to buffer =)
 
-    return size;
+  return size;
 }
 
 int info_Close(void* this)
 {
-  procinfo* proc=(procinfo*) this;
-  if(proc!=NULL) {   
-    free(proc);
-    proc = NULL;
-
+  infoCB* inf=(infoCB*) this;
+  
+  if(inf!=NULL) {   
+    inf = NULL;
+    free(inf);
     return 0;
   }
 
