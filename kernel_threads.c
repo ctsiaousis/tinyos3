@@ -132,8 +132,8 @@ int sys_ThreadJoin(Tid_t tid, int* exitval)
   }
 
   if(ptcb->ref_count == 0){ //an kaneis den perimenei to exitCV
-    //rlist_remove(&ptcb->thread_list_node);
-    //free(ptcb);
+    rlist_remove(&ptcb->thread_list_node);
+    free(ptcb);
   }
 
   return 0; //ola kalos
@@ -155,7 +155,7 @@ int sys_ThreadDetach(Tid_t tid)
     //to thread einai detached kai mporoume argotera na to diagrapsoume
     TCB* tcb = ptcb->tcb;
     ptcb->exit_val = tcb->owner_pcb->exitval;
-    //free(ptcb->tcb);
+    free(ptcb);
     return 0; //ola kalos
   }
 	return -1; //ola kakos

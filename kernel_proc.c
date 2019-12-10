@@ -447,7 +447,7 @@ int info_Read(void* this, char *buf, unsigned int size)
   else
     info_cb->curinfo.alive = 1; //is alive
 
-  info_cb->curinfo.thread_count = rlist_len(&PT[info_cb->cursor].thread_list);  //copy #threadlist
+  info_cb->curinfo.thread_count = PT[info_cb->cursor].thread_count;  //copy #threadlist
   info_cb->curinfo.main_task=PT[info_cb->cursor].main_task;                     //copy main task
   info_cb->curinfo.argl=PT[info_cb->cursor].argl;                               //copy argl
 
