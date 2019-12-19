@@ -112,7 +112,7 @@ typedef struct process_thread_control_block {
 //to condition variable poy kano broadcast otan teleioso
 	CondVar exit_cv;
 
-} PTCB;
+} PTCB;		//mporei na mpei kai sto proc.h ;)
 
 /**
   @brief The thread control block
@@ -122,7 +122,7 @@ typedef struct process_thread_control_block {
 */
 typedef struct thread_control_block {
 	PCB* owner_pcb; /**< @brief This is null for a free TCB */
-	PTCB* ptcb;
+	PTCB* ptcb;		//to TCB deixnei sto PTCB tou
 	cpu_context_t context; /**< @brief The thread context */
 
 #ifndef NVALGRIND

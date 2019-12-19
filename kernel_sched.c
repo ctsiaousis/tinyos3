@@ -292,6 +292,7 @@ static void sched_wakeup_expired_timeouts()
 */
 static TCB* sched_queue_select(TCB* current)
 {
+//prepei na dialeksoume to proto tcb apo tin proti oxi adeia lista tou sched.
 	int test = prioritySize-1; //these to test stin lista me tin ipsiloteri proteraiotita
 	for(int i = prioritySize-1; i >= 0; i--){
 		if(!is_rlist_empty(&SCHED[i])){ //an i lista den einai adeia
@@ -377,7 +378,7 @@ void sleep_releasing(Thread_state state, Mutex* mx, enum SCHED_CAUSE cause,
 }
 
 void boost(){
-	//int test = prioritySize-1; //these to test stin lista me tin ipsiloteri proteraiotita
+//metaferoume ola ta periexomena tou SCHED[i] sto SCHED[i+1] me skopo na meinei adeia i lista SCHED[0]
 	for(int i = prioritySize-1; i == 0; i--){
 			while(!is_rlist_empty(&SCHED[i]) && i != prioritySize-1){
 				rlnode * current = rlist_pop_front(&SCHED[i]); //pare to head tis listas stin thesi i-1
@@ -420,7 +421,7 @@ void yield(enum SCHED_CAUSE cause)
 	sched_wakeup_expired_timeouts();
 
 
-  	/*meta to mutex lock kanoume boost tis protaireotites*/
+  	/*mesa sto mutex lock kanoume boost tis protaireotites*/
 	if(booster > boostAfter){
 		boost();
 		booster = 0;
@@ -446,10 +447,11 @@ void yield(enum SCHED_CAUSE cause)
     switch(cause)
   {
     case SCHED_QUANTUM:
+   //an to priority einai 0 asto 0, allios meiose to kata ena
     current->priority = (current->priority == 0) ? 0 : current->priority - 1;
       break;
      case SCHED_IO:
-     	current->priority = prioritySize - 1;
+     	current->priority = prioritySize - 1; //top priority gia IO panta
       break;
      case SCHED_MUTEX:
      	current->priority = (current->priority == 0) ? 0 : current->priority - 1;

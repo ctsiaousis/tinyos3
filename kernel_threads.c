@@ -4,6 +4,8 @@
 #include "kernel_proc.h"
 #include "kernel_streams.h"
 
+/*rikse mia matia stis perigrafes ton sunartiseon sto tinyos.h!!!!*/
+
 //se poio ptcb anoikei to thread? (basei tou tid)
 PTCB* find_ptcb(Tid_t tid){
 //pairnoume to proto stoixeio tis listas ptcb apo to pcb tou CURTHREAD

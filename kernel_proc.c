@@ -387,21 +387,25 @@ void sys_Exit(int exitval)
 
 Fid_t sys_OpenInfo()
 {
+//----------kane reserve ena FileControlBlock---------
   Fid_t fid[1];
   FCB* fcb[1];
 
   int fid_works = FCB_reserve(1,fid,fcb);
   if(!fid_works) 
     return NOFILE;
+//----------------------------------------------------
 
+//dunamiki desmeusi tou infoControlBlock--------------
   infoCB* info_cb = (infoCB*) xmalloc(sizeof(infoCB));
   info_cb->cursor = 1;
 
   if(info_cb==NULL)
     return NOFILE;
+//----------------------------------------------------
 
-  fcb[0]->streamobj= info_cb;
-  fcb[0]->streamfunc= &(info_ops);
+  fcb[0]->streamobj= info_cb;       //anathesi infoCB
+  fcb[0]->streamfunc= &(info_ops);  //sto FCB pou ftiaksame
 
   return fid[0];
 }
@@ -413,6 +417,9 @@ int info_Read(void* this, char *buf, unsigned int size)
   Pid_t cur_pid;
   Pid_t cur_ppid;
 
+/*Stin while diatrexoume to ProcessTable mexri na broume
+to proto oxi free PCB. Kai meta se ena for loop briskoume
+tin thesi tou parentPCB tou ston idio pinaka      */
   while (info_cb->cursor <= MAX_PROC) {
     info_cb->cursor += 1;
 
@@ -437,23 +444,23 @@ int info_Read(void* this, char *buf, unsigned int size)
 
   }
 
-  info_cb->curinfo.pid=cur_pid;
-  info_cb->curinfo.ppid=cur_ppid;
+  info_cb->curinfo.pid=cur_pid;                 //copy tou pid
+  info_cb->curinfo.ppid=cur_ppid;               //copy ParentID
 
 
 
-  if(PT[info_cb->cursor].pstate==ZOMBIE)                          //copy pState
+  if(PT[info_cb->cursor].pstate==ZOMBIE)        //copy pState
     info_cb->curinfo.alive = 0; //is not alive
   else
     info_cb->curinfo.alive = 1; //is alive
 
-  info_cb->curinfo.thread_count = PT[info_cb->cursor].thread_count;  //copy #threadlist
+  info_cb->curinfo.thread_count = PT[info_cb->cursor].thread_count;             //copy #threadlist
   info_cb->curinfo.main_task=PT[info_cb->cursor].main_task;                     //copy main task
   info_cb->curinfo.argl=PT[info_cb->cursor].argl;                               //copy argl
 
   memcpy(info_cb->curinfo.args, PT[info_cb->cursor].args, PROCINFO_MAX_ARGS_SIZE);  //copy args
 
-  memcpy(buf,&(info_cb->curinfo),size); //copy curinfo to buffer =)
+  memcpy(buf,&(info_cb->curinfo),size);                               //copy curinfo to buffer =)
 
   return size;
 }
